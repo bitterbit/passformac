@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var content: String = ""
     @State private var search: String = ""
+    @State private var content: [String] = [String]()
     
     @State private var directory: URL?
     
@@ -19,8 +19,11 @@ struct ContentView: View {
         VStack {
             TextField("search here", text: $search)
             
-            Text(content)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            VStack {
+                ForEach(content, id: \.self){
+                    Text("\($0)")
+                }
+            }.frame(maxWidth: .infinity, maxHeight: .infinity)
             
             Button("reload") {
                 self.openPane()
@@ -30,7 +33,6 @@ struct ContentView: View {
     
     func listFiles(at: URL?) -> Void{
         if at == nil {
-            self.content = "loading..."
             return
         }
         
@@ -39,7 +41,8 @@ struct ContentView: View {
             let filemanager = FileManager.default
             let files = try filemanager.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil, options: [])
             for f in files {
-                self.content += f.lastPathComponent + "\n"
+                let filename = String(f.lastPathComponent.split(separator: ".")[0])
+                self.content.append(filename)
             }
         } catch {
             // do nothing
