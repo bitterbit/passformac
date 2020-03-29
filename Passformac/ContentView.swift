@@ -19,13 +19,7 @@ struct ContentView: View {
         VStack {
             TextField("search here", text: $search)
             
-            VStack {
-                ForEach(self.content.filter{
-                    self.search.isEmpty ? true : $0.localizedStandardContains(self.search)
-                }, id: \.self){
-                    Text("\($0)")
-                }
-            }
+            PassList(passItems: self.$content, searchTerm: self.$search)
             
             Button("reload") {
                 self.openPane()

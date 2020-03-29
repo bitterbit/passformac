@@ -8,9 +8,9 @@
 
 import Foundation
 
-struct PassItem {
-    var title: String
-    var username: String?
-    var password: String
-    var extra: [String: String]
-}
+//struct PassItem {
+//    var title: String
+//    var username: String?
+//    var password: String
+//    var extra: [String: String]
+//}
