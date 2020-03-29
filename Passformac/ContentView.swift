@@ -20,10 +20,12 @@ struct ContentView: View {
             TextField("search here", text: $search)
             
             VStack {
-                ForEach(content, id: \.self){
+                ForEach(self.content.filter{
+                    self.search.isEmpty ? true : $0.localizedStandardContains(self.search)
+                }, id: \.self){
                     Text("\($0)")
                 }
-            }.frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
             
             Button("reload") {
                 self.openPane()
