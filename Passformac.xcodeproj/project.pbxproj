@@ -14,6 +14,7 @@
 		2A64FE06242FD4C500A8F636 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A64FE04242FD4C500A8F636 /* Main.storyboard */; };
 		2A64FE12242FD4C500A8F636 /* PassformacTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A64FE11242FD4C500A8F636 /* PassformacTests.swift */; };
 		2A64FE1D242FD4C500A8F636 /* PassformacUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A64FE1C242FD4C500A8F636 /* PassformacUITests.swift */; };
+		2A64FE2C242FF0FA00A8F636 /* PassModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A64FE2B242FF0FA00A8F636 /* PassModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		2A64FE18242FD4C500A8F636 /* PassformacUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PassformacUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A64FE1C242FD4C500A8F636 /* PassformacUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassformacUITests.swift; sourceTree = "<group>"; };
 		2A64FE1E242FD4C500A8F636 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2A64FE2B242FF0FA00A8F636 /* PassModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 		2A64FDFA242FD4C200A8F636 /* Passformac */ = {
 			isa = PBXGroup;
 			children = (
+				2A64FE2A242FF0EA00A8F636 /* Model */,
 				2A64FDFB242FD4C200A8F636 /* AppDelegate.swift */,
 				2A64FDFD242FD4C200A8F636 /* ContentView.swift */,
 				2A64FDFF242FD4C500A8F636 /* Assets.xcassets */,
@@ -133,6 +136,14 @@
 				2A64FE1E242FD4C500A8F636 /* Info.plist */,
 			);
 			path = PassformacUITests;
+			sourceTree = "<group>";
+		};
+		2A64FE2A242FF0EA00A8F636 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2A64FE2B242FF0FA00A8F636 /* PassModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,6 +277,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A64FE2C242FF0FA00A8F636 /* PassModel.swift in Sources */,
 				2A64FDFE242FD4C200A8F636 /* ContentView.swift in Sources */,
 				2A64FDFC242FD4C200A8F636 /* AppDelegate.swift in Sources */,
 			);
@@ -435,6 +447,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Passformac/Preview Content\"";
+				DEVELOPMENT_TEAM = NDK65WS2J2;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Passformac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -456,6 +469,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Passformac/Preview Content\"";
+				DEVELOPMENT_TEAM = NDK65WS2J2;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Passformac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

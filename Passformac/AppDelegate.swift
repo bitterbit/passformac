@@ -9,6 +9,8 @@
 import Cocoa
 import SwiftUI
 
+import Foundation
+
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
@@ -17,6 +19,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Create the SwiftUI view that provides the window contents.
+
+//        directory = URL(string: "~")
+//        opnePane()
         let contentView = ContentView()
 
         // Create the window and set the content view. 
@@ -33,7 +38,5 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
-
-
 }
 
