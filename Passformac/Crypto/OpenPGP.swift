@@ -42,15 +42,4 @@ struct PGPFileReader {
         }
         catch { return "" }
     }
-    
-    
-    
-//    private func findPublicKeys() -> [Key] {
-////        let homeDirURL = FileManager.default.homeDirectoryForCurrentUser
-////        let keyDirectory = homeDirURL.absoluteString + "/.gnupg"
-////        ObjectivePGP.readKeys(fromPath: keyDirectory)
-//    }
-    
-    
-
 }
