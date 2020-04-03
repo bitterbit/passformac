@@ -27,6 +27,8 @@ struct ViewController {
 struct ContentView: View {
     @State var page = Pages.overview
     @State var currentDetails: PassItem?
+    
+    @State var passItems: [PassItem] = [PassItem]()
    
     var body: some View {
         routerView.frame(width: 500, height: 500)
@@ -34,16 +36,38 @@ struct ContentView: View {
     
     var routerView: some View {
         VStack {
-            Button(action: { self.page = Pages.overview }) {
-                Text("Back")
+            HStack {
+                Button(action: { self.page = Pages.overview }) {
+                    Text("Back")
+                }
+                Button(action: { self.openPane() }) {
+                    Text("Reload")
+                }
             }
+           
             
             if page == Pages.overview {
-                OverviewView(controller: ViewController(currentPage: $page, currentDetails: $currentDetails))
+                OverviewView(
+                    controller: ViewController(currentPage: $page, currentDetails: $currentDetails),
+                    passItems: $passItems
+                )
             } else if page == Pages.detail {
                 if self.currentDetails != nil {
                     DetailsView(details: self.currentDetails!)
                 }
+            }
+        }
+    }
+    
+    func openPane() {
+        let panel = NSOpenPanel()
+        panel.showsHiddenFiles = true
+        panel.canChooseFiles = false
+        panel.canChooseDirectories = true
+        
+        panel.begin { (result) in
+            if result == .OK && panel.url != nil {
+                self.passItems = DirectoryUtils().getPassItems(at: panel.url)
             }
         }
     }
