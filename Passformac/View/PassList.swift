@@ -16,22 +16,11 @@ struct PassList: View {
     
     var body: some View {
         VStack {
-            ForEach(self.passItems.filter{
+            List(self.passItems.filter{
                 self.searchTerm.isEmpty ? true : $0.localizedStandardContains(self.searchTerm)
-            }, id: \.self){
-                PassItem(title: "\($0)")
+            }, id: \.self) {
+                Text("\($0)").font(.subheadline)
             }
-        }
-    }
-}
-
-
-struct PassItem: View {
-    @State var title: String
-    
-    var body: some View {
-        VStack {
-            Text(title)
         }
     }
 }
