@@ -12,7 +12,7 @@ import SwiftUI
 
 struct PassList: View {
     var controller: ViewController
-    @Binding var passItems: [PassItem]
+    var passItems: [PassItem]
     @Binding var searchTerm: String
     
     var body: some View {

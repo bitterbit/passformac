@@ -9,24 +9,31 @@
 import SwiftUI
 
 enum Pages: String {
+    case intro = "page_intro"
     case overview = "page_overview"
     case detail = "page_details"
 }
 
 struct ViewController {
     @Binding var currentPage: Pages
-    @Binding var currentDetails: PassItem?
+    @Binding var passItems: [PassItem]
+    @Binding var selectedPassItem: PassItem?
     
     func showDetailView(item: PassItem){
         currentPage = Pages.detail
-        currentDetails = item
+        selectedPassItem = item
+    }
+    
+    func showOverviewView(rootDir: URL!) {
+        currentPage = Pages.overview
+        passItems = DirectoryUtils().getPassItems(at: rootDir)
     }
 }
 
 
 struct ContentView: View {
-    @State var page = Pages.overview
-    @State var currentDetails: PassItem?
+    @State var page = Pages.intro
+    @State var selectedPassItem: PassItem?
     
     @State var passItems: [PassItem] = [PassItem]()
    
@@ -36,40 +43,30 @@ struct ContentView: View {
     
     var routerView: some View {
         VStack {
-            HStack {
-                Button(action: { self.page = Pages.overview }) {
-                    Text("Back")
-                }
-                Button(action: { self.openPane() }) {
-                    Text("Reload")
-                }
+            if page != Pages.overview && page != Pages.intro {
+                Button(action: { self.page = Pages.overview }) { Text("Back") }
             }
-           
             
             if page == Pages.overview {
                 OverviewView(
-                    controller: ViewController(currentPage: $page, currentDetails: $currentDetails),
+                    controller: getViewController(),
                     passItems: $passItems
                 )
             } else if page == Pages.detail {
-                if self.currentDetails != nil {
-                    DetailsView(details: self.currentDetails!)
+                if self.selectedPassItem != nil {
+                    DetailsView(details: self.selectedPassItem!)
                 }
+            } else if page == Pages.intro {
+                IntroView(controller: getViewController())
             }
         }
     }
     
-    func openPane() {
-        let panel = NSOpenPanel()
-        panel.showsHiddenFiles = true
-        panel.canChooseFiles = false
-        panel.canChooseDirectories = true
-        
-        panel.begin { (result) in
-            if result == .OK && panel.url != nil {
-                self.passItems = DirectoryUtils().getPassItems(at: panel.url)
-            }
-        }
+    func getViewController() -> ViewController {
+        return  ViewController(
+            currentPage: $page,
+            passItems: $passItems,
+            selectedPassItem: $selectedPassItem)
     }
 }
 
