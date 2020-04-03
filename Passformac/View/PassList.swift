@@ -17,8 +17,9 @@ struct PassList: View {
     var body: some View {
         VStack {
             List(self.passItems.filter{
-                self.searchTerm.isEmpty ? true : $0.title.localizedStandardContains(self.searchTerm)
-            }) {
+                    self.searchTerm.isEmpty ? true : $0.title.localizedStandardContains(self.searchTerm)
+                }.sorted(by: {$0.title < $1.title })
+            ) {
                 Text("\($0.title)")
                     .font(.subheadline)
             }

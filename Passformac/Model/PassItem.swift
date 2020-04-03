@@ -17,6 +17,8 @@ struct PassItem : Identifiable {
     
     init(title: String) {
         self.title = title.replacingOccurrences(of: "_", with: " ")
+            .trimmingCharacters(in: .whitespaces)
+        
         self.password = "" // TODO: implement or split to two objects
     }
     
