@@ -11,15 +11,16 @@ import SwiftUI
 
 
 struct PassList: View {
-    @Binding var passItems: [String]
+    @Binding var passItems: [PassItem]
     @Binding var searchTerm: String
     
     var body: some View {
         VStack {
             List(self.passItems.filter{
-                self.searchTerm.isEmpty ? true : $0.localizedStandardContains(self.searchTerm)
-            }, id: \.self) {
-                Text("\($0)").font(.subheadline)
+                self.searchTerm.isEmpty ? true : $0.title.localizedStandardContains(self.searchTerm)
+            }) {
+                Text("\($0.title)")
+                    .font(.subheadline)
             }
         }
     }

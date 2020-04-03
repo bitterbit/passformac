@@ -8,9 +8,23 @@
 
 import Foundation
 
-//struct PassItem {
-//    var title: String
-//    var username: String?
-//    var password: String
-//    var extra: [String: String]
-//}
+struct PassItem : Identifiable {
+    var id = UUID()
+    var title: String
+    var username: String?
+    var password: String
+    var extra: [String: String] = [String: String]()
+    
+    init(title: String) {
+        self.title = title.replacingOccurrences(of: "_", with: " ")
+        self.password = "" // TODO: implement or split to two objects
+    }
+    
+    func load() {
+        // TODO: implement
+    }
+    
+    func isLoaded() -> Bool {
+        return false
+    }
+}

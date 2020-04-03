@@ -10,20 +10,18 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var search: String = ""
-    @State private var content: [String] = [String]()
+    @State private var content: [PassItem] = [PassItem]()
     
     @State private var directory: URL?
     
     var body: some View {
         
         VStack {
-            TextField("search here", text: $search)
-            
-            PassList(passItems: self.$content, searchTerm: self.$search)
-            
             Button("reload") {
                 self.openPane()
             }
+            TextField("search here", text: $search)
+            PassList(passItems: self.$content, searchTerm: self.$search)
         }
     }
     
@@ -38,7 +36,8 @@ struct ContentView: View {
             let files = try filemanager.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil, options: [])
             for f in files {
                 let filename = String(f.lastPathComponent.split(separator: ".")[0])
-                self.content.append(filename)
+                let passItem = PassItem(title: filename)
+                self.content.append(passItem)
             }
         } catch {
             // do nothing
