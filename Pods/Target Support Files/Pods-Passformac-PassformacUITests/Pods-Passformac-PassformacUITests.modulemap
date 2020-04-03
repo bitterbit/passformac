@@ -1,0 +1,6 @@
+framework module Pods_Passformac_PassformacUITests {
+  umbrella header "Pods-Passformac-PassformacUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A52329C2437E10D002D6D37 /* OpenPGP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A52329B2437E10D002D6D37 /* OpenPGP.swift */; };
 		2A64FDFC242FD4C200A8F636 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A64FDFB242FD4C200A8F636 /* AppDelegate.swift */; };
 		2A64FDFE242FD4C200A8F636 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A64FDFD242FD4C200A8F636 /* ContentView.swift */; };
 		2A64FE00242FD4C500A8F636 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A64FDFF242FD4C500A8F636 /* Assets.xcassets */; };
@@ -19,6 +20,9 @@
 		2A6D47982437DAB6000AB88A /* DirectoryUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6D47972437DAB6000AB88A /* DirectoryUtils.swift */; };
 		2A710E0E2431436200DAA814 /* PassList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A710E0D2431436200DAA814 /* PassList.swift */; };
 		2A710E10243143B600DAA814 /* PassItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A710E0F243143B600DAA814 /* PassItem.swift */; };
+		579AD20E5917C2127C5F08B1 /* Pods_Passformac_PassformacUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 403005B20AF90879D385AD86 /* Pods_Passformac_PassformacUITests.framework */; };
+		C2E096D340C3D58A5FFDC2A5 /* Pods_Passformac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3C175AE1DBA67085956F3D2 /* Pods_Passformac.framework */; };
+		DD70A02A6E6B5CBF884DD454 /* Pods_PassformacTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C46406BA7A00FFBE67D621B /* Pods_PassformacTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D9E6F525903CA486F66AA83 /* Pods-Passformac-PassformacUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Passformac-PassformacUITests.debug.xcconfig"; path = "Target Support Files/Pods-Passformac-PassformacUITests/Pods-Passformac-PassformacUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		2A52329B2437E10D002D6D37 /* OpenPGP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenPGP.swift; sourceTree = "<group>"; };
 		2A64FDF8242FD4C200A8F636 /* Passformac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Passformac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A64FDFB242FD4C200A8F636 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2A64FDFD242FD4C200A8F636 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -58,6 +64,14 @@
 		2A6D47972437DAB6000AB88A /* DirectoryUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryUtils.swift; sourceTree = "<group>"; };
 		2A710E0D2431436200DAA814 /* PassList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassList.swift; sourceTree = "<group>"; };
 		2A710E0F243143B600DAA814 /* PassItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassItem.swift; sourceTree = "<group>"; };
+		3C46406BA7A00FFBE67D621B /* Pods_PassformacTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PassformacTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		403005B20AF90879D385AD86 /* Pods_Passformac_PassformacUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Passformac_PassformacUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		57BA139E7015915CE837DE57 /* Pods-Passformac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Passformac.debug.xcconfig"; path = "Target Support Files/Pods-Passformac/Pods-Passformac.debug.xcconfig"; sourceTree = "<group>"; };
+		A0395744AD59D9A96AA28781 /* Pods-Passformac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Passformac.release.xcconfig"; path = "Target Support Files/Pods-Passformac/Pods-Passformac.release.xcconfig"; sourceTree = "<group>"; };
+		A080EB6177FA2FF52B2BD0FF /* Pods-Passformac-PassformacUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Passformac-PassformacUITests.release.xcconfig"; path = "Target Support Files/Pods-Passformac-PassformacUITests/Pods-Passformac-PassformacUITests.release.xcconfig"; sourceTree = "<group>"; };
+		A3C175AE1DBA67085956F3D2 /* Pods_Passformac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Passformac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF86B8304C75486588D46D9F /* Pods-PassformacTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassformacTests.debug.xcconfig"; path = "Target Support Files/Pods-PassformacTests/Pods-PassformacTests.debug.xcconfig"; sourceTree = "<group>"; };
+		DA0DD6E57C35C218B5B83051 /* Pods-PassformacTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassformacTests.release.xcconfig"; path = "Target Support Files/Pods-PassformacTests/Pods-PassformacTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2E096D340C3D58A5FFDC2A5 /* Pods_Passformac.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD70A02A6E6B5CBF884DD454 /* Pods_PassformacTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,12 +95,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				579AD20E5917C2127C5F08B1 /* Pods_Passformac_PassformacUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1FAB3CBD66E381416706690A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				57BA139E7015915CE837DE57 /* Pods-Passformac.debug.xcconfig */,
+				A0395744AD59D9A96AA28781 /* Pods-Passformac.release.xcconfig */,
+				0D9E6F525903CA486F66AA83 /* Pods-Passformac-PassformacUITests.debug.xcconfig */,
+				A080EB6177FA2FF52B2BD0FF /* Pods-Passformac-PassformacUITests.release.xcconfig */,
+				BF86B8304C75486588D46D9F /* Pods-PassformacTests.debug.xcconfig */,
+				DA0DD6E57C35C218B5B83051 /* Pods-PassformacTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		2A64FDEF242FD4C200A8F636 = {
 			isa = PBXGroup;
 			children = (
@@ -92,6 +122,8 @@
 				2A64FE10242FD4C500A8F636 /* PassformacTests */,
 				2A64FE1B242FD4C500A8F636 /* PassformacUITests */,
 				2A64FDF9242FD4C200A8F636 /* Products */,
+				1FAB3CBD66E381416706690A /* Pods */,
+				B523EBC0433D034AD4C88A6D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -108,6 +140,7 @@
 		2A64FDFA242FD4C200A8F636 /* Passformac */ = {
 			isa = PBXGroup;
 			children = (
+				2A6D47992437DE9B000AB88A /* Crypto */,
 				2A710E0C2431434B00DAA814 /* View */,
 				2A64FE2A242FF0EA00A8F636 /* Model */,
 				2A64FDFB242FD4C200A8F636 /* AppDelegate.swift */,
@@ -156,6 +189,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		2A6D47992437DE9B000AB88A /* Crypto */ = {
+			isa = PBXGroup;
+			children = (
+				2A52329B2437E10D002D6D37 /* OpenPGP.swift */,
+			);
+			path = Crypto;
+			sourceTree = "<group>";
+		};
 		2A710E0C2431434B00DAA814 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -166,6 +207,16 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		B523EBC0433D034AD4C88A6D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A3C175AE1DBA67085956F3D2 /* Pods_Passformac.framework */,
+				403005B20AF90879D385AD86 /* Pods_Passformac_PassformacUITests.framework */,
+				3C46406BA7A00FFBE67D621B /* Pods_PassformacTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -173,9 +224,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2A64FE21242FD4C500A8F636 /* Build configuration list for PBXNativeTarget "Passformac" */;
 			buildPhases = (
+				8F68F5D5740087D48F294B3B /* [CP] Check Pods Manifest.lock */,
 				2A64FDF4242FD4C200A8F636 /* Sources */,
 				2A64FDF5242FD4C200A8F636 /* Frameworks */,
 				2A64FDF6242FD4C200A8F636 /* Resources */,
+				C5580908F096A38602BEC705 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -190,6 +243,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2A64FE24242FD4C500A8F636 /* Build configuration list for PBXNativeTarget "PassformacTests" */;
 			buildPhases = (
+				CB79DBD3111D5BFB406E728C /* [CP] Check Pods Manifest.lock */,
 				2A64FE09242FD4C500A8F636 /* Sources */,
 				2A64FE0A242FD4C500A8F636 /* Frameworks */,
 				2A64FE0B242FD4C500A8F636 /* Resources */,
@@ -208,9 +262,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2A64FE27242FD4C500A8F636 /* Build configuration list for PBXNativeTarget "PassformacUITests" */;
 			buildPhases = (
+				1C93305F79BC48B6A75A1E52 /* [CP] Check Pods Manifest.lock */,
 				2A64FE14242FD4C500A8F636 /* Sources */,
 				2A64FE15242FD4C500A8F636 /* Frameworks */,
 				2A64FE16242FD4C500A8F636 /* Resources */,
+				F804947D9C47928126F9FA58 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -292,12 +348,116 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1C93305F79BC48B6A75A1E52 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Passformac-PassformacUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8F68F5D5740087D48F294B3B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Passformac-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C5580908F096A38602BEC705 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Passformac/Pods-Passformac-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Passformac/Pods-Passformac-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Passformac/Pods-Passformac-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CB79DBD3111D5BFB406E728C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PassformacTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F804947D9C47928126F9FA58 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Passformac-PassformacUITests/Pods-Passformac-PassformacUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Passformac-PassformacUITests/Pods-Passformac-PassformacUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Passformac-PassformacUITests/Pods-Passformac-PassformacUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		2A64FDF4242FD4C200A8F636 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				2A64FDFE242FD4C200A8F636 /* ContentView.swift in Sources */,
+				2A52329C2437E10D002D6D37 /* OpenPGP.swift in Sources */,
 				2A6D47982437DAB6000AB88A /* DirectoryUtils.swift in Sources */,
 				2A64FDFC242FD4C200A8F636 /* AppDelegate.swift in Sources */,
 				2A710E0E2431436200DAA814 /* PassList.swift in Sources */,
@@ -465,6 +625,7 @@
 		};
 		2A64FE22242FD4C500A8F636 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 57BA139E7015915CE837DE57 /* Pods-Passformac.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Passformac/Passformac.entitlements;
@@ -487,6 +648,7 @@
 		};
 		2A64FE23242FD4C500A8F636 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A0395744AD59D9A96AA28781 /* Pods-Passformac.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Passformac/Passformac.entitlements;
@@ -509,6 +671,7 @@
 		};
 		2A64FE25242FD4C500A8F636 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BF86B8304C75486588D46D9F /* Pods-PassformacTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -530,6 +693,7 @@
 		};
 		2A64FE26242FD4C500A8F636 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DA0DD6E57C35C218B5B83051 /* Pods-PassformacTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -551,6 +715,7 @@
 		};
 		2A64FE28242FD4C500A8F636 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0D9E6F525903CA486F66AA83 /* Pods-Passformac-PassformacUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -570,6 +735,7 @@
 		};
 		2A64FE29242FD4C500A8F636 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A080EB6177FA2FF52B2BD0FF /* Pods-Passformac-PassformacUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
