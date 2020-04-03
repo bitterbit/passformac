@@ -16,6 +16,7 @@
 		2A64FE1D242FD4C500A8F636 /* PassformacUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A64FE1C242FD4C500A8F636 /* PassformacUITests.swift */; };
 		2A6D47942437C5F3000AB88A /* OverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6D47932437C5F3000AB88A /* OverviewView.swift */; };
 		2A6D47962437D993000AB88A /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6D47952437D993000AB88A /* DetailsView.swift */; };
+		2A6D47982437DAB6000AB88A /* DirectoryUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6D47972437DAB6000AB88A /* DirectoryUtils.swift */; };
 		2A710E0E2431436200DAA814 /* PassList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A710E0D2431436200DAA814 /* PassList.swift */; };
 		2A710E10243143B600DAA814 /* PassItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A710E0F243143B600DAA814 /* PassItem.swift */; };
 /* End PBXBuildFile section */
@@ -54,6 +55,7 @@
 		2A64FE1E242FD4C500A8F636 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2A6D47932437C5F3000AB88A /* OverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewView.swift; sourceTree = "<group>"; };
 		2A6D47952437D993000AB88A /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
+		2A6D47972437DAB6000AB88A /* DirectoryUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryUtils.swift; sourceTree = "<group>"; };
 		2A710E0D2431436200DAA814 /* PassList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassList.swift; sourceTree = "<group>"; };
 		2A710E0F243143B600DAA814 /* PassItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -149,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				2A710E0F243143B600DAA814 /* PassItem.swift */,
+				2A6D47972437DAB6000AB88A /* DirectoryUtils.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -295,6 +298,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A64FDFE242FD4C200A8F636 /* ContentView.swift in Sources */,
+				2A6D47982437DAB6000AB88A /* DirectoryUtils.swift in Sources */,
 				2A64FDFC242FD4C200A8F636 /* AppDelegate.swift in Sources */,
 				2A710E0E2431436200DAA814 /* PassList.swift in Sources */,
 				2A6D47942437C5F3000AB88A /* OverviewView.swift in Sources */,

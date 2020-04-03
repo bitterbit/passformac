@@ -11,8 +11,8 @@ import SwiftUI
 struct OverviewView: View {
     var controller: ViewController
     
+    @State private var passItems: [PassItem] = [PassItem]()       // password items
     @State private var search: String = ""                      // filter search term
-    @State private var content: [PassItem] = [PassItem]()       // password items
     @State private var directory: URL?                          // directory that holds the passwords
     
     var body: some View {
@@ -21,32 +21,11 @@ struct OverviewView: View {
                 self.openPane()
             }
             TextField("search here", text: $search)
-            PassList(controller: controller, passItems: self.$content, searchTerm: self.$search)
-        }
-    }
-    
-    func listFiles(at: URL?) -> Void{
-        if at == nil {
-            return
-        }
-        
-        let dir : URL = at!
-        do {
-            let filemanager = FileManager.default
-            let files = try filemanager.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil, options: [])
-            for f in files {
-                let filename = String(f.lastPathComponent.split(separator: ".")[0])
-                let passItem = PassItem(title: filename)
-                self.content.append(passItem)
-            }
-        } catch {
-            // do nothing
+            PassList(controller: controller, passItems: self.$passItems, searchTerm: self.$search)
         }
     }
     
     func openPane() {
-        let that : OverviewView = self
-
         let panel = NSOpenPanel()
         panel.showsHiddenFiles = true
         panel.canChooseFiles = false
@@ -54,7 +33,7 @@ struct OverviewView: View {
         
         panel.begin { (result) in
             if result == .OK && panel.url != nil {
-                that.listFiles(at: panel.url!)
+                self.passItems = DirectoryUtils().getPassItems(at: panel.url)
             }
         }
     }
