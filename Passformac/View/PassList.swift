@@ -11,18 +11,17 @@ import SwiftUI
 
 
 struct PassList: View {
+    var controller: ViewController
     @Binding var passItems: [PassItem]
     @Binding var searchTerm: String
     
     var body: some View {
-        VStack {
-            List(self.passItems.filter{
-                    self.searchTerm.isEmpty ? true : $0.title.localizedStandardContains(self.searchTerm)
-                }.sorted(by: {$0.title < $1.title })
-            ) {
-                Text("\($0.title)")
-                    .font(.subheadline)
-            }
-        }
+ 
+        List(self.passItems.filter{ passItem in
+                self.searchTerm.isEmpty ? true : passItem.title.localizedStandardContains(self.searchTerm)
+            }.sorted(by: {$0.title < $1.title })
+        ) { passItem in Text(passItem.title).onTapGesture {
+            self.controller.showDetailView(item: passItem)
+        } }
     }
 }

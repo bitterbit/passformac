@@ -8,58 +8,46 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    @State private var search: String = ""
-    @State private var content: [PassItem] = [PassItem]()
-    
-    @State private var directory: URL?
-    
-    var body: some View {
-        
-        VStack {
-            Button("reload") {
-                self.openPane()
-            }
-            TextField("search here", text: $search)
-            PassList(passItems: self.$content, searchTerm: self.$search)
-        }
-    }
-    
-    func listFiles(at: URL?) -> Void{
-        if at == nil {
-            return
-        }
-        
-        let dir : URL = at!
-        do {
-            let filemanager = FileManager.default
-            let files = try filemanager.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil, options: [])
-            for f in files {
-                let filename = String(f.lastPathComponent.split(separator: ".")[0])
-                let passItem = PassItem(title: filename)
-                self.content.append(passItem)
-            }
-        } catch {
-            // do nothing
-        }
-    }
-    
-    func openPane() {
-        let that : ContentView = self
+enum Pages: String {
+    case overview = "page_overview"
+    case detail = "page_details"
+}
 
-        let panel = NSOpenPanel()
-        panel.showsHiddenFiles = true
-        panel.canChooseFiles = false
-        panel.canChooseDirectories = true
-        
-        panel.begin { (result) in
-            if result == .OK && panel.url != nil {
-                that.listFiles(at: panel.url!)
+struct ViewController {
+    @Binding var currentPage: Pages
+    @Binding var currentDetails: PassItem?
+    
+    func showDetailView(item: PassItem){
+        currentPage = Pages.detail
+        currentDetails = item
+    }
+}
+
+
+struct ContentView: View {
+    @State var page = Pages.overview
+    @State var currentDetails: PassItem?
+   
+    var body: some View {
+        routerView.frame(width: 500, height: 500)
+    }
+    
+    var routerView: some View {
+        VStack {
+            Button(action: { self.page = Pages.overview }) {
+                Text("Back")
+            }
+            
+            if page == Pages.overview {
+                OverviewView(controller: ViewController(currentPage: $page, currentDetails: $currentDetails))
+            } else if page == Pages.detail {
+                if self.currentDetails != nil {
+                    DetailsView(details: self.currentDetails!)
+                }
             }
         }
     }
 }
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
