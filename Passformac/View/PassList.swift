@@ -21,7 +21,8 @@ struct PassList: View {
                 self.searchTerm.isEmpty ? true : passItem.title.localizedStandardContains(self.searchTerm)
             }.sorted(by: {$0.title < $1.title })
         ) { passItem in Text(passItem.title).onTapGesture {
-            self.controller.showDetailView(item: passItem)
+            self.controller.selectPassItem(item: passItem)
+            self.controller.showPage(page: Pages.detail)
         } }
     }
 }

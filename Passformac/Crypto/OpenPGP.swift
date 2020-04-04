@@ -18,6 +18,10 @@ class PGPFileReader {
 
     private init() {}
     
+    func set(passphrase: String) {
+        self.passphrase = passphrase
+    }
+    
     func importKey(at: URL) -> Bool {
         do {
             // for some reason reading from full path string doesnt work but reading from url works

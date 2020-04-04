@@ -39,10 +39,10 @@ struct IntroView : View {
                     Text("Drag here your gpg key file").font(.subheadline)
                     ImportKeyIcon(action: {
                         print("on imported!")
-                        self.controller.showOverviewView(rootDir: self.rootDir!)
+                        self.controller.showPage(page: Pages.passphrase)
                     })
                     Button(action: {
-                        self.controller.showOverviewView(rootDir: self.rootDir!)
+                        self.controller.showPage(page: Pages.passphrase)
                     }){ Text("Skip") }
                 }
             }
@@ -59,6 +59,7 @@ struct IntroView : View {
         panel.begin { (result) in
             if result == .OK && panel.url != nil {
                 self.rootDir = panel.url
+                self.controller.setRootDir(rootDir: panel.url!)
                 self.currentStage = Stage.givenRootDir
             }
         }

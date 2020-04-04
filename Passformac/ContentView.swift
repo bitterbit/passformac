@@ -10,6 +10,7 @@ import SwiftUI
 
 enum Pages: String {
     case intro = "page_intro"
+    case passphrase = "page_passphrase"
     case overview = "page_overview"
     case detail = "page_details"
 }
@@ -19,14 +20,20 @@ struct ViewController {
     @Binding var passItems: [PassItem]
     @Binding var selectedPassItem: PassItem?
     
-    func showDetailView(item: PassItem){
-        currentPage = Pages.detail
-        selectedPassItem = item
+    func setPassphrase(passphrase: String){
+        PGPFileReader.shared.set(passphrase: passphrase)
     }
     
-    func showOverviewView(rootDir: URL!) {
-        currentPage = Pages.overview
+    func setRootDir(rootDir: URL){
         passItems = DirectoryUtils().getPassItems(at: rootDir)
+    }
+    
+    func showPage(page: Pages) {
+        currentPage = page
+    }
+    
+    func selectPassItem(item: PassItem) {
+        selectedPassItem = item
     }
 }
 
@@ -34,7 +41,6 @@ struct ViewController {
 struct ContentView: View {
     @State var page = Pages.intro
     @State var selectedPassItem: PassItem?
-    
     @State var passItems: [PassItem] = [PassItem]()
    
     var body: some View {
@@ -43,7 +49,7 @@ struct ContentView: View {
     
     var routerView: some View {
         VStack {
-            if page != Pages.overview && page != Pages.intro {
+            if page == Pages.detail {
                 Button(action: { self.page = Pages.overview }) { Text("Back") }
             }
             
@@ -58,6 +64,8 @@ struct ContentView: View {
                 }
             } else if page == Pages.intro {
                 IntroView(controller: getViewController())
+            } else if page == Pages.passphrase {
+                PassphraseView(controller: getViewController())
             }
         }
     }
