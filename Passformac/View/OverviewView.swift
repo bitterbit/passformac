@@ -17,7 +17,16 @@ struct OverviewView: View {
     
     var body: some View {
         VStack {
-            TextField("search here", text: $search)
+            TextField("search here", text: $search) {
+                let candidates = self.passItems.filter{ passItem in
+                    self.search.isEmpty ? true : passItem.title.localizedStandardContains(self.search)
+                }.sorted(by: {$0.title < $1.title })
+                
+                if candidates.count > 0 {
+                    self.controller.selectPassItem(item: candidates[0])
+                    self.controller.showPage(page: Pages.detail)
+                }
+            }
             PassList(
                 controller: controller,
                 passItems: passItems,

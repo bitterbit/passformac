@@ -15,10 +15,12 @@ struct PassphraseView : View {
     var body : some View {
         VStack {
             Text("Welcome to Pass for Mac").font(.subheadline)
-            SecureField("passphrase", text: $passphrase) {
+            SecureField("enter passphrase", text: $passphrase) {
                 self.controller.setPassphrase(passphrase: self.passphrase)
                 self.controller.showPage(page: Pages.overview)
-            }.textFieldStyle(RoundedBorderTextFieldStyle())
+            }
         }.padding(10)
     }
+    
+
 }
