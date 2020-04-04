@@ -40,7 +40,6 @@ class PGPFileReader {
     func openPassItem(item: PassItem) -> String {
         let key = keyring.keys[0] // TODO support multiple keys (.gpg-id)
         let rawPassItem = self.readFile(at: item.path, key: key)
-        print("raw pass item \(rawPassItem)")
         return rawPassItem
     }
     
