@@ -197,10 +197,12 @@ if [ -r "${ARTIFACT_LIST_FILE}" ]; then
 fi
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/KeychainSwift/KeychainSwift.framework"
   install_framework "${PODS_ROOT}/ObjectivePGP/Frameworks/macosx/ObjectivePGP.framework"
   install_dsym "${PODS_ROOT}/ObjectivePGP/Frameworks/macosx/ObjectivePGP.framework.dSYM"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/KeychainSwift/KeychainSwift.framework"
   install_framework "${PODS_ROOT}/ObjectivePGP/Frameworks/macosx/ObjectivePGP.framework"
   install_dsym "${PODS_ROOT}/ObjectivePGP/Frameworks/macosx/ObjectivePGP.framework.dSYM"
 fi

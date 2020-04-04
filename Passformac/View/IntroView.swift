@@ -8,15 +8,14 @@
 
 import SwiftUI
 
+enum Stage: Int {
+    case start = 1
+    case givenRootDir = 2
+    case end = 3 // givenRootDirAndGPGKeys done (do we need it?)
+}
+
 struct IntroView : View {
     var controller: ViewController
-    
-    enum Stage: Int {
-        case start = 1
-        case givenRootDir = 2
-        case givenRootDirAndGPGKeys = 3 // done (do we need it?)
-    }
-    
     @State private var currentStage: Stage = Stage.start
     
     var body : some View {
@@ -24,7 +23,8 @@ struct IntroView : View {
             let url = self.restoreFolderAccess()
             if url != nil {
                 self.controller.setRootDir(rootDir: url!)
-                self.currentStage = Stage.givenRootDir
+                // We have permission to pass folder, skip to next step
+                self.nextStage()
             }
         }
     }
@@ -40,21 +40,43 @@ struct IntroView : View {
                 }
             }
             else if currentStage == Stage.givenRootDir {
-                VStack {
-                    Text("Drag here your gpg key file").font(.subheadline)
-                    ImportKeyIcon(action: {
-                        print("on imported!")
-                        self.controller.showPage(page: Pages.passphrase)
-                    })
-                    Button(action: {
-                        self.controller.showPage(page: Pages.passphrase)
-                    }){ Text("Skip") }
+                setupPgpStage.onAppear(){
+                    let keyring = PersistentKeyring()
+                    if !keyring.isEmpty() {
+                        self.nextStage()
+                    }
                 }
             }
         }
     }
     
-    func restoreFolderAccess() -> URL? {
+    var setupPgpStage : some View {
+        VStack {
+            Text("Drag here your gpg key file").font(.subheadline)
+            ImportKeyIcon(action: {
+                print("on imported!")
+                self.nextStage()
+            })
+            Button(action: {
+                self.nextStage()
+            }){ Text("Skip") }
+        }
+    }
+    
+    private func nextStage() {
+        print("nextStage() current:\(currentStage)")
+        if (currentStage == Stage.end) { return } // no need to go to next, we are there now
+        currentStage = Stage(rawValue: currentStage.rawValue + 1)!
+        
+        // We arrived at the last stage, lets move on to passphrase
+        if (currentStage == Stage.end) {
+            self.controller.showPage(page: Pages.passphrase)
+            return
+        }
+    }
+    
+    
+    private func restoreFolderAccess() -> URL? {
         do {
             var isStale = false
 
@@ -82,7 +104,7 @@ struct IntroView : View {
         }
     }
     
-    func openPane() {
+    private func openPane() {
         let panel = NSOpenPanel()
         panel.showsHiddenFiles = true
         panel.canChooseFiles = false
@@ -91,7 +113,7 @@ struct IntroView : View {
         panel.begin { (result) in
             if result == .OK && panel.url != nil {
                 self.controller.setRootDir(rootDir: panel.url!)
-                self.currentStage = Stage.givenRootDir
+                self.nextStage()
                 DirectoryUtils.persistPermissionToFolder(for: panel.url!)
             }
         }

@@ -13,7 +13,8 @@ class PGPFileReader {
     // singleton instance
     static var shared: PGPFileReader = PGPFileReader()
     
-    let keyring = Keyring()
+//    let keyring = Keyring()
+    var presistentKeyring = PersistentKeyring()
     var passphrase: String? = nil
 
     private init() {}
@@ -22,12 +23,11 @@ class PGPFileReader {
         self.passphrase = passphrase
     }
     
-    func importKey(at: URL) -> Bool {
+    func importKey(at url: URL) -> Bool {
         do {
-            // for some reason reading from full path string doesnt work but reading from url works
-            let contents = try Data(contentsOf: at)
-            try keyring.import(keys: ObjectivePGP.readKeys(from: contents))
-            print("keyring now has \(keyring.keys.count) keys")
+            // Note: for some reason reading from full path string doesnt work but reading from url works
+            try presistentKeyring.addKey(fromUrl: url)
+            print("keyring now has \(presistentKeyring.count()) keys")
             return true
         } catch {
             /* no keys for you */
@@ -38,8 +38,12 @@ class PGPFileReader {
     }
     
     func openPassItem(item: PassItem) -> String {
-        let key = keyring.keys[0] // TODO support multiple keys (.gpg-id)
-        let rawPassItem = self.readFile(at: item.path, key: key)
+        let key = presistentKeyring.firstKey() // TODO support multiple keys (.gpg-id)
+        if key == nil {
+            return ""
+        }
+        
+        let rawPassItem = self.readFile(at: item.path, key: key!)
         return rawPassItem
     }
     

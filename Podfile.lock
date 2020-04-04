@@ -1,16 +1,20 @@
 PODS:
+  - KeychainSwift (19.0.0)
   - ObjectivePGP (0.15.0)
 
 DEPENDENCIES:
+  - KeychainSwift
   - ObjectivePGP
 
 SPEC REPOS:
   trunk:
+    - KeychainSwift
     - ObjectivePGP
 
 SPEC CHECKSUMS:
+  KeychainSwift: a06190cf933ad46b1e0abc3d77d29c06331715c7
   ObjectivePGP: 35a73ed3253e7e2982184ea86b1ff6c5773d1299
 
-PODFILE CHECKSUM: 2c8ecf253c135ad640186ab4a7c9b6ede8f364a7
+PODFILE CHECKSUM: 04ba8a11755a2154c6d568638d045b780031e5d6
 
 COCOAPODS: 1.9.1

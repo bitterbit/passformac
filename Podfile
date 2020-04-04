@@ -6,6 +6,7 @@ target 'Passformac' do
   use_frameworks!
 
   pod 'ObjectivePGP'
+  pod 'KeychainSwift'
 
   # Pods for Passformac
 

@@ -1,3 +1,4 @@
 ${PODS_ROOT}/Target Support Files/Pods-Passformac/Pods-Passformac-frameworks.sh
+${BUILT_PRODUCTS_DIR}/KeychainSwift/KeychainSwift.framework
 ${PODS_ROOT}/ObjectivePGP/Frameworks/macosx/ObjectivePGP.framework
 ${PODS_ROOT}/ObjectivePGP/Frameworks/macosx/ObjectivePGP.framework.dSYM
