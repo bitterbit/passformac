@@ -8,13 +8,19 @@
 
 import Foundation
 
+struct PassExtra : Identifiable {
+    var id = UUID()
+    var key: String
+    var value: String
+}
+
 struct PassItem : Identifiable {
     var id = UUID()
     var title: String
     var path: URL
     var username: String?
     var password: String
-    var extra: [String: String] = [String: String]()
+    var extra: [PassExtra] = [PassExtra]()
     
     init(title: String, path: URL) {
         self.path = path
@@ -48,7 +54,7 @@ struct PassItem : Identifiable {
                 continue
             }
             
-            extra[key] = value
+            extra.append(PassExtra(key: key, value: value))
         }
     }
     
