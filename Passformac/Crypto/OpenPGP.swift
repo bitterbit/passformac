@@ -14,7 +14,8 @@ class PGPFileReader {
     static var shared: PGPFileReader = PGPFileReader()
     
     let keyring = Keyring()
-    
+    var passphrase: String? = nil
+
     private init() {}
     
     func importKey(at: URL) -> Bool {
@@ -32,21 +33,30 @@ class PGPFileReader {
         return false // un-successful
     }
     
-    func readFile(at: URL!, withIdentifiers: [String]) -> String {
-        var keys = [Key]()
-        for identifier in withIdentifiers {
-            let key = keyring.findKey(identifier)
-            if key != nil {
-                keys.append(key!)
-            }
-        }
-        
+    func openPassItem(item: PassItem) -> String {
+        let key = keyring.keys[0] // TODO support multiple keys (.gpg-id)
+        let rawPassItem = self.readFile(at: item.path, key: key)
+        print("raw pass item \(rawPassItem)")
+        return rawPassItem
+    }
+    
+    func readFile(at: URL!, key: Key) -> String {
         do {
             let encrypted = try Data(contentsOf: at)
-            let decrypted = try ObjectivePGP.decrypt(encrypted, andVerifySignature: true, using: keys)
-            let decryptedString = String(bytes: decrypted, encoding: .utf8)
-            return decryptedString!
+            let encryptedAscii = Armor.armored(encrypted, as: .publicKey)
+        
+            
+            var decryptingKey = key
+            if passphrase != nil {
+                decryptingKey = (try? (key.decrypted(withPassphrase: self.passphrase!))) ?? key
+            }
+            
+            let decrypted = try ObjectivePGP.decrypt(encryptedAscii.data(using: .utf8)!, andVerifySignature: true, using: [decryptingKey])
+            return String(bytes: decrypted, encoding: .utf8)!
         }
-        catch { return "" }
+        catch {
+            print("error while reading encrypted file. error: \(error)")
+            return ""
+        }
     }
 }

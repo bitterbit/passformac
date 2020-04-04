@@ -11,11 +11,13 @@ import Foundation
 struct PassItem : Identifiable {
     var id = UUID()
     var title: String
+    var path: URL
     var username: String?
     var password: String
     var extra: [String: String] = [String: String]()
     
-    init(title: String) {
+    init(title: String, path: URL) {
+        self.path = path
         self.title = title.replacingOccurrences(of: "_", with: " ")
             .trimmingCharacters(in: .whitespaces)
         
@@ -23,7 +25,8 @@ struct PassItem : Identifiable {
     }
     
     func load() {
-        // TODO: implement
+        let content = PGPFileReader.shared.openPassItem(item: self)
+        print("content \(content)")
     }
     
     func isLoaded() -> Bool {

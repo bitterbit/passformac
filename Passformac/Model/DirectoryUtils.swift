@@ -20,7 +20,7 @@ struct DirectoryUtils {
             let files = try filemanager.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil, options: [])
             for f in files {
                 let filename = String(f.lastPathComponent.split(separator: ".")[0])
-                items.append(PassItem(title: filename))
+                items.append(PassItem(title: filename, path: f.absoluteURL))
             }
         } catch { /* do nothing */ }
         

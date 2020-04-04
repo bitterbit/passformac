@@ -9,8 +9,22 @@
 import SwiftUI
 
 struct DetailsView: View {
-  let details: PassItem
-  var body: some View {
-    Text(details.title)
-  }
+    @State var details: PassItem
+    
+    var body: some View {
+        inner.onAppear() {
+            print("on appear")
+            if !self.details.isLoaded(){
+                self.details.load()
+            }
+        }
+    }
+    
+    var inner: some View {
+        VStack {
+            Text(details.title)
+            Text(details.password)
+        }
+    }
+    
 }
