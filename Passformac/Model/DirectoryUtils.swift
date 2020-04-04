@@ -26,4 +26,13 @@ struct DirectoryUtils {
         
         return items
     }
+    
+    static func persistPermissionToFolder(for workdir: URL){
+        do {
+            let bookmarkData = try workdir.bookmarkData(options: .withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
+            UserDefaults.standard.set(bookmarkData, forKey: "workingDirectoryBookmark") // save in UserDefaults
+        } catch {
+            print("Failed to save bookmark data for \(workdir)", error)
+        }
+    }
 }

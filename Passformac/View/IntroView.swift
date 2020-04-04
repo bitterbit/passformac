@@ -18,10 +18,15 @@ struct IntroView : View {
     }
     
     @State private var currentStage: Stage = Stage.start
-    @State private var rootDir: URL?
     
     var body : some View {
-        inner
+        inner.onAppear() {
+            let url = self.restoreFolderAccess()
+            if url != nil {
+                self.controller.setRootDir(rootDir: url!)
+                self.currentStage = Stage.givenRootDir
+            }
+        }
     }
     
     var inner : some View {
@@ -49,6 +54,33 @@ struct IntroView : View {
         }
     }
     
+    func restoreFolderAccess() -> URL? {
+        do {
+            var isStale = false
+
+            let bookmarkData = UserDefaults.standard.data(forKey: "workingDirectoryBookmark")
+            if bookmarkData == nil {
+                return nil
+            }
+            
+            let url = try URL(resolvingBookmarkData: bookmarkData!, options: .withSecurityScope, relativeTo: nil, bookmarkDataIsStale: &isStale)
+            if isStale {
+                // bookmarks could become stale as the OS changes
+                print("Bookmark is stale, need to save a new one... ")
+                return nil
+            }
+            
+            // check if we are granted permission
+            if !url.startAccessingSecurityScopedResource() {
+                return nil
+            }
+            
+            return url
+        } catch {
+            print("Error resolving bookmark:", error)
+            return nil
+        }
+    }
     
     func openPane() {
         let panel = NSOpenPanel()
@@ -58,9 +90,9 @@ struct IntroView : View {
         
         panel.begin { (result) in
             if result == .OK && panel.url != nil {
-                self.rootDir = panel.url
                 self.controller.setRootDir(rootDir: panel.url!)
                 self.currentStage = Stage.givenRootDir
+                DirectoryUtils.persistPermissionToFolder(for: panel.url!)
             }
         }
     }
