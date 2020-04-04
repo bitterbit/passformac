@@ -37,7 +37,10 @@ struct IntroView : View {
             else if currentStage == Stage.givenRootDir {
                 VStack {
                     Text("Drag here your gpg key file").font(.subheadline)
-                    ImportKeyIcon()
+                    ImportKeyIcon(action: {
+                        print("on imported!")
+                        self.controller.showOverviewView(rootDir: self.rootDir!)
+                    })
                     Button(action: {
                         self.controller.showOverviewView(rootDir: self.rootDir!)
                     }){ Text("Skip") }
@@ -64,14 +67,21 @@ struct IntroView : View {
 
 
 struct ImportKeyIcon: View, DropDelegate {
+    var action: () -> Void
+    
+    @State private var isShowingAlert = false
+    
     func performDrop(info: DropInfo) -> Bool {
         guard let itemProvider = info.itemProviders(for: [(kUTTypeFileURL as String)]).first else { return false }
 
         itemProvider.loadItem(forTypeIdentifier: (kUTTypeFileURL as String), options: nil) {item, error in
             guard let data = item as? Data, let url = URL(dataRepresentation: data, relativeTo: nil) else { return }
-            PGPFileReader(keyPath: url.absoluteString)
+            if !PGPFileReader.shared.importKey(at: url) {
+                self.isShowingAlert = true
+            }
+            
+            self.action()
         }
-        
         return true
     }
     
@@ -83,5 +93,10 @@ struct ImportKeyIcon: View, DropDelegate {
             .frame(width: 100, height: 100, alignment: .center)
             .padding(20)
             .onDrop(of: [(kUTTypeFileURL as String)], delegate: self)
+            .alert(isPresented: $isShowingAlert) {
+                // TODO: error details
+                Alert(title: Text("Error importing pgp file"), message: Text("Error details..."))
+            }
+        
     }
 }

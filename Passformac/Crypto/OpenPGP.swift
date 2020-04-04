@@ -9,20 +9,27 @@
 import Foundation
 import ObjectivePGP
 
-struct PGPFileReader {
-
+class PGPFileReader {
+    // singleton instance
+    static var shared: PGPFileReader = PGPFileReader()
+    
     let keyring = Keyring()
     
-    init(keyPath: String) {
-        do {
-            try keyring.import(keys: ObjectivePGP.readKeys(fromPath: keyPath))
-        } catch { /* no keys for you */ }
-    }
+    private init() {}
     
-    init(key: Data) {
+    func importKey(at: URL) -> Bool {
         do {
-            try keyring.import(keys: ObjectivePGP.readKeys(from: key))
-        } catch { /* no keys */ }
+            // for some reason reading from full path string doesnt work but reading from url works
+            let contents = try Data(contentsOf: at)
+            try keyring.import(keys: ObjectivePGP.readKeys(from: contents))
+            print("keyring now has \(keyring.keys.count) keys")
+            return true
+        } catch {
+            /* no keys for you */
+            print("Unexpected error: \(error).")
+        }
+        
+        return false // un-successful
     }
     
     func readFile(at: URL!, withIdentifiers: [String]) -> String {
