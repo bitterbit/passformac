@@ -15,7 +15,7 @@ private key: `gpg --armor --export-secret-keys {keyname} > {keyname}.secret.gpg`
 
 **list all keys**
 ID: `0FA76A144E3DA5E68B4FAD04ACB2B175912CCA25`
-Recepaient name: `username`
+Recipient name: `username`
 ```bash
 $ gpg --list-keys
 /Users/username/.gnupg/pubring.kbx

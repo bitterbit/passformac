@@ -1,0 +1,30 @@
+- [ ] Version 0.1
+  - [X] Intro View
+    - [X] load users private key using drag-n-drop
+    - [X] store private key in apple keychain
+    - [X] save "permission" to .password-store folder for next sessions
+  - [X] pass list view
+    - [X] diplay pass items list from given user directory
+    - [X] implent search filtering
+    - [X] open detail view on click
+  - [X] detial view  
+    - [X] display title
+    - [X] open encryption and display password with private key
+    - [X] support passphrase
+  - [ ] decrease time-to-password 
+    - [ ] auto select passphrase password-field
+    - [ ] auto select search filed
+    - [ ] copy password to clipboard on click
+  - [ ] improve security from guests using the computer
+    - [ ] auto forget passphrase when in background
+    - [ ] support fingerprint instead of passphrase
+- [ ]  Version 0.2 Public Release
+  - [ ] implement init repo from scratch 
+  - [ ] import repo from github
+    - [ ] git support for clone
+    - [ ] find a way to import private key
+  - [ ] edit support
+    - [ ] encrypt with pgp+private key
+    - [ ] git push
+  - [ ] icon
+  - [ ] screenshots in github page
