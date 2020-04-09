@@ -3,7 +3,7 @@ Pass for MacOS - a thin MacOS client compatible with Pass command line applicati
 In very early stage
 
 # Motivation
-pass is great but terminals dont support utf-8 well, by creating a GUI client one can now describe his acount details in any language he likes :jp::kr::cn::us::fr::es::it::ru::gb::de:
+pass is great but terminals dont support utf-8 well, by creating a GUI client one can now describe his acount details in any language he likes :jp::kr::cn::us::fr::es::it::ru::gb::de:🇮🇱
 
 Inspired by [mssun/passforios](https://github.com/mssun/passforios)
 
