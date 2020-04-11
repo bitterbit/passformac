@@ -16,8 +16,8 @@
     - [ ] auto select search filed
     - [X] copy password to clipboard on click
     - [X] clear clipbarod after a few seconds
-  - [ ] improve security from guests using the computer
-    - [ ] auto forget passphrase when in background
+  - [X] improve security from guests using the computer
+    - [X] auto forget passphrase when in background
 - [ ]  Version 0.2 Public Release
   - [ ] implement init repo from scratch 
   - [ ] import repo from github
