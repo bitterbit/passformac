@@ -14,7 +14,8 @@
   - [ ] decrease time-to-password 
     - [ ] auto select passphrase password-field
     - [ ] auto select search filed
-    - [ ] copy password to clipboard on click
+    - [X] copy password to clipboard on click
+    - [X] clear clipbarod after a few seconds
   - [ ] improve security from guests using the computer
     - [ ] auto forget passphrase when in background
     - [ ] support fingerprint instead of passphrase
