@@ -18,7 +18,6 @@
     - [X] clear clipbarod after a few seconds
   - [ ] improve security from guests using the computer
     - [ ] auto forget passphrase when in background
-    - [ ] support fingerprint instead of passphrase
 - [ ]  Version 0.2 Public Release
   - [ ] implement init repo from scratch 
   - [ ] import repo from github
@@ -27,5 +26,7 @@
   - [ ] edit support
     - [ ] encrypt with pgp+private key
     - [ ] git push
+    - [ ] generate password
   - [ ] icon
   - [ ] screenshots in github page
+  - [ ] support fingerprint instead of passphrase
