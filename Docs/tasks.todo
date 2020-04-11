@@ -11,14 +11,12 @@
     - [X] display title
     - [X] open encryption and display password with private key
     - [X] support passphrase
-  - [ ] decrease time-to-password 
-    - [ ] auto select passphrase password-field
-    - [ ] auto select search filed
+  - [X] decrease time-to-password 
     - [X] copy password to clipboard on click
     - [X] clear clipbarod after a few seconds
   - [X] improve security from guests using the computer
     - [X] auto forget passphrase when in background
-- [ ]  Version 0.2 Public Release
+- [ ] Version 0.2 Public Release
   - [ ] implement init repo from scratch 
   - [ ] import repo from github
     - [ ] git support for clone
@@ -30,3 +28,6 @@
   - [ ] icon
   - [ ] screenshots in github page
   - [ ] support fingerprint instead of passphrase
+  - [ ] decrease time-to-password 
+    - [ ] auto select passphrase password-field
+    - [ ] auto select search filed
