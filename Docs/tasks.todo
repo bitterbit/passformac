@@ -17,16 +17,17 @@
   - [X] improve security from guests using the computer
     - [X] auto forget passphrase when in background
 - [ ] Version 0.2 Public Release
-  - [ ] implement init repo from scratch 
   - [ ] import repo from github
     - [ ] git support for clone
     - [ ] find a way to import private key
+  - [ ] implement init repo from scratch 
   - [ ] edit support
     - [ ] encrypt with pgp+private key
     - [ ] git push
     - [ ] generate password
-  - [ ] icon
-  - [ ] screenshots in github page
+  - [ ] design
+    - [ ] icon
+    - [ ] screenshots in github page
   - [ ] support fingerprint instead of passphrase
   - [ ] decrease time-to-password 
     - [ ] auto select passphrase password-field
