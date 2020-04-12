@@ -11,7 +11,6 @@
 		2A52329E2437ED4D002D6D37 /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A52329D2437ED4D002D6D37 /* IntroView.swift */; };
 		2A5232A02438F6F2002D6D37 /* PassphraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A52329F2438F6F2002D6D37 /* PassphraseView.swift */; };
 		2A5232A224391702002D6D37 /* PersistentKeyring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5232A124391702002D6D37 /* PersistentKeyring.swift */; };
-		2A5232A424392EA5002D6D37 /* FocusableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5232A324392EA5002D6D37 /* FocusableTextField.swift */; };
 		2A64FDFC242FD4C200A8F636 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A64FDFB242FD4C200A8F636 /* AppDelegate.swift */; };
 		2A64FDFE242FD4C200A8F636 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A64FDFD242FD4C200A8F636 /* ContentView.swift */; };
 		2A64FE00242FD4C500A8F636 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A64FDFF242FD4C500A8F636 /* Assets.xcassets */; };
@@ -52,7 +51,6 @@
 		2A52329D2437ED4D002D6D37 /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
 		2A52329F2438F6F2002D6D37 /* PassphraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassphraseView.swift; sourceTree = "<group>"; };
 		2A5232A124391702002D6D37 /* PersistentKeyring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentKeyring.swift; sourceTree = "<group>"; };
-		2A5232A324392EA5002D6D37 /* FocusableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusableTextField.swift; sourceTree = "<group>"; };
 		2A64FDF8242FD4C200A8F636 /* Passformac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Passformac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A64FDFB242FD4C200A8F636 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2A64FDFD242FD4C200A8F636 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -214,7 +212,6 @@
 				2A6D47952437D993000AB88A /* DetailsView.swift */,
 				2A52329D2437ED4D002D6D37 /* IntroView.swift */,
 				2A52329F2438F6F2002D6D37 /* PassphraseView.swift */,
-				2A5232A324392EA5002D6D37 /* FocusableTextField.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -474,7 +471,6 @@
 				2A64FDFC242FD4C200A8F636 /* AppDelegate.swift in Sources */,
 				2A5232A224391702002D6D37 /* PersistentKeyring.swift in Sources */,
 				2A710E0E2431436200DAA814 /* PassList.swift in Sources */,
-				2A5232A424392EA5002D6D37 /* FocusableTextField.swift in Sources */,
 				2A52329E2437ED4D002D6D37 /* IntroView.swift in Sources */,
 				2A6D47942437C5F3000AB88A /* OverviewView.swift in Sources */,
 				2A710E10243143B600DAA814 /* PassItem.swift in Sources */,
