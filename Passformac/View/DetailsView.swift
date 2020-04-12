@@ -42,8 +42,30 @@ struct KeyValueView: View {
     var body: some View {
         HStack {
             Text("\(key):").bold().font(.subheadline)
-            Text(value).font(.subheadline)
+            Button(action: {
+                self.copyToClipboard(value: self.value)
+            }) {
+                Text(value).font(.subheadline)
+            }.buttonStyle(PlainButtonStyle())
         }.leftAligned()
+    }
+    
+    private func copyToClipboard(value: String) {
+        let pasteboard = NSPasteboard.general
+        pasteboard.clearContents()
+        pasteboard.setString(value, forType: .string)
+        clearClipboardIfStillThere(value: value)
+    }
+    
+    private func clearClipboardIfStillThere(value: String){
+        let deadline = Dispatch.DispatchTime.now() + 10 // +10 seconds
+        DispatchQueue.main.asyncAfter(deadline: deadline) {
+            let pasteboard = NSPasteboard.general
+            let v = pasteboard.string(forType: .string)
+            if v == value {
+                pasteboard.clearContents()
+            }
+        }
     }
 }
 

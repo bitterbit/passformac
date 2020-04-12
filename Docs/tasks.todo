@@ -11,20 +11,24 @@
     - [X] display title
     - [X] open encryption and display password with private key
     - [X] support passphrase
-  - [ ] decrease time-to-password 
-    - [ ] auto select passphrase password-field
-    - [ ] auto select search filed
-    - [ ] copy password to clipboard on click
-  - [ ] improve security from guests using the computer
-    - [ ] auto forget passphrase when in background
-    - [ ] support fingerprint instead of passphrase
-- [ ]  Version 0.2 Public Release
-  - [ ] implement init repo from scratch 
+  - [X] decrease time-to-password 
+    - [X] copy password to clipboard on click
+    - [X] clear clipbarod after a few seconds
+  - [X] improve security from guests using the computer
+    - [X] auto forget passphrase when in background
+- [ ] Version 0.2 Public Release
   - [ ] import repo from github
     - [ ] git support for clone
     - [ ] find a way to import private key
+  - [ ] implement init repo from scratch 
   - [ ] edit support
     - [ ] encrypt with pgp+private key
     - [ ] git push
-  - [ ] icon
-  - [ ] screenshots in github page
+    - [ ] generate password
+  - [ ] design
+    - [ ] icon
+    - [ ] screenshots in github page
+  - [ ] support fingerprint instead of passphrase
+  - [ ] decrease time-to-password 
+    - [ ] auto select passphrase password-field
+    - [ ] auto select search filed

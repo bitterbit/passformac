@@ -24,6 +24,11 @@ struct ViewController {
         PGPFileReader.shared.set(passphrase: passphrase)
     }
     
+    func clearPassphrase() {
+        PGPFileReader.shared.set(passphrase: "")
+        self.showPage(page: Pages.passphrase)
+    }
+    
     func setRootDir(rootDir: URL){
         passItems = DirectoryUtils().getPassItems(at: rootDir)
     }
@@ -45,6 +50,9 @@ struct ContentView: View {
    
     var body: some View {
         routerView.frame(width: 500, height: 500)
+            .onReceive(NotificationCenter.default.publisher(for: NSApplication.willResignActiveNotification)) { _ in
+                self.getViewController().clearPassphrase()
+            }
     }
     
     var routerView: some View {
