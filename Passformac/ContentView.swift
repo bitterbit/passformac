@@ -79,7 +79,7 @@ struct ContentView: View {
             } else if page == Pages.passphrase {
                 PassphraseView(controller: getViewController())
             } else if page == Pages.new_pass {
-                EditPassView()
+                EditPassView(controller: getViewController())
             }
         }
     }

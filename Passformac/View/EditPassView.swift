@@ -22,13 +22,23 @@ struct EditPassView : View {
     @State var website: String = ""
     @State var extra: [PassExtra] = [PassExtra]()
     
+    @State var showAlert: Bool = false
+    
+    var controller: ViewController
+    
     var body: some View {
         VStack {
             HStack {
-                Button(action: {}) { Text("Back") }
+                Button(action: { self.controller.showPage(page: Pages.overview) }) { Text("Back") }
                 Spacer()
-                Button(action: {}) { Text("Cancel") }
-                Button(action: { self.save() }) { Text("Save") }
+                Button(action: { self.controller.showPage(page: Pages.overview) }) { Text("Cancel") }
+                Button(action: {
+                    let ok = self.save()
+                    self.showAlert = !ok
+                }) { Text("Save") }.alert(isPresented: self.$showAlert) {
+                    Alert(title: Text("Error"), message: Text("Error while saving"), dismissButton: .default(Text("ok")))
+                }
+                
             }
             Form {
                 LabelTextView(label: "Name", value: $title)
@@ -79,8 +89,17 @@ struct LabelTextView : View {
 
 #if DEBUG
 struct EditPassView_Previews: PreviewProvider {
+   
+    
     static var previews: some View {
-        EditPassView()
+        EditPassView(controller: getViewController())
+    }
+    
+    static private func getViewController() -> ViewController {
+        return  ViewController(
+            currentPage: .constant(Pages.edit_pass),
+            passItems: .constant([LazyPassItem]()),
+            selectedPassItem: .constant(nil))
     }
 }
 #endif
