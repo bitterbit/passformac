@@ -1,4 +1,4 @@
-- [ ] Version 0.1
+- [X] Version 0.1
   - [X] Intro View
     - [X] load users private key using drag-n-drop
     - [X] store private key in apple keychain
@@ -19,7 +19,9 @@
 - [ ] Version 0.2 Public Release
   - [ ] implement init repo from scratch 
   - [ ] edit support
-    - [ ] encrypt with pgp+private key
+    - [ ] encrypt with pgp+public key
+    - [ ] import public+private key in intro UI wise
+    - [ ] distinguish between private and public in keyring
     - [ ] git push
     - [ ] generate password
   - [ ] design
