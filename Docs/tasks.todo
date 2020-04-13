@@ -33,4 +33,4 @@
     - [ ] auto select passphrase password-field
     - [ ] auto select search filed
     - [ ] keyboard shortcuts
-      - [ ] 
+  - [X] fix init skipped straight to passphrase on window lose focus

@@ -28,7 +28,9 @@ struct ViewController {
     
     func clearPassphrase() {
         PGPFileReader.shared.set(passphrase: "")
-        self.showPage(page: Pages.passphrase)
+        if currentPage != Pages.intro {
+            self.showPage(page: Pages.passphrase)
+        }
     }
     
     func setRootDir(rootDir: URL){

@@ -10,6 +10,7 @@
 		2A43482D24436A7000E57B71 /* EditPassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A43482C24436A7000E57B71 /* EditPassView.swift */; };
 		2A43482F2444CFBC00E57B71 /* PassItemStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A43482E2444CFBC00E57B71 /* PassItemStorage.swift */; };
 		2A4348322445012400E57B71 /* LazyPassItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4348312445012400E57B71 /* LazyPassItem.swift */; };
+		2A434834244503F400E57B71 /* ImportPGPKeysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A434833244503F400E57B71 /* ImportPGPKeysView.swift */; };
 		2A52329C2437E10D002D6D37 /* OpenPGP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A52329B2437E10D002D6D37 /* OpenPGP.swift */; };
 		2A52329E2437ED4D002D6D37 /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A52329D2437ED4D002D6D37 /* IntroView.swift */; };
 		2A5232A02438F6F2002D6D37 /* PassphraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A52329F2438F6F2002D6D37 /* PassphraseView.swift */; };
@@ -53,6 +54,7 @@
 		2A43482C24436A7000E57B71 /* EditPassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPassView.swift; sourceTree = "<group>"; };
 		2A43482E2444CFBC00E57B71 /* PassItemStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassItemStorage.swift; sourceTree = "<group>"; };
 		2A4348312445012400E57B71 /* LazyPassItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyPassItem.swift; sourceTree = "<group>"; };
+		2A434833244503F400E57B71 /* ImportPGPKeysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportPGPKeysView.swift; sourceTree = "<group>"; };
 		2A52329B2437E10D002D6D37 /* OpenPGP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenPGP.swift; sourceTree = "<group>"; };
 		2A52329D2437ED4D002D6D37 /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
 		2A52329F2438F6F2002D6D37 /* PassphraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassphraseView.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 				2A52329D2437ED4D002D6D37 /* IntroView.swift */,
 				2A52329F2438F6F2002D6D37 /* PassphraseView.swift */,
 				2A43482C24436A7000E57B71 /* EditPassView.swift */,
+				2A434833244503F400E57B71 /* ImportPGPKeysView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -476,6 +479,7 @@
 			files = (
 				2A64FDFE242FD4C200A8F636 /* ContentView.swift in Sources */,
 				2A52329C2437E10D002D6D37 /* OpenPGP.swift in Sources */,
+				2A434834244503F400E57B71 /* ImportPGPKeysView.swift in Sources */,
 				2A6D47982437DAB6000AB88A /* PassDirectory.swift in Sources */,
 				2A64FDFC242FD4C200A8F636 /* AppDelegate.swift in Sources */,
 				2A5232A224391702002D6D37 /* PersistentKeyring.swift in Sources */,
