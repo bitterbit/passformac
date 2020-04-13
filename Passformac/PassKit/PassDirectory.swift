@@ -9,23 +9,7 @@
 import Foundation
 
 
-struct DirectoryUtils {
-    
-    func getPassItems(at: URL!) -> [LazyPassItem] {
-        var items = [LazyPassItem]()
-        
-        let dir : URL = at!
-        do {
-            let filemanager = FileManager.default
-            let files = try filemanager.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil, options: [])
-            for f in files {
-                let filename = String(f.lastPathComponent.split(separator: ".")[0])
-                items.append(LazyPassItem(url: f.absoluteURL, title: filename))
-            }
-        } catch { /* do nothing */ }
-        
-        return items
-    }
+class PassDirectory {
     
     static func persistPermissionToPassFolder(for workdir: URL){
         do {

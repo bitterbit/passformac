@@ -20,7 +20,7 @@ struct IntroView : View {
     
     var body : some View {
         inner.onAppear() {
-            let url = DirectoryUtils.getSavedPassFolder()
+            let url = PassDirectory.getSavedPassFolder()
             if url != nil {
                 self.controller.setRootDir(rootDir: url!)
                 // We have permission to pass folder, skip to next step
@@ -85,7 +85,7 @@ struct IntroView : View {
             if result == .OK && panel.url != nil {
                 self.controller.setRootDir(rootDir: panel.url!)
                 self.nextStage()
-                DirectoryUtils.persistPermissionToPassFolder(for: panel.url!)
+                PassDirectory.persistPermissionToPassFolder(for: panel.url!)
             }
         }
     }

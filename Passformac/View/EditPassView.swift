@@ -49,7 +49,7 @@ struct EditPassView : View {
     }
     
     private func save() -> Bool {
-        let dir = DirectoryUtils.getSavedPassFolder()
+        let dir = PassDirectory.getSavedPassFolder()
         if dir == nil || title == "" {
             return false
         }
@@ -72,7 +72,7 @@ struct LabelTextView : View {
     var body: some View {
         Form {
             Text(label.uppercased()).font(.system(size: 10))
-            TextField(placeHolder, text: .constant(""))
+            TextField(placeHolder, text: self.$value)
         }.padding(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
     }
 }

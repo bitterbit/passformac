@@ -12,8 +12,6 @@ import ObjectivePGP
 class PGPFileReader {
     // singleton instance
     static var shared: PGPFileReader = PGPFileReader()
-    
-//    let keyring = Keyring()
     var presistentKeyring = PersistentKeyring()
     var passphrase: String? = nil
 

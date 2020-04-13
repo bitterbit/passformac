@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2A43482D24436A7000E57B71 /* EditPassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A43482C24436A7000E57B71 /* EditPassView.swift */; };
 		2A43482F2444CFBC00E57B71 /* PassItemStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A43482E2444CFBC00E57B71 /* PassItemStorage.swift */; };
+		2A4348322445012400E57B71 /* LazyPassItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4348312445012400E57B71 /* LazyPassItem.swift */; };
 		2A52329C2437E10D002D6D37 /* OpenPGP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A52329B2437E10D002D6D37 /* OpenPGP.swift */; };
 		2A52329E2437ED4D002D6D37 /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A52329D2437ED4D002D6D37 /* IntroView.swift */; };
 		2A5232A02438F6F2002D6D37 /* PassphraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A52329F2438F6F2002D6D37 /* PassphraseView.swift */; };
@@ -22,7 +23,7 @@
 		2A64FE1D242FD4C500A8F636 /* PassformacUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A64FE1C242FD4C500A8F636 /* PassformacUITests.swift */; };
 		2A6D47942437C5F3000AB88A /* OverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6D47932437C5F3000AB88A /* OverviewView.swift */; };
 		2A6D47962437D993000AB88A /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6D47952437D993000AB88A /* DetailsView.swift */; };
-		2A6D47982437DAB6000AB88A /* DirectoryUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6D47972437DAB6000AB88A /* DirectoryUtils.swift */; };
+		2A6D47982437DAB6000AB88A /* PassDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6D47972437DAB6000AB88A /* PassDirectory.swift */; };
 		2A710E0E2431436200DAA814 /* PassList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A710E0D2431436200DAA814 /* PassList.swift */; };
 		2A710E10243143B600DAA814 /* PassItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A710E0F243143B600DAA814 /* PassItem.swift */; };
 		579AD20E5917C2127C5F08B1 /* Pods_Passformac_PassformacUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 403005B20AF90879D385AD86 /* Pods_Passformac_PassformacUITests.framework */; };
@@ -51,6 +52,7 @@
 		0D9E6F525903CA486F66AA83 /* Pods-Passformac-PassformacUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Passformac-PassformacUITests.debug.xcconfig"; path = "Target Support Files/Pods-Passformac-PassformacUITests/Pods-Passformac-PassformacUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		2A43482C24436A7000E57B71 /* EditPassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPassView.swift; sourceTree = "<group>"; };
 		2A43482E2444CFBC00E57B71 /* PassItemStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassItemStorage.swift; sourceTree = "<group>"; };
+		2A4348312445012400E57B71 /* LazyPassItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyPassItem.swift; sourceTree = "<group>"; };
 		2A52329B2437E10D002D6D37 /* OpenPGP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenPGP.swift; sourceTree = "<group>"; };
 		2A52329D2437ED4D002D6D37 /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
 		2A52329F2438F6F2002D6D37 /* PassphraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassphraseView.swift; sourceTree = "<group>"; };
@@ -71,7 +73,7 @@
 		2A64FE1E242FD4C500A8F636 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2A6D47932437C5F3000AB88A /* OverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewView.swift; sourceTree = "<group>"; };
 		2A6D47952437D993000AB88A /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
-		2A6D47972437DAB6000AB88A /* DirectoryUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryUtils.swift; sourceTree = "<group>"; };
+		2A6D47972437DAB6000AB88A /* PassDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassDirectory.swift; sourceTree = "<group>"; };
 		2A710E0D2431436200DAA814 /* PassList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassList.swift; sourceTree = "<group>"; };
 		2A710E0F243143B600DAA814 /* PassItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassItem.swift; sourceTree = "<group>"; };
 		3C46406BA7A00FFBE67D621B /* Pods_PassformacTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PassformacTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,6 +127,17 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		2A434830244500DA00E57B71 /* PassKit */ = {
+			isa = PBXGroup;
+			children = (
+				2A6D47972437DAB6000AB88A /* PassDirectory.swift */,
+				2A710E0F243143B600DAA814 /* PassItem.swift */,
+				2A43482E2444CFBC00E57B71 /* PassItemStorage.swift */,
+				2A4348312445012400E57B71 /* LazyPassItem.swift */,
+			);
+			path = PassKit;
+			sourceTree = "<group>";
+		};
 		2A64FDEF242FD4C200A8F636 = {
 			isa = PBXGroup;
 			children = (
@@ -150,9 +163,9 @@
 		2A64FDFA242FD4C200A8F636 /* Passformac */ = {
 			isa = PBXGroup;
 			children = (
+				2A434830244500DA00E57B71 /* PassKit */,
 				2A6D47992437DE9B000AB88A /* Crypto */,
 				2A710E0C2431434B00DAA814 /* View */,
-				2A64FE2A242FF0EA00A8F636 /* Model */,
 				2A64FDFB242FD4C200A8F636 /* AppDelegate.swift */,
 				2A64FDFD242FD4C200A8F636 /* ContentView.swift */,
 				2A64FDFF242FD4C500A8F636 /* Assets.xcassets */,
@@ -190,21 +203,11 @@
 			path = PassformacUITests;
 			sourceTree = "<group>";
 		};
-		2A64FE2A242FF0EA00A8F636 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				2A710E0F243143B600DAA814 /* PassItem.swift */,
-				2A6D47972437DAB6000AB88A /* DirectoryUtils.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		2A6D47992437DE9B000AB88A /* Crypto */ = {
 			isa = PBXGroup;
 			children = (
 				2A52329B2437E10D002D6D37 /* OpenPGP.swift */,
 				2A5232A124391702002D6D37 /* PersistentKeyring.swift */,
-				2A43482E2444CFBC00E57B71 /* PassItemStorage.swift */,
 			);
 			path = Crypto;
 			sourceTree = "<group>";
@@ -473,7 +476,7 @@
 			files = (
 				2A64FDFE242FD4C200A8F636 /* ContentView.swift in Sources */,
 				2A52329C2437E10D002D6D37 /* OpenPGP.swift in Sources */,
-				2A6D47982437DAB6000AB88A /* DirectoryUtils.swift in Sources */,
+				2A6D47982437DAB6000AB88A /* PassDirectory.swift in Sources */,
 				2A64FDFC242FD4C200A8F636 /* AppDelegate.swift in Sources */,
 				2A5232A224391702002D6D37 /* PersistentKeyring.swift in Sources */,
 				2A43482D24436A7000E57B71 /* EditPassView.swift in Sources */,
@@ -482,6 +485,7 @@
 				2A43482F2444CFBC00E57B71 /* PassItemStorage.swift in Sources */,
 				2A6D47942437C5F3000AB88A /* OverviewView.swift in Sources */,
 				2A710E10243143B600DAA814 /* PassItem.swift in Sources */,
+				2A4348322445012400E57B71 /* LazyPassItem.swift in Sources */,
 				2A5232A02438F6F2002D6D37 /* PassphraseView.swift in Sources */,
 				2A6D47962437D993000AB88A /* DetailsView.swift in Sources */,
 			);

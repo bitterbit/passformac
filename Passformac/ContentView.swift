@@ -32,7 +32,7 @@ struct ViewController {
     }
     
     func setRootDir(rootDir: URL){
-        passItems = DirectoryUtils().getPassItems(at: rootDir)
+        passItems = PassItemStorage().getPassItems(fromURL: rootDir)
     }
     
     func showPage(page: Pages) {
