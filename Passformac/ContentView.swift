@@ -13,11 +13,13 @@ enum Pages: String {
     case passphrase = "page_passphrase"
     case overview = "page_overview"
     case detail = "page_details"
+    case new_pass = "page_new_pass"
+    case edit_pass = "page_edit_pass"
 }
 
 struct ViewController {
     @Binding var currentPage: Pages
-    @Binding var passItems: [PassItem]
+    @Binding var passItems: [LazyPassItem]
     @Binding var selectedPassItem: PassItem?
     
     func setPassphrase(passphrase: String){
@@ -46,7 +48,7 @@ struct ViewController {
 struct ContentView: View {
     @State var page = Pages.intro
     @State var selectedPassItem: PassItem?
-    @State var passItems: [PassItem] = [PassItem]()
+    @State var passItems: [LazyPassItem] = [LazyPassItem]()
    
     var body: some View {
         routerView.frame(width: 500, height: 500)
@@ -74,6 +76,8 @@ struct ContentView: View {
                 IntroView(controller: getViewController())
             } else if page == Pages.passphrase {
                 PassphraseView(controller: getViewController())
+            } else if page == Pages.new_pass {
+                EditPassView()
             }
         }
     }

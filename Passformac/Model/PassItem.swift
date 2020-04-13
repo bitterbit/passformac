@@ -17,26 +17,40 @@ struct PassExtra : Identifiable {
 struct PassItem : Identifiable {
     var id = UUID()
     var title: String
-    var path: URL
     var username: String?
     var password: String
     var extra: [PassExtra] = [PassExtra]()
     
-    init(title: String, path: URL) {
-        self.path = path
+    init(title: String) {
         self.title = title.replacingOccurrences(of: "_", with: " ")
             .trimmingCharacters(in: .whitespaces)
         self.password = ""
     }
+ 
     
-    mutating func load() {
-        let content = PGPFileReader.shared.openPassItem(item: self)
+    func serialize() -> String {
+        var content = ""
+        content += self.password
+        
+        if self.username != nil {
+            content += "Login: \(self.username!)"
+        }
+        
+        for extraItem in self.extra {
+            content += "\(extraItem.key): \(extraItem.value)"
+        }
+        
+        return content
+    }
+    
+    mutating func unserialize(content: String) {
         let lines = content.components(separatedBy: "\n")
         if lines.count <= 0 {
             return
         }
         
-        // We may not have a password at all, password doesnt have key:value format
+        // We may not have a password at all,
+        // password isn't of key:value format, and is always the first line
         if !lines[0].contains(":") {
             self.password = lines[0]
         }
@@ -56,9 +70,5 @@ struct PassItem : Identifiable {
             
             extra.append(PassExtra(key: key, value: value))
         }
-    }
-    
-    func isLoaded() -> Bool {
-        return false
     }
 }

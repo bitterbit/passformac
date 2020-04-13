@@ -20,7 +20,7 @@ struct IntroView : View {
     
     var body : some View {
         inner.onAppear() {
-            let url = self.restoreFolderAccess()
+            let url = DirectoryUtils.getSavedPassFolder()
             if url != nil {
                 self.controller.setRootDir(rootDir: url!)
                 // We have permission to pass folder, skip to next step
@@ -75,35 +75,6 @@ struct IntroView : View {
         }
     }
     
-    
-    private func restoreFolderAccess() -> URL? {
-        do {
-            var isStale = false
-
-            let bookmarkData = UserDefaults.standard.data(forKey: "workingDirectoryBookmark")
-            if bookmarkData == nil {
-                return nil
-            }
-            
-            let url = try URL(resolvingBookmarkData: bookmarkData!, options: .withSecurityScope, relativeTo: nil, bookmarkDataIsStale: &isStale)
-            if isStale {
-                // bookmarks could become stale as the OS changes
-                print("Bookmark is stale, need to save a new one... ")
-                return nil
-            }
-            
-            // check if we are granted permission
-            if !url.startAccessingSecurityScopedResource() {
-                return nil
-            }
-            
-            return url
-        } catch {
-            print("Error resolving bookmark:", error)
-            return nil
-        }
-    }
-    
     private func openPane() {
         let panel = NSOpenPanel()
         panel.showsHiddenFiles = true
@@ -114,7 +85,7 @@ struct IntroView : View {
             if result == .OK && panel.url != nil {
                 self.controller.setRootDir(rootDir: panel.url!)
                 self.nextStage()
-                DirectoryUtils.persistPermissionToFolder(for: panel.url!)
+                DirectoryUtils.persistPermissionToPassFolder(for: panel.url!)
             }
         }
     }

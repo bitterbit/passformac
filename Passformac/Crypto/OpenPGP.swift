@@ -37,14 +37,28 @@ class PGPFileReader {
         return false // un-successful
     }
     
-    func openPassItem(item: PassItem) -> String {
+    func loadRawPassItem(at: URL) -> String {
         let key = presistentKeyring.firstKey() // TODO support multiple keys (.gpg-id)
         if key == nil {
             return ""
         }
         
-        let rawPassItem = self.readFile(at: item.path, key: key!)
+        let rawPassItem = self.readFile(at: at, key: key!)
         return rawPassItem
+    }
+    
+    func savePassItem(item: PassItem, at: URL) -> Bool {
+        let key = presistentKeyring.firstKey()
+        if key == nil {
+            return false
+        }
+        
+        let data = item.serialize().data(using: .utf8)
+        if data == nil {
+            return false
+        }
+        
+        return self.writeFile(at: at, key: key!, data: data!)
     }
     
     func readFile(at: URL!, key: Key) -> String {
@@ -65,5 +79,17 @@ class PGPFileReader {
             print("error while reading encrypted file. error: \(error)")
             return ""
         }
+    }
+    
+    func writeFile(at: URL!, key: Key, data: Data) -> Bool {
+        do {
+            let encrypted = try ObjectivePGP.encrypt(data, addSignature: true, using: [key])
+            try encrypted.write(to: at)
+        }
+        catch {
+            print("error while writing encrypted file. error: \(error)")
+            return false
+        }
+        return true
     }
 }

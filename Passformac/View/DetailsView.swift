@@ -12,11 +12,7 @@ struct DetailsView: View {
     @State var details: PassItem
     
     var body: some View {
-        inner.onAppear() {
-            if !self.details.isLoaded(){
-                self.details.load()
-            }
-        }
+        inner
     }
     
     var inner: some View {

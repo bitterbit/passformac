@@ -17,9 +17,6 @@
   - [X] improve security from guests using the computer
     - [X] auto forget passphrase when in background
 - [ ] Version 0.2 Public Release
-  - [ ] import repo from github
-    - [ ] git support for clone
-    - [ ] find a way to import private key
   - [ ] implement init repo from scratch 
   - [ ] edit support
     - [ ] encrypt with pgp+private key
@@ -28,7 +25,12 @@
   - [ ] design
     - [ ] icon
     - [ ] screenshots in github page
+  - [ ] import repo from github
+    - [ ] git support for clone
+    - [ ] find a way to import private key
   - [ ] support fingerprint instead of passphrase
   - [ ] decrease time-to-password 
     - [ ] auto select passphrase password-field
     - [ ] auto select search filed
+    - [ ] keyboard shortcuts
+      - [ ] 

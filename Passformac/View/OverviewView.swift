@@ -11,22 +11,30 @@ import SwiftUI
 struct OverviewView: View {
     var controller: ViewController
     
-    @Binding var passItems: [PassItem]                          // password items
+    @Binding var passItems: [LazyPassItem]                          // password items
     @State private var search: String = ""                      // filter search term
     @State private var directory: URL?                          // directory that holds the passwords
     
     var body: some View {
         VStack {
-            TextField("search here", text: $search) {
-                let candidates = self.passItems.filter{ passItem in
-                    self.search.isEmpty ? true : passItem.title.localizedStandardContains(self.search)
-                }.sorted(by: {$0.title < $1.title })
-                
-                if candidates.count > 0 {
-                    self.controller.selectPassItem(item: candidates[0])
-                    self.controller.showPage(page: Pages.detail)
+            HStack {
+                TextField("search here", text: $search) {
+                    let candidates = self.passItems.filter{ passItem in
+                        self.search.isEmpty ? true : passItem.title.localizedStandardContains(self.search)
+                    }.sorted(by: {$0.title < $1.title })
+                    
+                    if candidates.count > 0 {
+                        let lazyPassItem = candidates[0]
+                        self.controller.selectPassItem(item: lazyPassItem.get())
+                        self.controller.showPage(page: Pages.detail)
+                    }
                 }
-            }
+                Button(action: {
+                    self.controller.showPage(page: Pages.new_pass)
+                }) {
+                    Text("+").bold()
+                }
+            }.padding(EdgeInsets(top: 10, leading: 10, bottom: 0, trailing: 10))
             PassList(
                 controller: controller,
                 passItems: passItems,
