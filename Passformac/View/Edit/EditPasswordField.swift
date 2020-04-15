@@ -16,9 +16,9 @@ struct EditPasswordView : View {
     
     var body : some View {
         Group {
-            LabelTextView(label: "Password", value: $password)
+            LabelTextView(label: "Password", value: $password, secure: true)
             HStack {
-                Slider(value: $generatePassLength, in: 0 ... 10, step: 1) { startEvent in
+                Slider(value: $generatePassLength, in: 0 ... 7, step: 1) { startEvent in
                     if !startEvent {
                         self.generatePassword()
                     }
