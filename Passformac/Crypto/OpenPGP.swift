@@ -54,7 +54,7 @@ class PGPFileReader {
     }
     
     func savePassItem(item: PassItem, at: URL) -> Bool {
-        let key = presistentKeyring.firstPrivateKey()
+        let key = presistentKeyring.firstPublicKey()
         if key == nil {
             return false
         }
@@ -89,7 +89,7 @@ class PGPFileReader {
     
     func writeFile(at: URL!, key: Key, data: Data) -> Bool {
         do {
-            let encrypted = try ObjectivePGP.encrypt(data, addSignature: true, using: [key])
+            let encrypted = try ObjectivePGP.encrypt(data, addSignature: false, using: [key])
             try encrypted.write(to: at)
         }
         catch {

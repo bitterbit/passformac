@@ -64,7 +64,7 @@ struct EditPassView : View {
             return false
         }
         
-        let path = dir!.appendingPathComponent(self.title)
+        let path = dir!.appendingPathComponent("\(self.title).pgp")
         var passItem = PassItem(title: self.title)
         passItem.username = self.login
         passItem.password = self.password

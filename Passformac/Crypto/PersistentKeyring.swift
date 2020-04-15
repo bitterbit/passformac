@@ -43,6 +43,13 @@ class PersistentKeyring {
         return keys(privateKeys: true, publicKeys: false)[0]
     }
     
+    func firstPublicKey() -> Key? {
+        if !self.hasPublicKey() {
+            return nil
+        }
+        return keys(privateKeys: false, publicKeys: true)[0]
+    }
+    
     func keys(privateKeys: Bool = true, publicKeys: Bool = true) -> [Key] {
         var keys = [Key]()
         for key in keyring.keys {
