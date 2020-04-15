@@ -21,12 +21,13 @@
   - [ ] edit support
     - [X] basic edit UI
     - [X] edit UI with extras support
-    - [ ] edit UI with website icon support
-    - [ ] generate password
+    - [X] edit UI with website icon support
+    - [X] generate password
     - [X] update list on new pass item
     - [X] encrypt with pgp+public key
     - [X] import public+private key in intro UI wise
     - [X] distinguish between private and public in keyring
+    - [ ] use new pass item UI for edit item
     - [ ] git push
   - [ ] design
     - [ ] icon
