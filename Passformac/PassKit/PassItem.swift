@@ -21,6 +21,8 @@ struct PassItem : Identifiable {
     var password: String
     var extra: [PassExtra] = [PassExtra]()
     
+    let COMMA = ":"
+    
     init(title: String) {
         self.title = title.replacingOccurrences(of: "_", with: " ")
             .trimmingCharacters(in: .whitespaces)
@@ -55,13 +57,14 @@ struct PassItem : Identifiable {
         }
         
         for line in lines[1...] {
-            let components = line.components(separatedBy: ":")
+            let components = line.components(separatedBy: COMMA)
+            
             if components.count <= 1 {
                 continue
             }
             
             let key = components[0]
-            let value = components[1]
+            let value = components[1...].joined(separator: COMMA)
             if key == "Login" {
                 self.username = value
                 continue
