@@ -20,7 +20,7 @@
   - [ ] implement init repo from scratch 
   - [ ] edit support
     - [X] basic edit UI
-    - [ ] edit UI with extras support
+    - [X] edit UI with extras support
     - [ ] edit UI with website icon support
     - [ ] generate password
     - [X] update list on new pass item

@@ -23,12 +23,13 @@ struct EditPassView : View {
     var body: some View {
         VStack {
             HStack {
-                Button(action: { self.controller.showPage(page: Pages.overview) }) { Text("Back") }
+                
+                Button(action: { self.closeView() }) { Text("Cancel") }
                 Spacer()
-                Button(action: { self.controller.showPage(page: Pages.overview) }) { Text("Cancel") }
                 Button(action: {
                     let ok = self.save()
                     self.showAlert = !ok
+                    if ok { self.closeView() }
                 }) { Text("Save") }.alert(isPresented: self.$showAlert) {
                     Alert(title: Text("Error"), message: Text("Error while saving"), dismissButton: .default(Text("ok")))
                 }
@@ -46,6 +47,10 @@ struct EditPassView : View {
             Spacer()
         }.padding(15)
         
+    }
+    
+    private func closeView() {
+        self.controller.showPage(page: Pages.overview)
     }
     
     private func save() -> Bool {
