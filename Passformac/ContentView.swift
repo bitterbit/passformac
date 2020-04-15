@@ -17,10 +17,28 @@ enum Pages: String {
     case edit_pass = "page_edit_pass"
 }
 
-struct ViewController {
-    @Binding var currentPage: Pages
-    @Binding var passItems: [LazyPassItem]
-    @Binding var selectedPassItem: PassItem?
+class ViewController {
+    private var rootDir: URL?
+    var currentPage: Binding<Pages>
+    var passItems: Binding<[LazyPassItem]>
+    var selectedPassItem: Binding<PassItem?>
+    
+    private static var instance: ViewController?
+    
+    static func get(currentPage: Binding<Pages>, passItems: Binding<[LazyPassItem]>, selectedPassItem: Binding<PassItem?>) -> ViewController {
+        if instance == nil {
+            instance = ViewController(currentPage: currentPage,
+                                      passItems: passItems,
+                                      selectedPassItem: selectedPassItem)
+        }
+        return instance!
+    }
+    
+    private init(currentPage: Binding<Pages>, passItems: Binding<[LazyPassItem]>, selectedPassItem: Binding<PassItem?>) {
+        self.currentPage = currentPage
+        self.passItems = passItems
+        self.selectedPassItem = selectedPassItem
+    }
     
     func setPassphrase(passphrase: String){
         PGPFileReader.shared.set(passphrase: passphrase)
@@ -28,21 +46,28 @@ struct ViewController {
     
     func clearPassphrase() {
         PGPFileReader.shared.set(passphrase: "")
-        if currentPage != Pages.intro {
+        if currentPage.wrappedValue != Pages.intro {
             self.showPage(page: Pages.passphrase)
         }
     }
     
     func setRootDir(rootDir: URL){
-        passItems = PassItemStorage().getPassItems(fromURL: rootDir)
+        self.rootDir = rootDir
+        refreshPassItems()
+    }
+    
+    func refreshPassItems() {
+        if rootDir != nil {
+            passItems.wrappedValue = PassItemStorage().getPassItems(fromURL: rootDir)
+        }
     }
     
     func showPage(page: Pages) {
-        currentPage = page
+        currentPage.wrappedValue = page
     }
     
     func selectPassItem(item: PassItem) {
-        selectedPassItem = item
+        selectedPassItem.wrappedValue = item
     }
 }
 
@@ -85,7 +110,7 @@ struct ContentView: View {
     }
     
     func getViewController() -> ViewController {
-        return  ViewController(
+        return ViewController.get(
             currentPage: $page,
             passItems: $passItems,
             selectedPassItem: $selectedPassItem)

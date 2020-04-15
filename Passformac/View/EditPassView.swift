@@ -8,12 +8,6 @@
 
 import SwiftUI
 
-// TODO
-// 1. generate password
-// 2. save to disk with encryption
-// 3. implement go back / cancel
-
-
 struct EditPassView : View {
     
     @State var title: String = ""
@@ -97,7 +91,7 @@ struct EditPassView_Previews: PreviewProvider {
     }
     
     static private func getViewController() -> ViewController {
-        return  ViewController(
+        return ViewController.get(
             currentPage: .constant(Pages.edit_pass),
             passItems: .constant([LazyPassItem]()),
             selectedPassItem: .constant(nil))

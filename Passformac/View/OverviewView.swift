@@ -35,10 +35,14 @@ struct OverviewView: View {
                     Text("+").bold()
                 }
             }.padding(EdgeInsets(top: 10, leading: 10, bottom: 0, trailing: 10))
+            
             PassList(
                 controller: controller,
                 passItems: passItems,
                 searchTerm: self.$search)
+            .onAppear() {
+                self.controller.refreshPassItems()
+            }
         }
     }
 }

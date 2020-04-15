@@ -22,12 +22,12 @@
     - [X] basic edit UI
     - [ ] edit UI with extras support
     - [ ] edit UI with website icon support
-    - [ ] update list on new pass item
+    - [ ] generate password
+    - [X] update list on new pass item
     - [X] encrypt with pgp+public key
     - [X] import public+private key in intro UI wise
     - [X] distinguish between private and public in keyring
     - [ ] git push
-    - [ ] generate password
   - [ ] design
     - [ ] icon
     - [ ] screenshots in github page
