@@ -17,12 +17,16 @@ struct LabelTextView : View {
     
     @State var hide: Bool = true
     
+    let monofont = Font.system(size: 12, weight: .regular, design: .monospaced)
+    
     var body: some View {
         Form {
             Text(label.uppercased()).font(.system(size: 10))
             HStack {
                 if hide {
                     SecureField(placeHolder, text: self.$value)
+                } else if secure {
+                    TextField(placeHolder, text: self.$value).font(monofont)
                 } else {
                     TextField(placeHolder, text: self.$value)
                 }
@@ -35,12 +39,8 @@ struct LabelTextView : View {
         }
         .padding(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
         .onAppear() {
-            self.hide = self.secure
+            if self.hide != self.secure { self.hide = self.secure }
         }
         
     }
-    
-    
-    
-    
 }
