@@ -37,15 +37,11 @@ struct EditPassView : View {
             Form {
                 LabelTextView(label: "Name", value: $title)
                 LabelTextView(label: "Login", value: $login)
-                LabelTextView(label: "Password", value: $password)
-                
-                Slider(value: .constant(0), in: 0 ... 100)
-                
-                Text("EXTRA").font(.caption)
-                    .fontWeight(.bold)
-                    .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
-                
+                EditPasswordView(password: $password)
+                LabelSeperatorView(label: "Extra")
                 LabelTextView(label: "Website", placeHolder: "http://", value: $website)
+                EditPassExtrasView(extras: $extra)
+                Button(action: {self.extra.append(PassExtra(key: "", value: "")) }) { Text("Add")}
             }
             Spacer()
         }.padding(15)
@@ -68,26 +64,22 @@ struct EditPassView : View {
     }
 }
 
-struct LabelTextView : View {
-    var label: String
-    var placeHolder: String = ""
-    @Binding var value: String
-    
-    
-    var body: some View {
-        Form {
-            Text(label.uppercased()).font(.system(size: 10))
-            TextField(placeHolder, text: self.$value)
-        }.padding(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
-    }
-}
+
 
 #if DEBUG
 struct EditPassView_Previews: PreviewProvider {
    
     
     static var previews: some View {
-        EditPassView(controller: getViewController())
+        EditPassView(
+            login: "username@gmail.com",
+            password: "Password1",
+            extra: [
+                PassExtra(key: "Extra #1", value: "extravalue"),
+                PassExtra(key: "Extra #2", value: "otherextravalue")
+            ],
+            controller: getViewController()
+        )
     }
     
     static private func getViewController() -> ViewController {
