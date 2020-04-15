@@ -59,6 +59,10 @@ struct EditPassView : View {
         var passItem = PassItem(title: self.title)
         passItem.username = self.login
         passItem.password = self.password
+        passItem.extra = self.extra
+        if !self.website.isEmpty {
+            passItem.extra.append(PassExtra(key: "website", value: website))
+        }
         
         return PassItemStorage().savePassItem(atURL: path, item: passItem)
     }
