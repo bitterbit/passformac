@@ -21,6 +21,14 @@ class PGPFileReader {
         self.passphrase = passphrase
     }
     
+    func hasPublicKey() -> Bool {
+        return presistentKeyring.hasPublicKey()
+    }
+    
+    func hasPrivateKey() -> Bool {
+        return presistentKeyring.hasPrivateKey()
+    }
+    
     func importKey(at url: URL) -> Bool {
         do {
             // Note: for some reason reading from full path string doesnt work but reading from url works
@@ -36,7 +44,7 @@ class PGPFileReader {
     }
     
     func loadRawPassItem(at: URL) -> String {
-        let key = presistentKeyring.firstKey() // TODO support multiple keys (.gpg-id)
+        let key = presistentKeyring.firstPrivateKey() // TODO support multiple keys (.gpg-id)
         if key == nil {
             return ""
         }
@@ -46,7 +54,7 @@ class PGPFileReader {
     }
     
     func savePassItem(item: PassItem, at: URL) -> Bool {
-        let key = presistentKeyring.firstKey()
+        let key = presistentKeyring.firstPrivateKey()
         if key == nil {
             return false
         }

@@ -13,24 +13,49 @@ import KeychainSwift
 class PersistentKeyring {
     private let keyring = Keyring()
     private let keychain = KeychainSwift()
+    
+    private let saveToKeychain: Bool
 
     let ACCESS_GROUP = "Passformac"
     let KEYCHAIN_GPG_KEY = "pgp_key"
     
-    init() {
+    init(loadFromKeychain: Bool = true, saveToKeychain: Bool = true) {
         keychain.accessGroup = ACCESS_GROUP
-        self.loadFromDisk()
-    }
-    
-    func firstKey() -> Key? {
-        if self.count() > 0 {
-            return self.keys()[0]
+        self.saveToKeychain = saveToKeychain
+        
+        if loadFromKeychain {
+            self.loadFromKeychain()
+            print("loadded \(self.count()) keys from keychain")
         }
-        return nil
     }
     
-    func keys() -> [Key] {
-        return self.keyring.keys
+    func hasPublicKey() -> Bool {
+        return self.keys(privateKeys: false, publicKeys: true).count > 0
+    }
+    
+    func hasPrivateKey() -> Bool {
+        return self.keys(privateKeys: true, publicKeys: false).count > 0
+    }
+    
+    func firstPrivateKey() -> Key? {
+        if !self.hasPrivateKey() {
+            return nil
+        }
+        return keys(privateKeys: true, publicKeys: false)[0]
+    }
+    
+    func keys(privateKeys: Bool = true, publicKeys: Bool = true) -> [Key] {
+        var keys = [Key]()
+        for key in keyring.keys {
+            if publicKeys && key.isPublic {
+                keys.append(key)
+            }
+            if privateKeys && key.isSecret {
+                keys.append(key)
+            }
+        }
+        
+        return keys
     }
     
     func isEmpty() -> Bool {
@@ -57,6 +82,10 @@ class PersistentKeyring {
     }
     
     func persist() {
+        if !self.saveToKeychain {
+            return
+        }
+        
         do {
             let data = try keyring.export()
             keychain.set(data, forKey: KEYCHAIN_GPG_KEY)
@@ -65,7 +94,7 @@ class PersistentKeyring {
         }
     }
     
-    private func loadFromDisk() {
+    private func loadFromKeychain() {
         do {
             let keyBlob = keychain.getData(KEYCHAIN_GPG_KEY)
             if keyBlob == nil { return }
