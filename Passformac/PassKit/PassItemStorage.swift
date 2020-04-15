@@ -11,7 +11,8 @@ import Foundation
 
 class PassItemStorage {
     func loadPassItem(fromURL: URL) -> PassItem {
-        var passItem = PassItem(title: fromURL.lastPathComponent)
+        let title = fromURL.deletingPathExtension().lastPathComponent
+        var passItem = PassItem(title: title)
         passItem.unserialize(content: PGPFileReader.shared.loadRawPassItem(at: fromURL))
         return passItem
     }

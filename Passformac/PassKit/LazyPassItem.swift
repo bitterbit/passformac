@@ -16,7 +16,7 @@ class LazyPassItem : Identifiable {
     
     init(url: URL, title: String) {
         self.url = url
-        self.title = title
+        self.title = title.replacingOccurrences(of: "_", with: " ").trimmingCharacters(in: .whitespaces)
     }
     
     private var instance: PassItem? = nil
