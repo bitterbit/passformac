@@ -22,9 +22,9 @@
     - [X] basic edit UI
     - [ ] edit UI with extras support
     - [ ] edit UI with website icon support
-    - [ ] encrypt with pgp+public key
-    - [ ] import public+private key in intro UI wise
-    - [ ] distinguish between private and public in keyring
+    - [X] encrypt with pgp+public key
+    - [X] import public+private key in intro UI wise
+    - [X] distinguish between private and public in keyring
     - [ ] git push
     - [ ] generate password
   - [ ] design
