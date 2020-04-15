@@ -31,6 +31,7 @@
 		2AB524CF2447523700E53DE3 /* EditPasswordField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB524CE2447523700E53DE3 /* EditPasswordField.swift */; };
 		2AB524D12447533000E53DE3 /* LabelSeperatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB524D02447533000E53DE3 /* LabelSeperatorView.swift */; };
 		2AB524D3244753CE00E53DE3 /* EditPassExtrasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB524D2244753CE00E53DE3 /* EditPassExtrasView.swift */; };
+		2AB524D52447643400E53DE3 /* PasswordGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB524D42447643400E53DE3 /* PasswordGenerator.swift */; };
 		579AD20E5917C2127C5F08B1 /* Pods_Passformac_PassformacUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 403005B20AF90879D385AD86 /* Pods_Passformac_PassformacUITests.framework */; };
 		C2E096D340C3D58A5FFDC2A5 /* Pods_Passformac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3C175AE1DBA67085956F3D2 /* Pods_Passformac.framework */; };
 		DD70A02A6E6B5CBF884DD454 /* Pods_PassformacTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C46406BA7A00FFBE67D621B /* Pods_PassformacTests.framework */; };
@@ -86,6 +87,7 @@
 		2AB524CE2447523700E53DE3 /* EditPasswordField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordField.swift; sourceTree = "<group>"; };
 		2AB524D02447533000E53DE3 /* LabelSeperatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelSeperatorView.swift; sourceTree = "<group>"; };
 		2AB524D2244753CE00E53DE3 /* EditPassExtrasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPassExtrasView.swift; sourceTree = "<group>"; };
+		2AB524D42447643400E53DE3 /* PasswordGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordGenerator.swift; sourceTree = "<group>"; };
 		3C46406BA7A00FFBE67D621B /* Pods_PassformacTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PassformacTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		403005B20AF90879D385AD86 /* Pods_Passformac_PassformacUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Passformac_PassformacUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		57BA139E7015915CE837DE57 /* Pods-Passformac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Passformac.debug.xcconfig"; path = "Target Support Files/Pods-Passformac/Pods-Passformac.debug.xcconfig"; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				2A710E0F243143B600DAA814 /* PassItem.swift */,
 				2A43482E2444CFBC00E57B71 /* PassItemStorage.swift */,
 				2A4348312445012400E57B71 /* LazyPassItem.swift */,
+				2AB524D42447643400E53DE3 /* PasswordGenerator.swift */,
 			);
 			path = PassKit;
 			sourceTree = "<group>";
@@ -505,6 +508,7 @@
 				2A6D47982437DAB6000AB88A /* PassDirectory.swift in Sources */,
 				2A64FDFC242FD4C200A8F636 /* AppDelegate.swift in Sources */,
 				2AB524CF2447523700E53DE3 /* EditPasswordField.swift in Sources */,
+				2AB524D52447643400E53DE3 /* PasswordGenerator.swift in Sources */,
 				2A5232A224391702002D6D37 /* PersistentKeyring.swift in Sources */,
 				2A43482D24436A7000E57B71 /* EditPassView.swift in Sources */,
 				2A710E0E2431436200DAA814 /* PassList.swift in Sources */,

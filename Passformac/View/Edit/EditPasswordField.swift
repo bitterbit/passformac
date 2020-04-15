@@ -12,10 +12,16 @@ struct EditPasswordView : View {
     @Binding var password: String
     @State var generatePassLength: Float = 0
     
+    var passwordGenerator = MemorablePasswordGenerator()
+    
     var body : some View {
         Group {
             LabelTextView(label: "Password", value: $password)
-            Slider(value: $generatePassLength, in: 0 ... 100)
+            Slider(value: $generatePassLength, in: 0 ... 100, step: 1) { startEvent in
+                if !startEvent {
+                    self.password = self.passwordGenerator.generate()
+                }
+            }
         }
     }
 }
