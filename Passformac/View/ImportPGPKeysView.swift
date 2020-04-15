@@ -7,22 +7,59 @@
 //
 
 import SwiftUI
+import AppKit
 
 
 struct ImportPGPKeysView: View {
+    
+    @State var hasPrivateKey: Bool = false
+    @State var hasPublicKey: Bool = false
     
     var onDone: ()->Void
     
     var body : some View {
         VStack {
             Text("Drag here your gpg key file").font(.subheadline)
-            ImportKeyIcon(action: { self.onDone() })
+            ImportKeyIcon(action: {
+                self.reloadState()
+            })
+            
+            CheckBox(label: "Private Key", isChecked: self.$hasPrivateKey)
+            CheckBox(label: "Public Key", isChecked: self.$hasPublicKey)
+            
             Button(action: { self.onDone() }){
                 Text("Skip")
             }
+
+        }.onAppear() {
+            self.reloadState()
         }
     }
     
+    func reloadState() {
+        self.hasPrivateKey = PGPFileReader.shared.hasPrivateKey()
+        self.hasPublicKey = PGPFileReader.shared.hasPublicKey()
+        if self.hasPrivateKey && self.hasPublicKey {
+            self.onDone()
+        }
+    }
+    
+}
+
+struct CheckBox: View {
+    let label: String
+    @Binding var isChecked: Bool
+    
+    var body: some View {
+        HStack {
+            if isChecked {
+                Image(nsImage: NSImage(named: NSImage.menuOnStateTemplateName)!)
+            } else {
+                Image(nsImage: NSImage(named: NSImage.menuMixedStateTemplateName)!)
+            }
+            Text(label)
+        }
+    }
 }
 
 
@@ -37,6 +74,7 @@ struct ImportKeyIcon: View, DropDelegate {
 
         itemProvider.loadItem(forTypeIdentifier: (kUTTypeFileURL as String), options: nil) {item, error in
             guard let data = item as? Data, let url = URL(dataRepresentation: data, relativeTo: nil) else { return }
+            
             if !PGPFileReader.shared.importKey(at: url) {
                 self.isShowingAlert = true
             }
@@ -58,7 +96,6 @@ struct ImportKeyIcon: View, DropDelegate {
                 // TODO: error details
                 Alert(title: Text("Error importing pgp file"), message: Text("Error details..."))
             }
-        
     }
 }
 

@@ -40,26 +40,16 @@ struct IntroView : View {
                 }
             }
             else if currentStage == Stage.givenRootDir {
-                setupPgpStage.onAppear(){
-                    let keyring = PersistentKeyring()
-                    if !keyring.isEmpty() {
-                         self.nextStage()
-                    }
+                ImportPGPKeysView(onDone: {
+                    self.nextStage()
+                }).onAppear() {
+                    print("on appear")
+//                  let keyring = PersistentKeyring()
+//                  if !keyring.isEmpty() {
+//                       self.nextStage()
+//                  }
                 }
             }
-        }
-    }
-    
-    var setupPgpStage : some View {
-        VStack {
-            Text("Drag here your gpg key file").font(.subheadline)
-            ImportKeyIcon(action: {
-                print("on imported!")
-                self.nextStage()
-            })
-            Button(action: {
-                self.nextStage()
-            }){ Text("Skip") }
         }
     }
     
