@@ -17,7 +17,7 @@ class PersistentKeyring {
     private let saveToKeychain: Bool
 
     let ACCESS_GROUP = "Passformac"
-    let KEYCHAIN_GPG_KEY = "pgp_key"
+    let KEYCHAIN_GPG_KEY = "passformac_pgp_keys"
     
     init(loadFromKeychain: Bool = true, saveToKeychain: Bool = true) {
         keychain.accessGroup = ACCESS_GROUP
@@ -25,7 +25,6 @@ class PersistentKeyring {
         
         if loadFromKeychain {
             self.loadFromKeychain()
-            print("loadded \(self.count()) keys from keychain")
         }
     }
     
