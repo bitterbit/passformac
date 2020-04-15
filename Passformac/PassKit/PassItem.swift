@@ -29,15 +29,14 @@ struct PassItem : Identifiable {
  
     
     func serialize() -> String {
-        var content = ""
-        content += self.password
+        var content = "\(self.password)\n"
         
         if self.username != nil {
-            content += "Login: \(self.username!)"
+            content += "Login: \(self.username!)\n"
         }
         
         for extraItem in self.extra {
-            content += "\(extraItem.key): \(extraItem.value)"
+            content += "\(extraItem.key): \(extraItem.value)\n"
         }
         
         return content
