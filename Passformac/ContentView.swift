@@ -69,6 +69,11 @@ class ViewController {
     func selectPassItem(item: PassItem) {
         selectedPassItem.wrappedValue = item
     }
+    
+    func editPassItem(item: PassItem) {
+        self.selectPassItem(item: item)
+        self.showPage(page: .edit_pass)
+    }
 }
 
 
@@ -86,25 +91,21 @@ struct ContentView: View {
     
     var routerView: some View {
         VStack {
-            if page == Pages.detail {
-                Button(action: { self.page = Pages.overview }) { Text("Back") }
-            }
-            
             if page == Pages.overview {
                 OverviewView(
                     controller: getViewController(),
                     passItems: $passItems
                 )
-            } else if page == Pages.detail {
-                if self.selectedPassItem != nil {
-                    DetailsView(details: self.selectedPassItem!)
-                }
-            } else if page == Pages.intro {
+            } else if page == .detail && selectedPassItem != nil  {
+                DetailsView(controller: getViewController(), details: selectedPassItem!)
+            } else if page == .intro {
                 IntroView(controller: getViewController())
-            } else if page == Pages.passphrase {
+            } else if page == .passphrase {
                 PassphraseView(controller: getViewController())
-            } else if page == Pages.new_pass {
+            } else if page == .new_pass {
                 EditPassView(controller: getViewController())
+            } else if page == .edit_pass && selectedPassItem != nil {
+                EditPassView.getViewForPassItem(selectedPassItem!, controller: getViewController())
             }
         }
     }

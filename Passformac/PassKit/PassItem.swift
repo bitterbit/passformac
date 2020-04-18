@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct PassExtra : Identifiable, Equatable {
+struct PassExtra : Identifiable, Equatable, Hashable {
     var id = UUID()
     var key: String
     var value: String

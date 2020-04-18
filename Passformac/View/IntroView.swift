@@ -42,13 +42,7 @@ struct IntroView : View {
             else if currentStage == Stage.givenRootDir {
                 ImportPGPKeysView(onDone: {
                     self.nextStage()
-                }).onAppear() {
-                    print("on appear")
-//                  let keyring = PersistentKeyring()
-//                  if !keyring.isEmpty() {
-//                       self.nextStage()
-//                  }
-                }
+                })
             }
         }
     }
@@ -80,5 +74,3 @@ struct IntroView : View {
         }
     }
 }
-
-

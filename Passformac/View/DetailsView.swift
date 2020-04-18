@@ -9,15 +9,24 @@
 import SwiftUI
 
 struct DetailsView: View {
-    @State var details: PassItem
+    
+    var controller: ViewController
+    
+    let details: PassItem
     
     var body: some View {
-        inner
+        inner.padding(EdgeInsets(top: 10, leading: 10, bottom: 0, trailing: 10))
     }
     
     var inner: some View {
         VStack {
-            Text(details.title).font(.headline).padding(20)
+            HStack {
+                Text(details.title).font(.headline)
+                Spacer()
+                Button(action: { self.controller.showPage(page: .overview)} ) { Text("Back")}
+                Button(action: { self.controller.editPassItem(item: self.details) }) { Text("Edit")}
+            }.padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+            
             if details.username != nil {
                 KeyValueView(key: "Login", value: details.username!)
             }
@@ -27,7 +36,11 @@ struct DetailsView: View {
                 KeyValueView(key: extra.key, value: extra.value)
             }
             Spacer()
-        }.padding(100)
+        }
+    }
+    
+    private func edit() {
+        
     }
 }
 

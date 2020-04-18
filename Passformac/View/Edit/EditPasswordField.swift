@@ -10,7 +10,7 @@ import SwiftUI
 
 struct EditPasswordView : View {
     @Binding var password: String
-    @State var generatePassLength: Float = 0
+    @State var generatePassLength: Float = 3
     
     var passwordGenerator = MemorablePasswordGenerator()
     
