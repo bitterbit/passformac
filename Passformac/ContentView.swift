@@ -46,7 +46,8 @@ class ViewController {
     
     func clearPassphrase() {
         PGPFileReader.shared.set(passphrase: "")
-        if currentPage.wrappedValue != Pages.intro {
+        let page = currentPage.wrappedValue
+        if page != .intro && page != .edit_pass && page != .new_pass {
             self.showPage(page: Pages.passphrase)
         }
     }

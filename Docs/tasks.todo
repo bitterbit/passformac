@@ -28,7 +28,7 @@
     - [X] import public+private key in intro UI wise
     - [X] distinguish between private and public in keyring
     - [X] use new pass item UI for edit item
-    - [ ] don't hide content on lose focus when in edit mode
+    - [X] don't hide content on lose focus when in edit mode
     - [ ] git push
   - [ ] design
     - [ ] icon
