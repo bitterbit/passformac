@@ -14,16 +14,19 @@ struct EditPassView : View {
     @State var login: String = ""
     @State var password: String = ""
     @State var website: String = ""
-    @State var extra: [PassExtra] = [PassExtra]()
     
-    @State var showAlert: Bool = false
     
+    
+    @State private var showAlert: Bool = false
+    
+    @State private var actualExtras : [Binding<PassExtra>] = [Binding<PassExtra>]()
+    
+    var extra: [PassExtra] = [PassExtra]()
     var controller: ViewController
     
     var body: some View {
         VStack {
             HStack {
-                
                 Button(action: { self.closeView() }) { Text("Cancel") }
                 Spacer()
                 Button(action: {
@@ -33,7 +36,6 @@ struct EditPassView : View {
                 }) { Text("Save") }.alert(isPresented: self.$showAlert) {
                     Alert(title: Text("Error"), message: Text("Error while saving"), dismissButton: .default(Text("ok")))
                 }
-                
             }
             Form {
                 LabelTextView(label: "Name", value: $title)
@@ -41,12 +43,14 @@ struct EditPassView : View {
                 EditPasswordView(password: $password)
                 LabelSeperatorView(label: "Extra")
                 LabelTextView(label: "Website", placeHolder: "http://", value: $website)
-                EditPassExtrasView(extras: $extra)
-                Button(action: {self.extra.append(PassExtra(key: "", value: "")) }) { Text("Add")}
+                EditPassExtrasView(extra: self.extra, onUpdate: { updatedExtra in
+                    print("on update")
+                    self.actualExtras = updatedExtra
+                })
+                
             }
             Spacer()
         }.padding(15)
-        
     }
     
     private func closeView() {
@@ -64,12 +68,31 @@ struct EditPassView : View {
         var passItem = PassItem(title: self.title)
         passItem.username = self.login
         passItem.password = self.password
-        passItem.extra = self.extra
+        passItem.extra = self.actualExtras.map { $0.wrappedValue }
         if !self.website.isEmpty {
             passItem.extra.append(PassExtra(key: "website", value: website))
         }
         
         return PassItemStorage().savePassItem(atURL: path, item: passItem)
+    }
+    
+    
+    static func getViewForPassItem(_ item: PassItem, controller: ViewController) -> EditPassView {
+        var extra = item.extra
+        var website = ""
+        let websites = extra.filter { $0.key.lowercased() == "website" }
+        if websites.count > 0 {
+            extra = extra.filter { $0 != websites[0] } // don't show website field twice
+            website = websites[0].value
+        }
+        
+        return EditPassView(title: item.title,
+                            login: item.username ?? "",
+                            password: item.password,
+                            website: website,
+                            extra: extra,
+                            controller: controller
+        )
     }
 }
 
@@ -81,6 +104,7 @@ struct EditPassView_Previews: PreviewProvider {
     
     static var previews: some View {
         EditPassView(
+            title: "Title",
             login: "username@gmail.com",
             password: "Password1",
             extra: [
