@@ -17,8 +17,7 @@
   - [X] improve security from guests using the computer
     - [X] auto forget passphrase when in background
 - [ ] Version 0.2 Public Release
-  - [ ] implement init repo from scratch 
-  - [ ] edit support
+  - [X] edit support
     - [X] basic edit UI
     - [X] edit UI with extras support
     - [X] edit UI with website icon support
@@ -29,14 +28,16 @@
     - [X] distinguish between private and public in keyring
     - [X] use new pass item UI for edit item
     - [X] don't hide content on lose focus when in edit mode
+  - [ ] fix not showing pass items in child-folders
+  - [ ] implement init repo from scratch 
+  - [ ] git support
     - [ ] git push
+    - [ ] import repo from github
   - [ ] design
     - [ ] icon
     - [ ] screenshots in github page
-  - [ ] import repo from github
-    - [ ] git support for clone
-    - [ ] find a way to import private key
   - [ ] decrease time-to-password 
+    - [ ] find a way to import private key
     - [ ] auto select passphrase password-field
     - [ ] auto select search filed
     - [ ] keyboard shortcuts
