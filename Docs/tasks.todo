@@ -27,7 +27,8 @@
     - [X] encrypt with pgp+public key
     - [X] import public+private key in intro UI wise
     - [X] distinguish between private and public in keyring
-    - [ ] use new pass item UI for edit item
+    - [X] use new pass item UI for edit item
+    - [ ] don't hide content on lose focus when in edit mode
     - [ ] git push
   - [ ] design
     - [ ] icon
@@ -35,9 +36,10 @@
   - [ ] import repo from github
     - [ ] git support for clone
     - [ ] find a way to import private key
-  - [ ] support fingerprint instead of passphrase
   - [ ] decrease time-to-password 
     - [ ] auto select passphrase password-field
     - [ ] auto select search filed
     - [ ] keyboard shortcuts
   - [X] fix init skipped straight to passphrase on window lose focus
+- [ ] Version 0.3
+  - [ ] support fingerprint instead of passphrase
