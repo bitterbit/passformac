@@ -28,7 +28,7 @@
     - [X] distinguish between private and public in keyring
     - [X] use new pass item UI for edit item
     - [X] don't hide content on lose focus when in edit mode
-  - [ ] fix not showing pass items in child-folders
+  - [X] fix not showing pass items in child-folders
   - [ ] implement init repo from scratch 
   - [ ] git support
     - [ ] git push

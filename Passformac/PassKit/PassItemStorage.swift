@@ -27,13 +27,41 @@ class PassItemStorage {
         let dir : URL = fromURL!
         do {
             let filemanager = FileManager.default
-            let files = try filemanager.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil, options: [])
-            for f in files {
-                let filename = String(f.lastPathComponent.split(separator: ".")[0])
-                items.append(LazyPassItem(url: f.absoluteURL, title: filename))
+            
+            guard let files = filemanager.enumerator(at: dir, includingPropertiesForKeys: [.isRegularFileKey], options: [.skipsHiddenFiles, .skipsPackageDescendants]) else { return [LazyPassItem]() }
+            
+            for case let f as URL in files {
+                let fileAttributes = try f.resourceValues(forKeys:[.isRegularFileKey])
+                let title = String(getItemTitleForURL(f, baseURL: dir).split(separator: ".")[0])
+                if  fileAttributes.isRegularFile! {
+                    items.append(LazyPassItem(
+                        url: f.absoluteURL,
+                        title: title)
+                    )
+                }
             }
         } catch { /* do nothing */ }
         
         return items
+    }
+    
+    
+    private func getItemTitleForURL(_ url:URL, baseURL: URL) -> String {
+        let baseComponents = baseURL.pathComponents
+        let urlComponents = url.pathComponents
+        
+        var lastMutualIndex = -1
+        
+        for i in 0..<min(urlComponents.count, baseComponents.count) {
+            if baseComponents[i] == urlComponents[i] {
+                lastMutualIndex = i
+            }
+        }
+        
+        if lastMutualIndex == -1 || lastMutualIndex+1 >= urlComponents.count {
+            return url.lastPathComponent
+        }
+        
+        return urlComponents.dropFirst(lastMutualIndex+1).joined(separator: "/")
     }
 }
