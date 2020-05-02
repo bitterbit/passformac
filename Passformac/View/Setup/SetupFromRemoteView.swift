@@ -46,7 +46,6 @@ struct SetupFromRemoteView: View {
     
     var body: some View {
         Form {
-            
             if stage == .askForLocations {
                 TextField("remote url", text: $remoteUrl)
                 HStack {
@@ -87,8 +86,6 @@ struct SetupFromRemoteView: View {
             
             return Alert(title: Text("Git Error"), message: Text("Could not clone repo \(msg)"), dismissButton: .default(Text("Dismiss")))
         }
-        .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
-    
     }
     
     private func nextStage() {

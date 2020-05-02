@@ -20,36 +20,64 @@ struct IntroView : View {
     var controller: ViewController
     
     @State var view = SetupViews.Default
+    @State var viewName : String?
     
     
     var body : some View {
-        VStack{
-            Text("Pass for Mac").font(.title)
-            
-            if view == .Default {
+        GeometryReader { (deviceSize: GeometryProxy) in
+            VStack {
                 HStack {
-                    btn("Select from disk", view: .SetupFromDisk)
-                    btn("Initialize new", view: .SetupFromScratch)
-                    btn("Fetchup from remote git", view: .SetupFromRemote)
+                    if self.view != .Default {
+                        Button(action: {
+                            self.view = .Default
+                            self.viewName = nil
+                        }) { Image(nsImage: NSImage(named: NSImage.goBackTemplateName)!) }
+                    } else {
+                        Spacer()
+                    }
+                    
+                    Text("Pass for Mac").font(.headline)
+                    
+                    if self.view != .Default {
+                        Text("/ \(self.viewName!)").font(.subheadline)
+                    }
+                    Spacer()
                 }
-            } else if view == .SetupFromDisk {
-                SetupFromDiskView(controller: controller, onDone: self.onDone)
-            } else if view == .SetupFromRemote {
-                SetupFromRemoteView(controller: controller, onDone: self.onDone)
-            } else if view == .SetupFromScratch {
-                SetupFromScratchView()
+                
+                Spacer()
+                
+                if self.view == .Default {
+                    HStack {
+                        self.btn("Create New", view: .SetupFromScratch)
+                        self.btn("Import from Disk", view: .SetupFromDisk)
+                        self.btn("Import from Git", view: .SetupFromRemote)
+                    }
+                } else if self.view == .SetupFromDisk {
+                    SetupFromDiskView(controller: self.controller, onDone: self.onDone)
+                } else if self.view == .SetupFromRemote {
+                    SetupFromRemoteView(controller: self.controller, onDone: self.onDone)
+                } else if self.view == .SetupFromScratch {
+                    SetupFromScratchView(controller: self.controller, onDone: self.onDone)
+                }
+                Spacer()
             }
+            .padding()
+            .frame(
+                width: deviceSize.size.width*0.7,
+                height: deviceSize.size.height*0.7
+            )
         }
     }
     
     private func btn(_ text: String, view: SetupViews) -> some View {
         Button(action: {
             self.view = view
+            self.viewName = text
+            
         }) { Text(text) }
     }
     
     private func onDone() {
         controller.showPage(page: .passphrase)
-        //controller.showPage(.)
     }
 }
