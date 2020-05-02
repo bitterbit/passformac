@@ -9,11 +9,24 @@
 import Foundation
 
 class Config {
-    // local folder
-    // remote url
-    // private and public key
     
     static var shared : Config = Config()
+    
+    public func needSetup() -> Bool {
+        if !isLocalFolderSet() {
+            return true
+        }
+        
+        if !PGPFileReader.shared.hasPrivateKey() {
+            return true
+        }
+        
+        if !PGPFileReader.shared.hasPublicKey() {
+            return true
+        }
+        
+        return false
+    }
     
     public func isLocalFolderSet() -> Bool {
         return getLocalFolder() != nil

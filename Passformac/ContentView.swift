@@ -86,9 +86,14 @@ struct ContentView: View {
    
     var body: some View {
         routerView.frame(width: 500, height: 500)
-            .onReceive(NotificationCenter.default.publisher(for: NSApplication.willResignActiveNotification)) { _ in
-                self.getViewController().clearPassphrase()
+        .onReceive(NotificationCenter.default.publisher(for: NSApplication.willResignActiveNotification)) { _ in
+            self.getViewController().clearPassphrase()
+        }
+        .onAppear() {
+            if !Config.shared.needSetup() && self.page == .intro {
+                self.page = .passphrase
             }
+        }
     }
     
     var routerView: some View {
