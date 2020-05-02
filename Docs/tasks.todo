@@ -31,7 +31,8 @@
   - [X] fix not showing pass items in child-folders
   - [X] implement init repo from scratch 
   - [ ] git support
-    - [ ] git push
+    - [ ] commit on each update
+    - [ ] git push when refresh pressed
     - [X] import repo from github
   - [ ] design
     - [ ] icon
