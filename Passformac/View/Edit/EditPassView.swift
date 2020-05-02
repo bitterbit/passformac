@@ -23,6 +23,7 @@ struct EditPassView : View {
     
     var extra: [PassExtra] = [PassExtra]()
     var controller: ViewController
+    // var passItemStorage: PassItemStorage
     
     var body: some View {
         VStack {
@@ -58,14 +59,14 @@ struct EditPassView : View {
     }
     
     private func save() -> Bool {
-        let dir = PassDirectory.getSavedPassFolder()
+        let dir = PassDirectory.shared.getSavedPassFolder()
         if dir == nil || title == "" {
             return false
         }
         
         let filename = self.title.replacingOccurrences(of:" " , with: "_") + ".pgp"
-        let path = dir!.appendingPathComponent(filename)
-        var passItem = PassItem(title: self.title)
+        let url = dir!.appendingPathComponent(filename)
+        var passItem = PassItem(title: title)
         passItem.username = self.login
         passItem.password = self.password
         passItem.extra = self.actualExtras.map { $0.wrappedValue }
@@ -73,7 +74,7 @@ struct EditPassView : View {
             passItem.extra.append(PassExtra(key: "website", value: website))
         }
         
-        return PassItemStorage().savePassItem(atURL: path, item: passItem)
+        return controller.passItemStorage!.savePassItem(atURL: url, item: passItem)
     }
     
     

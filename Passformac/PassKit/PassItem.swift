@@ -28,7 +28,6 @@ struct PassItem : Identifiable {
             .trimmingCharacters(in: .whitespaces)
         self.password = ""
     }
- 
     
     func serialize() -> String {
         var content = "\(self.password)\n"

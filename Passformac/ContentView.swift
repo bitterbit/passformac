@@ -19,9 +19,11 @@ enum Pages: String {
 
 class ViewController {
     private var rootDir: URL?
+    var passItemStorage: PassItemStorage?
     var currentPage: Binding<Pages>
     var passItems: Binding<[LazyPassItem]>
     var selectedPassItem: Binding<PassItem?>
+    
     
     private static var instance: ViewController?
     
@@ -60,7 +62,8 @@ class ViewController {
     func refreshPassItems() {
         rootDir = Config.shared.getLocalFolder()
         if rootDir != nil {
-            passItems.wrappedValue = PassItemStorage().getPassItems(fromURL: rootDir)
+            passItemStorage = PassItemStorage(rootDir!)
+            passItems.wrappedValue = passItemStorage!.getPassItems(fromURL: rootDir)
         }
     }
     

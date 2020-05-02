@@ -12,18 +12,21 @@ import Foundation
 class LazyPassItem : Identifiable {
     var url: URL
     var title: String
-    var id = UUID()
     
-    init(url: URL, title: String) {
+    var id = UUID()
+    private var passItemStorage: PassItemStorage
+    
+    init(url: URL, title: String, passItemStorage: PassItemStorage) {
         self.url = url
         self.title = title.replacingOccurrences(of: "_", with: " ").trimmingCharacters(in: .whitespaces)
+        self.passItemStorage = passItemStorage
     }
     
     private var instance: PassItem? = nil
     
     func get() -> PassItem {
         if instance == nil {
-            instance = PassItemStorage().loadPassItem(fromURL: url)
+            instance = passItemStorage.loadPassItem(fromURL: url)
         }
         return instance!
     }

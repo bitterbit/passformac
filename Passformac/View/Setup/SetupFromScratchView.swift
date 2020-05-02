@@ -80,7 +80,7 @@ struct SetupFromScratchView : View {
     }
     
     private func selectFolder() {
-        PassDirectory.choosePassFolder({ dir in
+        PassDirectory.shared.chooseFolder({ dir in
             if dir == nil {
                 return
             }
@@ -99,7 +99,8 @@ struct SetupFromScratchView : View {
         nextStage()
         
         do {
-            try PassGitFolder.initFromScratch(folder)
+            try GitRepoCreator.initFromScratch(folder)
+            try PassDirectory.shared.loadExistingPassFolder(folder)
             nextStage()
         } catch {
             errmsg = error.localizedDescription

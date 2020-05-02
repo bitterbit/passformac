@@ -10,20 +10,16 @@ import Foundation
 import ObjectiveGit
 
 
-class PassGitFolder {
-    // push updates
-    // pull updates
-    // init from scratch
-    
+class GitRepoCreator {
     static func initFromAsync(remote: URL, toLocal: URL, onNeedCreds: @escaping () -> (String?, String?), onDone: @escaping (_ isOk: Bool, Error?) -> ()) {
         let queue = DispatchQueue.init(label: "GIT_THREAD")
         queue.async {
-            let (repo, err) = initFrom(remote: remote, toLocal: toLocal, onNeedCreds: onNeedCreds)
-            onDone(repo != nil, err)
+            let (err) = initFrom(remote: remote, toLocal: toLocal, onNeedCreds: onNeedCreds)
+            onDone(err == nil, err)
         }
     }
 
-    static func initFrom(remote: URL, toLocal: URL, onNeedCreds: @escaping () -> (String?, String?)) -> (GTRepository?, Error?) {
+    static func initFrom(remote: URL, toLocal: URL, onNeedCreds: @escaping () -> (String?, String?)) -> (Error?) {
         let onCredsNeededAdapter = { (type: GTCredentialType, url: String, username: String) -> GTCredential? in
             do {
                 if type != .userPassPlaintext {
@@ -49,16 +45,21 @@ class PassGitFolder {
         ]
         
         do {
-            let repo = try GTRepository.clone(from: remote, toWorkingDirectory: toLocal, options: options)
-            return (repo, nil)
+            _ = try GTRepository.clone(from: remote, toWorkingDirectory: toLocal, options: options)
+            return (nil)
         }
         catch {
             print("error while cloning remote repo: \(error)")
-            return (nil, error)
+            return (error)
         }
     }
     
     static func initFromScratch(_ url: URL) throws {
         _ = try GTRepository.initializeEmpty(atFileURL: url)
     }
+    
+    static func initFromLocalFolder(_ localUrl: URL) throws  {
+        _ = try GTRepository.init(url: localUrl)
+    }
+    
 }

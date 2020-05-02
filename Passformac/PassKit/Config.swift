@@ -33,6 +33,6 @@ class Config {
     }
     
     public func getLocalFolder() -> URL? {
-        return PassDirectory.getSavedPassFolder()
+        return PassDirectory.shared.getSavedPassFolder()
     }
 }

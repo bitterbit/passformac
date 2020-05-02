@@ -10,7 +10,32 @@ import Foundation
 import AppKit
 
 class PassDirectory {
-    static func choosePassFolder(_ onDone: @escaping (URL?) -> Void) {
+    static var shared: PassDirectory = PassDirectory()
+    
+    func loadExistingPassFolder(_ url: URL) throws {
+//        self.git = try PassGitFolder.initFromLocalFolder(url)
+    }
+    
+    func choosePassFolder(_ onDone: @escaping (URL?) -> Void) {
+        chooseFolder() { url in
+            if url == nil {
+                onDone(nil)
+                return
+            }
+            
+            do { try self.loadExistingPassFolder(url!) }
+            catch {
+                print("error in init git \(error)")
+                onDone(nil)
+                return
+            }
+            // We are all good here, no need to catch
+            self.persistPermissionToPassFolder(url!)
+            onDone(url)
+        }
+    }
+    
+    func chooseFolder(_ onDone: @escaping (URL?) -> Void) {
         let panel = NSOpenPanel()
         panel.showsHiddenFiles = true
         panel.canChooseFiles = false
@@ -18,7 +43,6 @@ class PassDirectory {
         
         panel.begin { (result) in
             if result == .OK && panel.url != nil {
-                PassDirectory.persistPermissionToPassFolder(for: panel.url!)
                 onDone(panel.url)
             } else {
                 onDone(nil)
@@ -26,7 +50,7 @@ class PassDirectory {
         }
     }
     
-    static func persistPermissionToPassFolder(for workdir: URL){
+    private func persistPermissionToPassFolder(_ workdir: URL){
         do {
             let bookmarkData = try workdir.bookmarkData(options: .withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
             UserDefaults.standard.set(bookmarkData, forKey: "workingDirectoryBookmark") // save in UserDefaults
@@ -35,7 +59,7 @@ class PassDirectory {
         }
     }
     
-    static func getSavedPassFolder() -> URL? {
+    func getSavedPassFolder() -> URL? {
         do {
             var isStale = false
             let bookmarkData = UserDefaults.standard.data(forKey: "workingDirectoryBookmark")

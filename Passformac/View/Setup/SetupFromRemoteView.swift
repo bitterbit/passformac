@@ -98,7 +98,7 @@ struct SetupFromRemoteView: View {
     }
     
     private func selectFolder() {
-        PassDirectory.choosePassFolder({ dir in
+        PassDirectory.shared.choosePassFolder({ dir in
             if dir == nil {
                 return
             }
@@ -148,7 +148,7 @@ struct SetupFromRemoteView: View {
             
         }
         
-        PassGitFolder.initFromAsync(remote: remote, toLocal: local, onNeedCreds: handleNeedLogin, onDone: handleDone)
+        GitRepoCreator.initFromAsync(remote: remote, toLocal: local, onNeedCreds: handleNeedLogin, onDone: handleDone)
     }
     
     private func validateRemoteUrl(_ url: URL) -> Bool {
