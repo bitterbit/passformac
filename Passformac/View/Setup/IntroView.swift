@@ -29,8 +29,10 @@ struct IntroView : View {
                 HStack {
                     if self.view != .Default {
                         Button(action: {
-                            self.view = .Default
-                            self.viewName = nil
+                            withAnimation {
+                                self.view = .Default
+                                self.viewName = nil
+                            }
                         }) { Image(nsImage: NSImage(named: NSImage.goBackTemplateName)!) }
                     } else {
                         Spacer()
@@ -71,9 +73,10 @@ struct IntroView : View {
     
     private func btn(_ text: String, view: SetupViews) -> some View {
         Button(action: {
-            self.view = view
-            self.viewName = text
-            
+            withAnimation {
+                self.view = view
+                self.viewName = text
+            }
         }) { Text(text) }
     }
     
