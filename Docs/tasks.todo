@@ -31,7 +31,7 @@
   - [X] fix not showing pass items in child-folders
   - [X] implement init repo from scratch 
   - [ ] git support
-    - [ ] commit on each update
+    - [X] commit on each update
     - [ ] git push when refresh pressed
     - [X] import repo from github
   - [ ] design
@@ -43,8 +43,11 @@
     - [ ] auto select search filed
     - [ ] keyboard shortcuts
   - [X] fix init skipped straight to passphrase on window lose focus
-- [ ] Prefrences 
-  - [ ] Allow viewing current state
-  - [ ] Allow editing current state
+  - [ ] Prefrences 
+    - [ ] Allow viewing current state
+    - [ ] Allow editing current state
+  - [ ] Fixes
+    - [ ] check if passphrase is correct
+    - [ ] when editing an item with extras, extras dissapear after saving
 - [ ] Version 0.3
   - [ ] support fingerprint instead of passphrase
