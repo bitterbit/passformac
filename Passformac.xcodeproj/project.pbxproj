@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A0E2C89245B783700EA0BC6 /* ObjectiveGit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0E2C85245B766D00EA0BC6 /* ObjectiveGit.framework */; };
+		2A0E2C8A245B783700EA0BC6 /* ObjectiveGit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0E2C85245B766D00EA0BC6 /* ObjectiveGit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2A0E2C8D245B79D000EA0BC6 /* PassGitFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0E2C8C245B79D000EA0BC6 /* PassGitFolder.swift */; };
+		2A0E2C8F245CC59700EA0BC6 /* LoginAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0E2C8E245CC59700EA0BC6 /* LoginAlert.swift */; };
 		2A43482D24436A7000E57B71 /* EditPassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A43482C24436A7000E57B71 /* EditPassView.swift */; };
 		2A43482F2444CFBC00E57B71 /* PassItemStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A43482E2444CFBC00E57B71 /* PassItemStorage.swift */; };
 		2A4348322445012400E57B71 /* LazyPassItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4348312445012400E57B71 /* LazyPassItem.swift */; };
@@ -54,8 +58,25 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		2A0E2C8B245B783700EA0BC6 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2A0E2C8A245B783700EA0BC6 /* ObjectiveGit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		0D9E6F525903CA486F66AA83 /* Pods-Passformac-PassformacUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Passformac-PassformacUITests.debug.xcconfig"; path = "Target Support Files/Pods-Passformac-PassformacUITests/Pods-Passformac-PassformacUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		2A0E2C85245B766D00EA0BC6 /* ObjectiveGit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ObjectiveGit.framework; path = Carthage/Build/Mac/ObjectiveGit.framework; sourceTree = "<group>"; };
+		2A0E2C8C245B79D000EA0BC6 /* PassGitFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassGitFolder.swift; sourceTree = "<group>"; };
+		2A0E2C8E245CC59700EA0BC6 /* LoginAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAlert.swift; sourceTree = "<group>"; };
 		2A43482C24436A7000E57B71 /* EditPassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPassView.swift; sourceTree = "<group>"; };
 		2A43482E2444CFBC00E57B71 /* PassItemStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassItemStorage.swift; sourceTree = "<group>"; };
 		2A4348312445012400E57B71 /* LazyPassItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyPassItem.swift; sourceTree = "<group>"; };
@@ -104,6 +125,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2E096D340C3D58A5FFDC2A5 /* Pods_Passformac.framework in Frameworks */,
+				2A0E2C89245B783700EA0BC6 /* ObjectiveGit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,6 +169,7 @@
 				2A43482E2444CFBC00E57B71 /* PassItemStorage.swift */,
 				2A4348312445012400E57B71 /* LazyPassItem.swift */,
 				2AB524D42447643400E53DE3 /* PasswordGenerator.swift */,
+				2A0E2C8C245B79D000EA0BC6 /* PassGitFolder.swift */,
 			);
 			path = PassKit;
 			sourceTree = "<group>";
@@ -235,6 +258,7 @@
 				2A52329D2437ED4D002D6D37 /* IntroView.swift */,
 				2A52329F2438F6F2002D6D37 /* PassphraseView.swift */,
 				2A434833244503F400E57B71 /* ImportPGPKeysView.swift */,
+				2A0E2C8E245CC59700EA0BC6 /* LoginAlert.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -254,6 +278,7 @@
 		B523EBC0433D034AD4C88A6D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2A0E2C85245B766D00EA0BC6 /* ObjectiveGit.framework */,
 				A3C175AE1DBA67085956F3D2 /* Pods_Passformac.framework */,
 				403005B20AF90879D385AD86 /* Pods_Passformac_PassformacUITests.framework */,
 				3C46406BA7A00FFBE67D621B /* Pods_PassformacTests.framework */,
@@ -273,6 +298,7 @@
 				2A64FDF5242FD4C200A8F636 /* Frameworks */,
 				2A64FDF6242FD4C200A8F636 /* Resources */,
 				C5580908F096A38602BEC705 /* [CP] Embed Pods Frameworks */,
+				2A0E2C8B245B783700EA0BC6 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -514,8 +540,10 @@
 				2A710E0E2431436200DAA814 /* PassList.swift in Sources */,
 				2A52329E2437ED4D002D6D37 /* IntroView.swift in Sources */,
 				2A43482F2444CFBC00E57B71 /* PassItemStorage.swift in Sources */,
+				2A0E2C8F245CC59700EA0BC6 /* LoginAlert.swift in Sources */,
 				2A6D47942437C5F3000AB88A /* OverviewView.swift in Sources */,
 				2A710E10243143B600DAA814 /* PassItem.swift in Sources */,
+				2A0E2C8D245B79D000EA0BC6 /* PassGitFolder.swift in Sources */,
 				2A4348322445012400E57B71 /* LazyPassItem.swift in Sources */,
 				2A5232A02438F6F2002D6D37 /* PassphraseView.swift in Sources */,
 				2AB524CD244751FF00E53DE3 /* LabelTextView.swift in Sources */,
@@ -690,6 +718,10 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Passformac/Preview Content\"";
 				DEVELOPMENT_TEAM = NDK65WS2J2;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = Passformac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -713,6 +745,10 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Passformac/Preview Content\"";
 				DEVELOPMENT_TEAM = NDK65WS2J2;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = Passformac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
