@@ -64,6 +64,12 @@ class PersistentKeyring {
         return keys
     }
     
+    func createAndStoreKeyPair(user: String, withPassphrase: String?) {
+        let key = KeyGenerator().generate(for: user, passphrase: withPassphrase)
+        addKey(key: key)
+        persist()
+    }
+    
     func isEmpty() -> Bool {
         return self.count() == 0
     }

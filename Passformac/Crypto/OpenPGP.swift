@@ -43,6 +43,10 @@ class PGPFileReader {
         return false // un-successful
     }
     
+    func newKeyPair(user: String, passphrase: String) {
+        presistentKeyring.createAndStoreKeyPair(user: user, withPassphrase: passphrase)
+    }
+    
     func loadRawPassItem(at: URL) -> String {
         let key = presistentKeyring.firstPrivateKey() // TODO support multiple keys (.gpg-id)
         if key == nil {

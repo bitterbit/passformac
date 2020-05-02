@@ -58,7 +58,7 @@ class PassGitFolder {
         }
     }
     
-    static func initFromScratch(at: URL) {
-//        GTReference.git_reference(nil)
+    static func initFromScratch(_ url: URL) throws {
+        _ = try GTRepository.initializeEmpty(atFileURL: url)
     }
 }
