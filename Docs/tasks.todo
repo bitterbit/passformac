@@ -42,5 +42,8 @@
     - [ ] auto select search filed
     - [ ] keyboard shortcuts
   - [X] fix init skipped straight to passphrase on window lose focus
+- [ ] Prefrences 
+  - [ ] Allow viewing current state
+  - [ ] Allow editing current state
 - [ ] Version 0.3
   - [ ] support fingerprint instead of passphrase
