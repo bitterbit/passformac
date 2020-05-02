@@ -32,7 +32,7 @@
   - [ ] implement init repo from scratch 
   - [ ] git support
     - [ ] git push
-    - [ ] import repo from github
+    - [X] import repo from github
   - [ ] design
     - [ ] icon
     - [ ] screenshots in github page

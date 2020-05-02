@@ -15,14 +15,15 @@ class PassGitFolder {
     // pull updates
     // init from scratch
     
-    static func initFromAsync(remote: URL, toLocal: URL, onNeedCreds: @escaping () -> (String?, String?)) {
+    static func initFromAsync(remote: URL, toLocal: URL, onNeedCreds: @escaping () -> (String?, String?), onDone: @escaping (_ isOk: Bool, Error?) -> ()) {
         let queue = DispatchQueue.init(label: "GIT_THREAD")
         queue.async {
-            _ = initFrom(remote: remote, toLocal: toLocal, onNeedCreds: onNeedCreds)
+            let (repo, err) = initFrom(remote: remote, toLocal: toLocal, onNeedCreds: onNeedCreds)
+            onDone(repo != nil, err)
         }
     }
 
-    static func initFrom(remote: URL, toLocal: URL, onNeedCreds: @escaping () -> (String?, String?)) -> GTRepository? {
+    static func initFrom(remote: URL, toLocal: URL, onNeedCreds: @escaping () -> (String?, String?)) -> (GTRepository?, Error?) {
         let onCredsNeededAdapter = { (type: GTCredentialType, url: String, username: String) -> GTCredential? in
             do {
                 if type != .userPassPlaintext {
@@ -48,12 +49,13 @@ class PassGitFolder {
         ]
         
         do {
-            return try GTRepository.clone(from: remote, toWorkingDirectory: toLocal, options: options)
+            let repo = try GTRepository.clone(from: remote, toWorkingDirectory: toLocal, options: options)
+            return (repo, nil)
         }
         catch {
             print("error while cloning remote repo: \(error)")
+            return (nil, error)
         }
-        return nil
     }
     
     static func initFromScratch(at: URL) {

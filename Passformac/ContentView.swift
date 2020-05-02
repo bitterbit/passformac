@@ -58,6 +58,7 @@ class ViewController {
     }
     
     func refreshPassItems() {
+        rootDir = Config.shared.getLocalFolder()
         if rootDir != nil {
             passItems.wrappedValue = PassItemStorage().getPassItems(fromURL: rootDir)
         }

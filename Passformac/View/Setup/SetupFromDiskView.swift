@@ -19,7 +19,7 @@ struct SetupFromDiskView: View {
     
     enum Stages: Int {
         case askForLocalDir = 1
-        case askForRsaKeys = 2
+        case askForPGPKeys = 2
         case end = 3
     }
     
@@ -32,19 +32,24 @@ struct SetupFromDiskView: View {
             if stage == .askForLocalDir {
                 Text("Select the directory for the pass repository")
             }
-            else if stage == .askForRsaKeys {
+            else if stage == .askForPGPKeys {
                 ImportPGPKeysView(onDone: { self.nextStage() })
             }
             
         }.onAppear {
-            let url = PassDirectory.getSavedPassFolder()
-            if url != nil {
-                // self.controller.setRootDir(rootDir: url!)
-                // self.nextStage() // We have permission to pass folder, skip to next step
-                self.openPane()
-            } else {
-                self.openPane()
+            if Config.shared.isLocalFolderSet() {
+                self.nextStage()
+                return
             }
+            
+            PassDirectory.choosePassFolder({ dir in
+                if dir == nil {
+                    return
+                }
+                
+                self.controller.setRootDir(rootDir: dir!)
+                self.nextStage()
+            })
         }
     }
     
@@ -54,21 +59,6 @@ struct SetupFromDiskView: View {
         stage = Stages(rawValue: stage.rawValue + 1)!
         if stage == .end {
             onDone()
-        }
-    }
-    
-    private func openPane() {
-        let panel = NSOpenPanel()
-        panel.showsHiddenFiles = true
-        panel.canChooseFiles = false
-        panel.canChooseDirectories = true
-        
-        panel.begin { (result) in
-            if result == .OK && panel.url != nil {
-                self.controller.setRootDir(rootDir: panel.url!)
-                self.nextStage()
-                PassDirectory.persistPermissionToPassFolder(for: panel.url!)
-            }
         }
     }
 }

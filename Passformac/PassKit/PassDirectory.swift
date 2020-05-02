@@ -7,9 +7,24 @@
 //
 
 import Foundation
-
+import AppKit
 
 class PassDirectory {
+    static func choosePassFolder(_ onDone: @escaping (URL?) -> Void) {
+        let panel = NSOpenPanel()
+        panel.showsHiddenFiles = true
+        panel.canChooseFiles = false
+        panel.canChooseDirectories = true
+        
+        panel.begin { (result) in
+            if result == .OK && panel.url != nil {
+                PassDirectory.persistPermissionToPassFolder(for: panel.url!)
+                onDone(panel.url)
+            } else {
+                onDone(nil)
+            }
+        }
+    }
     
     static func persistPermissionToPassFolder(for workdir: URL){
         do {
