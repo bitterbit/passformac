@@ -23,23 +23,28 @@ class ViewController {
     var currentPage: Binding<Pages>
     var passItems: Binding<[LazyPassItem]>
     var selectedPassItem: Binding<PassItem?>
+    var isShowingLoginAlert: Binding<Bool>
+    var loginWaitGroup = DispatchGroup()
+    var login: Login?
     
     
     private static var instance: ViewController?
     
-    static func get(currentPage: Binding<Pages>, passItems: Binding<[LazyPassItem]>, selectedPassItem: Binding<PassItem?>) -> ViewController {
+    static func get(currentPage: Binding<Pages>, passItems: Binding<[LazyPassItem]>, selectedPassItem: Binding<PassItem?>, isShowingLoginAlert: Binding<Bool>) -> ViewController {
         if instance == nil {
             instance = ViewController(currentPage: currentPage,
                                       passItems: passItems,
-                                      selectedPassItem: selectedPassItem)
+                                      selectedPassItem: selectedPassItem,
+                                      isShowingLoginAlert: isShowingLoginAlert)
         }
         return instance!
     }
     
-    private init(currentPage: Binding<Pages>, passItems: Binding<[LazyPassItem]>, selectedPassItem: Binding<PassItem?>) {
+    private init(currentPage: Binding<Pages>, passItems: Binding<[LazyPassItem]>, selectedPassItem: Binding<PassItem?>, isShowingLoginAlert: Binding<Bool>) {
         self.currentPage = currentPage
         self.passItems = passItems
         self.selectedPassItem = selectedPassItem
+        self.isShowingLoginAlert = isShowingLoginAlert
     }
     
     func setPassphrase(passphrase: String){
@@ -67,6 +72,28 @@ class ViewController {
         }
     }
     
+    func asyncSyncPassItemsWithRemote() {
+        guard let storage = self.passItemStorage else {
+            return
+        }
+        
+        let queue = DispatchQueue.init(label: "GIT_THREAD")
+        queue.async {
+            
+            storage.syncRemote(passwordCallback: {
+                self.isShowingLoginAlert.wrappedValue = true
+                self.loginWaitGroup.enter()
+                self.loginWaitGroup.wait()
+                return (self.login!.username, self.login!.password)
+            })
+        }
+    }
+    
+    func onLoginSubmit(login: Login) {
+        self.login = login
+        self.loginWaitGroup.leave()
+    }
+    
     func showPage(page: Pages) {
         currentPage.wrappedValue = page
     }
@@ -86,6 +113,8 @@ struct ContentView: View {
     @State var page = Pages.intro
     @State var selectedPassItem: PassItem?
     @State var passItems: [LazyPassItem] = [LazyPassItem]()
+    @State var showLoginAlert = false
+//    var loginWaitGroup = DispatchGroup()
    
     var body: some View {
         routerView.frame(width: 500, height: 500)
@@ -117,6 +146,12 @@ struct ContentView: View {
             } else if page == .edit_pass && selectedPassItem != nil {
                 EditPassView.getViewForPassItem(selectedPassItem!, controller: getViewController())
             }
+        }.loginAlert(isShowing: $showLoginAlert, title: "Authenticate") { login in
+            print("on submit \(login)")
+            guard let log = login else {
+                return
+            }
+            self.getViewController().onLoginSubmit(login: log)
         }
     }
     
@@ -124,7 +159,8 @@ struct ContentView: View {
         return ViewController.get(
             currentPage: $page,
             passItems: $passItems,
-            selectedPassItem: $selectedPassItem)
+            selectedPassItem: $selectedPassItem,
+            isShowingLoginAlert: $showLoginAlert)
     }
 }
 

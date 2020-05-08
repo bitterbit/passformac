@@ -25,6 +25,12 @@ class PassItemStorage {
         return passItem
     }
     
+    func syncRemote(passwordCallback: @escaping GitNeedPasswordCallback) {
+        if git != nil {
+            git!.sync(onNeedPassword: passwordCallback)
+        }
+    }
+    
     func savePassItem(atURL: URL, item: PassItem) -> Bool {
         let filename = getItemTitleForURL(atURL, baseURL: git!.getDirectory())
         

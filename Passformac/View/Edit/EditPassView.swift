@@ -15,8 +15,6 @@ struct EditPassView : View {
     @State var password: String = ""
     @State var website: String = ""
     
-    
-    
     @State private var showAlert: Bool = false
     
     @State private var actualExtras : [Binding<PassExtra>] = [Binding<PassExtra>]()
@@ -120,7 +118,8 @@ struct EditPassView_Previews: PreviewProvider {
         return ViewController.get(
             currentPage: .constant(Pages.edit_pass),
             passItems: .constant([LazyPassItem]()),
-            selectedPassItem: .constant(nil))
+            selectedPassItem: .constant(nil),
+            isShowingLoginAlert: .constant(false))
     }
 }
 #endif

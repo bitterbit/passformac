@@ -11,7 +11,7 @@ import SwiftUI
 struct OverviewView: View {
     var controller: ViewController
     
-    @Binding var passItems: [LazyPassItem]                          // password items
+    @Binding var passItems: [LazyPassItem]                      // password items
     @State private var search: String = ""                      // filter search term
     @State private var directory: URL?                          // directory that holds the passwords
     
@@ -33,6 +33,12 @@ struct OverviewView: View {
                     self.controller.showPage(page: Pages.new_pass)
                 }) {
                     Text("+").bold()
+                }
+                Button(action: {
+                    print("sync...")
+                    self.controller.asyncSyncPassItemsWithRemote()
+                }) {
+                    Text("Sync")
                 }
             }.padding(EdgeInsets(top: 10, leading: 10, bottom: 0, trailing: 10))
             

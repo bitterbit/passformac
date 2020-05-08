@@ -51,7 +51,42 @@ class GitPassRepo {
         }
     }
     
-    func sync() {
+    func sync(onNeedPassword: @escaping GitNeedPasswordCallback) {
+        let onCredsNeededAdapter = { (type: GTCredentialType, url: String, username: String) -> GTCredential? in
+            guard let (username, password) = onNeedPassword() as? (String, String) else {
+                return nil
+            }
+            do { return try GTCredential.init(userName: username, password: password) } catch {
+                print("error while asking for creds from user. err: \(error)")
+            }
+            return nil
+        }
+        
+        let options : [AnyHashable: Any] = [
+            GTRepositoryRemoteOptionsCredentialProvider: GTCredentialProvider.init(block: onCredsNeededAdapter)
+        ]
+        
+        do {
+            let progressPull : (UnsafePointer<git_transfer_progress>, UnsafeMutablePointer<ObjCBool>) -> Void = { a, b in
+                print("git pull progress: \(a), \(b)");
+            }
+            
+            let progressPush : (UInt32, UInt32, Int, UnsafeMutablePointer<ObjCBool>) -> Void  = { a, b, c, d in
+                print("git push progress: \(a), \(b) \(c) \(d)");
+            }
+            
+            let branche = try repo.currentBranch()
+            let remotes = try repo.remoteNames()
+            let remote = try GTRemote(name: remotes[0], in: repo)
+            
+            try repo.pull(branche, from: remote, withOptions: options, progress: progressPull)
+            print("done pulling")
+            
+            try repo.push(branche, to: remote, withOptions: options, progress: progressPush)
+            print("done pushing")
+        } catch {
+            print("error while git sync. error: \(error)")
+        }
         
     }
     

@@ -9,9 +9,10 @@
 import Foundation
 import ObjectiveGit
 
+typealias GitNeedPasswordCallback = () -> (String?, String?)
 
 class GitRepoCreator {
-    static func initFromAsync(remote: URL, toLocal: URL, onNeedCreds: @escaping () -> (String?, String?), onDone: @escaping (_ isOk: Bool, Error?) -> ()) {
+    static func initFromAsync(remote: URL, toLocal: URL, onNeedCreds: @escaping GitNeedPasswordCallback, onDone: @escaping (_ isOk: Bool, Error?) -> ()) {
         let queue = DispatchQueue.init(label: "GIT_THREAD")
         queue.async {
             let (err) = initFrom(remote: remote, toLocal: toLocal, onNeedCreds: onNeedCreds)
@@ -19,7 +20,7 @@ class GitRepoCreator {
         }
     }
 
-    static func initFrom(remote: URL, toLocal: URL, onNeedCreds: @escaping () -> (String?, String?)) -> (Error?) {
+    static func initFrom(remote: URL, toLocal: URL, onNeedCreds: @escaping GitNeedPasswordCallback) -> (Error?) {
         let onCredsNeededAdapter = { (type: GTCredentialType, url: String, username: String) -> GTCredential? in
             do {
                 if type != .userPassPlaintext {
