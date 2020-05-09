@@ -17,6 +17,11 @@ class PGPFileReader {
 
     private init() {}
     
+    func reset() {
+        self.presistentKeyring.reset()
+        self.passphrase = nil
+    }
+    
     func set(passphrase: String) {
         self.passphrase = passphrase
     }
@@ -41,6 +46,10 @@ class PGPFileReader {
         }
         
         return false // un-successful
+    }
+    
+    func newKeyPair(user: String, passphrase: String) {
+        presistentKeyring.createAndStoreKeyPair(user: user, withPassphrase: passphrase)
     }
     
     func loadRawPassItem(at: URL) -> String {
@@ -69,15 +78,9 @@ class PGPFileReader {
     
     func readFile(at: URL!, key: Key) -> String {
         do {
-            let encrypted = try Data(contentsOf: at)
-            let encryptedAscii = Armor.armored(encrypted, as: .publicKey)
-        
-            
-            var decryptingKey = key
-            if passphrase != nil {
-                decryptingKey = (try? (key.decrypted(withPassphrase: self.passphrase!))) ?? key
-            }
-            
+            let encrypted = try Data(contentsOf: at) // file
+            let encryptedAscii = Armor.armored(encrypted, as: .publicKey) // ObjectivePGP prefers decrypting in ascii (armor) mode for some reason
+            let decryptingKey = decryptKeyIfHasPassphrase(key, passphrase: passphrase)
             let decrypted = try ObjectivePGP.decrypt(encryptedAscii.data(using: .utf8)!, andVerifySignature: true, using: [decryptingKey])
             return String(bytes: decrypted, encoding: .utf8)!
         }
@@ -85,6 +88,26 @@ class PGPFileReader {
             print("error while reading encrypted file. error: \(error)")
             return ""
         }
+    }
+    
+    func decryptKeyIfHasPassphrase(_ key: Key, passphrase:String?) -> Key {
+        if passphrase != nil {
+            do {
+                return try key.decrypted(withPassphrase: passphrase!)
+            } catch {
+                print("clould not decrypt key with passphrase")
+            }
+        }
+        return key
+    }
+    
+    func validatePassphrase(_ passphrase: String) -> Bool {
+        guard let key = presistentKeyring.firstPrivateKey() else {
+            return false
+        }
+        
+        let decrypted = decryptKeyIfHasPassphrase(key, passphrase: passphrase)
+        return decrypted.isEncryptedWithPassword == false
     }
     
     func writeFile(at: URL!, key: Key, data: Data) -> Bool {

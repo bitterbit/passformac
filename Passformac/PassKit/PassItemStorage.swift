@@ -10,6 +10,14 @@ import Foundation
 
 
 class PassItemStorage {
+    
+    private var git : GitPassRepo?
+    
+    init(_ root: URL) {
+        do { git = try GitPassRepo(root) }
+        catch { print("error while initing git repository. error: \(error)") }
+    }
+    
     func loadPassItem(fromURL: URL) -> PassItem {
         let title = fromURL.deletingPathExtension().lastPathComponent
         var passItem = PassItem(title: title)
@@ -17,8 +25,25 @@ class PassItemStorage {
         return passItem
     }
     
+    func syncRemote(passwordCallback: @escaping GitNeedPasswordCallback) {
+        if git != nil {
+            git!.sync(onNeedPassword: passwordCallback)
+        }
+    }
+    
     func savePassItem(atURL: URL, item: PassItem) -> Bool {
-        return PGPFileReader.shared.savePassItem(item: item, at: atURL)
+        let filename = getItemTitleForURL(atURL, baseURL: git!.getDirectory())
+        
+        if !PGPFileReader.shared.savePassItem(item: item, at: atURL) {
+            return false
+        }
+        
+        let g = git!
+        if !g.commitFile(filename) {
+            return false
+        }
+        
+        return true
     }
     
     func getPassItems(fromURL: URL!) -> [LazyPassItem] {
@@ -36,7 +61,8 @@ class PassItemStorage {
                 if  fileAttributes.isRegularFile! {
                     items.append(LazyPassItem(
                         url: f.absoluteURL,
-                        title: title)
+                        title: title,
+                        passItemStorage: self)
                     )
                 }
             }

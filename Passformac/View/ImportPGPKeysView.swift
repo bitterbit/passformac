@@ -27,8 +27,9 @@ struct ImportPGPKeysView: View {
             CheckBox(label: "Private Key", isChecked: self.$hasPrivateKey)
             CheckBox(label: "Public Key", isChecked: self.$hasPublicKey)
             
-            Button(action: { self.onDone() }){
-                Text("Skip")
+            HStack {
+                Button(action: self.onDone){ Text("Skip") }
+                Button(action: self.onDone) { Text("Done") }.disabled(!self.hasPublicKey || !self.hasPrivateKey)
             }
 
         }.onAppear() {

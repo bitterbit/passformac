@@ -8,10 +8,46 @@
 
 import Foundation
 
-
 class PassDirectory {
+    static var shared: PassDirectory = PassDirectory()
     
-    static func persistPermissionToPassFolder(for workdir: URL){
+    func validateGitDirectory(_ url: URL) -> Bool {
+        do {
+            _ = try GitRepoCreator.initFromLocalFolder(url)
+        } catch {
+            print("error in init git from local folder. error: \(error)")
+            return false
+        }
+        return true
+    }
+    
+    func promptSelectPassDirectory(_ onDone: @escaping (URL?) -> Void) {
+        Directory.selectDirectory() { url in
+            if url == nil {
+                onDone(nil)
+                return
+            }
+            
+            if self.validateGitDirectory(url!) {
+                self.persistPermissionToPassDirectory(url!)
+                onDone(url)
+                return
+            }
+            
+            onDone(nil)
+            return
+        }
+    }
+    
+    func selectPassDirectory(_ url: URL) -> Bool {
+        if self.validateGitDirectory(url) {
+            self.persistPermissionToPassDirectory(url)
+            return true
+        }
+        return false
+    }
+    
+    private func persistPermissionToPassDirectory(_ workdir: URL){
         do {
             let bookmarkData = try workdir.bookmarkData(options: .withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
             UserDefaults.standard.set(bookmarkData, forKey: "workingDirectoryBookmark") // save in UserDefaults
@@ -20,7 +56,7 @@ class PassDirectory {
         }
     }
     
-    static func getSavedPassFolder() -> URL? {
+    func getSavedPassFolder() -> URL? {
         do {
             var isStale = false
             let bookmarkData = UserDefaults.standard.data(forKey: "workingDirectoryBookmark")

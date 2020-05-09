@@ -64,6 +64,12 @@ class PersistentKeyring {
         return keys
     }
     
+    func createAndStoreKeyPair(user: String, withPassphrase: String?) {
+        let key = KeyGenerator().generate(for: user, passphrase: withPassphrase)
+        addKey(key: key)
+        persist()
+    }
+    
     func isEmpty() -> Bool {
         return self.count() == 0
     }
@@ -98,6 +104,11 @@ class PersistentKeyring {
         } catch {
             print("Error while saving key to keychain from keyring \(error)")
         }
+    }
+    
+    func reset() {
+        self.keyring.deleteAll()
+        self.persist()
     }
     
     private func loadFromKeychain() {
