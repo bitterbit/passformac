@@ -13,7 +13,7 @@ class Config {
     static var shared : Config = Config()
     
     public func needSetup() -> Bool {
-        return true // TODO remove after testing
+//        return true // TODO remove after testing
         
         if !isLocalFolderSet() {
             return true

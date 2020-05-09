@@ -38,7 +38,7 @@
     - [X] import repo from github
   - [ ] Fixes
     - [X] fix init skipped straight to passphrase on window lose focus
-    - [ ] check if passphrase is correct
+    - [X] check if passphrase is correct
     - [ ] when editing an item with extras, extras dissapear after saving
   - [ ] design
     - [ ] icon
