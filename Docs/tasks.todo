@@ -33,21 +33,29 @@
   - [ ] git support
     - [X] commit on each update
     - [ ] git push when refresh pressed
+      - [X] authentication alert on demand
+      - [ ] error if using .ssh keys and not user+pass
     - [X] import repo from github
+  - [ ] Fixes
+    - [X] fix init skipped straight to passphrase on window lose focus
+    - [ ] check if passphrase is correct
+    - [ ] when editing an item with extras, extras dissapear after saving
   - [ ] design
     - [ ] icon
     - [ ] screenshots in github page
+- [ ] Version 0.3
+  - [ ] view preferences
+  - [ ] edit preferences
+  - [ ] preferences items
+    - [ ] remote git password
+    - [ ] remote git url
+    - [ ] pgp keys
+    - [ ] current root directory 
+- [ ] Version 0.4
+  - [ ] supprt ssh keys for remote git authentication
   - [ ] decrease time-to-password 
+    - [ ] support fingerprint instead of passphrase
     - [ ] find a way to import private key
     - [ ] auto select passphrase password-field
     - [ ] auto select search filed
     - [ ] keyboard shortcuts
-  - [X] fix init skipped straight to passphrase on window lose focus
-  - [ ] Prefrences 
-    - [ ] Allow viewing current state
-    - [ ] Allow editing current state
-  - [ ] Fixes
-    - [ ] check if passphrase is correct
-    - [ ] when editing an item with extras, extras dissapear after saving
-- [ ] Version 0.3
-  - [ ] support fingerprint instead of passphrase
