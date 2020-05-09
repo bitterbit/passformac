@@ -68,21 +68,28 @@ class GitPassRepo {
         
         do {
             let progressPull : (UnsafePointer<git_transfer_progress>, UnsafeMutablePointer<ObjCBool>) -> Void = { a, b in
-                print("git pull progress: \(a), \(b)");
+                print("git pull progress:...")
             }
             
             let progressPush : (UInt32, UInt32, Int, UnsafeMutablePointer<ObjCBool>) -> Void  = { a, b, c, d in
-                print("git push progress: \(a), \(b) \(c) \(d)");
+                print("git push progress: \(a), \(b) \(c) \(d)")
             }
             
-            let branche = try repo.currentBranch()
-            let remotes = try repo.remoteNames()
-            let remote = try GTRemote(name: remotes[0], in: repo)
+            guard let branch = try repo.remoteBranches().first else {
+                print("no remote branch found for git repository")
+                return
+            }
             
-            try repo.pull(branche, from: remote, withOptions: options, progress: progressPull)
+            let conf = try repo.configuration()
+            guard let remote = conf.remotes?.first else {
+                print("no remote found for git repository")
+                return
+            }
+            
+            try repo.pull(branch, from: remote, withOptions: options, progress: progressPull)
             print("done pulling")
             
-            try repo.push(branche, to: remote, withOptions: options, progress: progressPush)
+            try repo.push(branch, to: remote, withOptions: options, progress: progressPush)
             print("done pushing")
         } catch {
             print("error while git sync. error: \(error)")

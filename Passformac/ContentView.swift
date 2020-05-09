@@ -79,8 +79,8 @@ class ViewController {
         
         let queue = DispatchQueue.init(label: "GIT_THREAD")
         queue.async {
-            
             storage.syncRemote(passwordCallback: {
+                print("on git authentication callback")
                 self.isShowingLoginAlert.wrappedValue = true
                 self.loginWaitGroup.enter()
                 self.loginWaitGroup.wait()
