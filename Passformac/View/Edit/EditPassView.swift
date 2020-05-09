@@ -21,7 +21,6 @@ struct EditPassView : View {
     
     var extra: [PassExtra] = [PassExtra]()
     var controller: ViewController
-    // var passItemStorage: PassItemStorage
     
     var body: some View {
         VStack {
