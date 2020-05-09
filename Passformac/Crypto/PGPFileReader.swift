@@ -17,6 +17,11 @@ class PGPFileReader {
 
     private init() {}
     
+    func reset() {
+        self.presistentKeyring.reset()
+        self.passphrase = nil
+    }
+    
     func set(passphrase: String) {
         self.passphrase = passphrase
     }

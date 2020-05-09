@@ -42,16 +42,19 @@ struct SetupFromScratchView : View {
                         .foregroundColor(Color.gray)
                     Button(action: self.selectFolder) { Text("Select Folder") }
                 }
-                Button(action: self.createRepo) { Text("OK") }
+                Button(action: self.createRepo) { Text("Next") }
             }
             else if stage == .initRepo {
                 Text("Creating Repo...")
             }
             else if stage == .createPGPKeys {
                 Text("Create PGP Keys")
+                    .font(.subheadline)
+                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                Text("Enter user and password. This password will be used each time you enter the app")
                 TextField("user@example.com", text: $pgpUsername)
                 SecureField("passphrase", text:$pgpPassphrase)
-                Button(action: self.createPGPKeys) { Text("OK") }
+                Button(action: self.createPGPKeys) { Text("Next") }
             }
             else if stage == .creatingPGPKeys {
                  Text("Creating PGP Keys...")
@@ -71,13 +74,20 @@ struct SetupFromScratchView : View {
                 }
             }
         }.onAppear() {
-            guard let url = Config.shared.getLocalDirectory() else {
-                return
-            }
-            self.setLocalUrl(url)
+            self.onStart()
         }.alert(isPresented: $showError, content: {
             Alert(title: Text("Error"), message: Text(errmsg ?? "Unknown error"))
         })
+    }
+    
+    private func onStart() {
+        guard let url = Config.shared.getLocalDirectory() else {
+            return
+        }
+        if isSelectedDirectoryEmpty(url){
+            self.setLocalUrl(url)
+        }
+        PGPFileReader.shared.reset() // in case we have leftovers from some previous app instance
     }
     
     private func setLocalUrl(_ url: URL) {

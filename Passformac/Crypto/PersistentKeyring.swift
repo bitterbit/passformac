@@ -106,6 +106,11 @@ class PersistentKeyring {
         }
     }
     
+    func reset() {
+        self.keyring.deleteAll()
+        self.persist()
+    }
+    
     private func loadFromKeychain() {
         do {
             let keyBlob = keychain.getData(KEYCHAIN_GPG_KEY)

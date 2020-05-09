@@ -68,10 +68,9 @@ struct SetupFromRemoteView: View {
             else if stage == .askForPGPKeys {
                 ImportPGPKeysView(onDone: { self.nextStage() })
             }
-            
         }
         .onAppear {
-            self.localUrl = Config.shared.getLocalDirectory()?.absoluteString ?? ""
+            self.onStart()
         }
         .alert(isPresented: $showAlertBadRemoteUrl) {
             Alert(title: Text("Error"), message: Text("Url \(self.remoteUrl) is not valid"), dismissButton: .default(Text("Dismiss")))
@@ -86,6 +85,11 @@ struct SetupFromRemoteView: View {
             
             return Alert(title: Text("Git Error"), message: Text("Could not clone repo \(msg)"), dismissButton: .default(Text("Dismiss")))
         }
+    }
+    
+    private func onStart() {
+        self.localUrl = Config.shared.getLocalDirectory()?.absoluteString ?? ""
+        PGPFileReader.shared.reset() // in case we have leftovers from some previous app instance
     }
     
     private func nextStage() {
