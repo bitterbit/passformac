@@ -15,13 +15,15 @@ struct SetupFromScratchView : View {
         case initRepo = 2
         case createPGPKeys = 3
         case creatingPGPKeys = 4
-        case end = 5
+        case savePassDirectory = 5
+        case end = 6
     }
     
     var controller: ViewController
     @State var onDone: () -> Void
     @State var stage : Stages = .askForLocations
-    @State var localUrl : String = ""
+    @State var localURLString : String = ""
+    @State var localURL : URL?
     
     @State var errmsg: String?
     @State var showError: Bool = false
@@ -35,7 +37,7 @@ struct SetupFromScratchView : View {
             if stage == .askForLocations {
                 Text("Select local folder where the pass repo will be created")
                 HStack {
-                    TextField("local folder", text: $localUrl)
+                    TextField("local folder", text: $localURLString)
                         .disabled(true)
                         .foregroundColor(Color.gray)
                     Button(action: self.selectFolder) { Text("Select Folder") }
@@ -46,12 +48,18 @@ struct SetupFromScratchView : View {
                 Text("Creating Repo...")
             }
             else if stage == .createPGPKeys {
+                Text("Create PGP Keys")
                 TextField("user@example.com", text: $pgpUsername)
                 SecureField("passphrase", text:$pgpPassphrase)
                 Button(action: self.createPGPKeys) { Text("OK") }
             }
             else if stage == .creatingPGPKeys {
                  Text("Creating PGP Keys...")
+            }
+            else if stage == .savePassDirectory {
+                Text("Finishing up...").onAppear() {
+                    self.save()
+                }
             }
             else {
                 Text("Done!").onAppear() {
@@ -63,10 +71,34 @@ struct SetupFromScratchView : View {
                 }
             }
         }.onAppear() {
-            self.localUrl = Config.shared.getLocalFolder()?.absoluteString ?? ""
+            guard let url = Config.shared.getLocalDirectory() else {
+                return
+            }
+            self.setLocalUrl(url)
         }.alert(isPresented: $showError, content: {
             Alert(title: Text("Error"), message: Text(errmsg ?? "Unknown error"))
         })
+    }
+    
+    private func setLocalUrl(_ url: URL) {
+        localURL = url
+        localURLString = url.absoluteString
+    }
+    
+    private func save() {
+        guard let url = localURL else {
+            errmsg = "Didn't select directory"
+            showError = true
+            return
+        }
+        
+        if !PassDirectory.shared.selectPassDirectory(url) {
+            errmsg = "Error while saving directory \(url) as pass directory"
+            showError = true
+            return
+        }
+        
+        nextStage()
     }
     
     private func nextStage() {
@@ -80,27 +112,25 @@ struct SetupFromScratchView : View {
     }
     
     private func selectFolder() {
-        PassDirectory.shared.chooseFolder({ dir in
+        Directory.selectDirectory({ dir in
             if dir == nil {
                 return
             }
-            self.localUrl = dir!.absoluteString
-            self.controller.setRootDir(rootDir: dir!)
+            self.checkDirectoryEmpty(dir!)
+            self.setLocalUrl(dir!)
         })
     }
     
     private func createRepo() {
-        if !isSelectedFolderEmpty() {
-            errmsg = "Folder is not empty"
+        guard let directory = localURL else {
+            errmsg = "Didn't select directory"
             showError = true
             return
         }
-        let folder = Config.shared.getLocalFolder()!
+
         nextStage()
-        
         do {
-            try GitRepoCreator.initFromScratch(folder)
-            try PassDirectory.shared.loadExistingPassFolder(folder)
+            try GitRepoCreator.initFromScratch(directory)
             nextStage()
         } catch {
             errmsg = error.localizedDescription
@@ -108,18 +138,23 @@ struct SetupFromScratchView : View {
         }
     }
     
-    private func isSelectedFolderEmpty() -> Bool {
-        guard let folder = Config.shared.getLocalFolder() else {
-            return false
+    private func checkDirectoryEmpty(_ url: URL) {
+        if isSelectedDirectoryEmpty(url) {
+            return
         }
         
+        errmsg = "Directory is not empty"
+        showError = true
+    }
+    
+    private func isSelectedDirectoryEmpty(_ url: URL) -> Bool {
         do {
-            let contents = try FileManager.default.contentsOfDirectory(at: folder, includingPropertiesForKeys: nil, options: [])
+            let contents = try FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [])
             return contents.count == 0;
         } catch let error as NSError {
             // Directory not exist, no permission, etc.
             print(error.localizedDescription)
-            print("path: \(self.localUrl)")
+            print("path: \(self.localURLString)")
         }
         return false
     }

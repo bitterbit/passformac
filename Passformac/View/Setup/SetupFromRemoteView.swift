@@ -71,7 +71,7 @@ struct SetupFromRemoteView: View {
             
         }
         .onAppear {
-            self.localUrl = Config.shared.getLocalFolder()?.absoluteString ?? ""
+            self.localUrl = Config.shared.getLocalDirectory()?.absoluteString ?? ""
         }
         .alert(isPresented: $showAlertBadRemoteUrl) {
             Alert(title: Text("Error"), message: Text("Url \(self.remoteUrl) is not valid"), dismissButton: .default(Text("Dismiss")))
@@ -98,7 +98,7 @@ struct SetupFromRemoteView: View {
     }
     
     private func selectFolder() {
-        PassDirectory.shared.choosePassFolder({ dir in
+        PassDirectory.shared.promptSelectPassDirectory({ dir in
             if dir == nil {
                 return
             }

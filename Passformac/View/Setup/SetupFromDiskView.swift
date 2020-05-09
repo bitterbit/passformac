@@ -42,7 +42,7 @@ struct SetupFromDiskView: View {
                 return
             }
             
-            PassDirectory.shared.choosePassFolder({ dir in
+            PassDirectory.shared.promptSelectPassDirectory({ dir in
                 if dir == nil {
                     return
                 }

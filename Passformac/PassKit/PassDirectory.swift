@@ -7,50 +7,47 @@
 //
 
 import Foundation
-import AppKit
 
 class PassDirectory {
     static var shared: PassDirectory = PassDirectory()
     
-    func loadExistingPassFolder(_ url: URL) throws {
-//        self.git = try PassGitFolder.initFromLocalFolder(url)
+    func validateGitDirectory(_ url: URL) -> Bool {
+        do {
+            _ = try GitRepoCreator.initFromLocalFolder(url)
+        } catch {
+            print("error in init git from local folder. error: \(error)")
+            return false
+        }
+        return true
     }
     
-    func choosePassFolder(_ onDone: @escaping (URL?) -> Void) {
-        chooseFolder() { url in
+    func promptSelectPassDirectory(_ onDone: @escaping (URL?) -> Void) {
+        Directory.selectDirectory() { url in
             if url == nil {
                 onDone(nil)
                 return
             }
             
-            do { try self.loadExistingPassFolder(url!) }
-            catch {
-                print("error in init git \(error)")
-                onDone(nil)
+            if self.validateGitDirectory(url!) {
+                self.persistPermissionToPassDirectory(url!)
+                onDone(url)
                 return
             }
-            // We are all good here, no need to catch
-            self.persistPermissionToPassFolder(url!)
-            onDone(url)
+            
+            onDone(nil)
+            return
         }
     }
     
-    func chooseFolder(_ onDone: @escaping (URL?) -> Void) {
-        let panel = NSOpenPanel()
-        panel.showsHiddenFiles = true
-        panel.canChooseFiles = false
-        panel.canChooseDirectories = true
-        
-        panel.begin { (result) in
-            if result == .OK && panel.url != nil {
-                onDone(panel.url)
-            } else {
-                onDone(nil)
-            }
+    func selectPassDirectory(_ url: URL) -> Bool {
+        if self.validateGitDirectory(url) {
+            self.persistPermissionToPassDirectory(url)
+            return true
         }
+        return false
     }
     
-    private func persistPermissionToPassFolder(_ workdir: URL){
+    private func persistPermissionToPassDirectory(_ workdir: URL){
         do {
             let bookmarkData = try workdir.bookmarkData(options: .withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
             UserDefaults.standard.set(bookmarkData, forKey: "workingDirectoryBookmark") // save in UserDefaults

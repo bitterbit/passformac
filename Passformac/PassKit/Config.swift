@@ -13,6 +13,8 @@ class Config {
     static var shared : Config = Config()
     
     public func needSetup() -> Bool {
+        return true // TODO remove after testing
+        
         if !isLocalFolderSet() {
             return true
         }
@@ -29,10 +31,10 @@ class Config {
     }
     
     public func isLocalFolderSet() -> Bool {
-        return getLocalFolder() != nil
+        return getLocalDirectory() != nil
     }
     
-    public func getLocalFolder() -> URL? {
+    public func getLocalDirectory() -> URL? {
         return PassDirectory.shared.getSavedPassFolder()
     }
 }

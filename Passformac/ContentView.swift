@@ -65,7 +65,7 @@ class ViewController {
     }
     
     func refreshPassItems() {
-        rootDir = Config.shared.getLocalFolder()
+        rootDir = Config.shared.getLocalDirectory()
         if rootDir != nil {
             passItemStorage = PassItemStorage(rootDir!)
             passItems.wrappedValue = passItemStorage!.getPassItems(fromURL: rootDir)
@@ -114,7 +114,6 @@ struct ContentView: View {
     @State var selectedPassItem: PassItem?
     @State var passItems: [LazyPassItem] = [LazyPassItem]()
     @State var showLoginAlert = false
-//    var loginWaitGroup = DispatchGroup()
    
     var body: some View {
         routerView.frame(width: 500, height: 500)
@@ -147,7 +146,6 @@ struct ContentView: View {
                 EditPassView.getViewForPassItem(selectedPassItem!, controller: getViewController())
             }
         }.loginAlert(isShowing: $showLoginAlert, title: "Authenticate") { login in
-            print("on submit \(login)")
             guard let log = login else {
                 return
             }
