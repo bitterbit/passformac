@@ -10,3 +10,8 @@ Inspired by [mssun/passforios](https://github.com/mssun/passforios)
 Uses: 
 - [rzyzanowskim/ObjectivePGP](https://github.com/krzyzanowskim/ObjectivePGP)
 - [evgenyneu/keychain-swift](https://github.com/evgenyneu/keychain-swift)
+- [libgit2/objective-git](https://github.com/libgit2/objective-git)
+
+
+# Progress and Features
+[Docs/tasks.todo](https://github.com/bitterbit/passformac/blob/master/Docs/tasks.todo)
