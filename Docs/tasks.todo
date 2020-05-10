@@ -41,7 +41,7 @@
     - [X] check if passphrase is correct
     - [ ] when editing an item with extras, extras dissapear after saving
   - [ ] design
-    - [ ] icon
+    - [X] icon
     - [ ] screenshots in github page
 - [ ] Version 0.3
   - [ ] view preferences
