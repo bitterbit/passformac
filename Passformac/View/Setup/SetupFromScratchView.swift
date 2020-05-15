@@ -25,8 +25,8 @@ struct SetupFromScratchView : View {
     @State var localURLString : String = ""
     @State var localURL : URL?
     
-    @State var errmsg: String?
-    @State var showError: Bool = false
+//    @State var errmsg: String?
+//    @State var showError: Bool = false
     
     @State var pgpUsername: String = ""
     @State var pgpPassphrase: String = ""
@@ -75,9 +75,7 @@ struct SetupFromScratchView : View {
             }
         }.onAppear() {
             self.onStart()
-        }.alert(isPresented: $showError, content: {
-            Alert(title: Text("Error"), message: Text(errmsg ?? "Unknown error"))
-        })
+        }
     }
     
     private func onStart() {
@@ -96,14 +94,12 @@ struct SetupFromScratchView : View {
     
     private func save() {
         guard let url = localURL else {
-            errmsg = "Didn't select directory"
-            showError = true
+            self.controller.showAlert("Didn't select directory")
             return
         }
         
         if !PassDirectory.shared.selectPassDirectory(url) {
-            errmsg = "Error while saving directory \(url) as pass directory"
-            showError = true
+            self.controller.showAlert("Error while saving directory \(url) as pass directory")
             return
         }
         
@@ -132,8 +128,7 @@ struct SetupFromScratchView : View {
     
     private func createRepo() {
         guard let directory = localURL else {
-            errmsg = "Didn't select directory"
-            showError = true
+            self.controller.showAlert("Didn't select directory")
             return
         }
 
@@ -142,8 +137,7 @@ struct SetupFromScratchView : View {
             try GitRepoCreator.initFromScratch(directory)
             nextStage()
         } catch {
-            errmsg = error.localizedDescription
-            showError = true
+            self.controller.showError(error)
         }
     }
     
@@ -152,8 +146,7 @@ struct SetupFromScratchView : View {
             return
         }
         
-        errmsg = "Directory is not empty"
-        showError = true
+        self.controller.showAlert("Directory is not empty")
     }
     
     private func isSelectedDirectoryEmpty(_ url: URL) -> Bool {
@@ -170,8 +163,7 @@ struct SetupFromScratchView : View {
     
     private func createPGPKeys() {
         if self.pgpPassphrase.isEmpty {
-            errmsg = "PGP Passphrase must not be empty"
-            showError = true
+            self.controller.showAlert("PGP Passphrase must not be empty")
             return
         }
         

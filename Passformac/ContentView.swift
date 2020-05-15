@@ -122,10 +122,17 @@ class ViewController {
         self.showPage(page: .edit_pass)
     }
     
+    
     func showError(_ err: Error) {
-        self.errorMessage.wrappedValue = err.localizedDescription
+        showAlert(err.localizedDescription)
+    }
+    
+    func showAlert(_ msg: String) {
+        self.errorMessage.wrappedValue = msg
         self.isShowingErrorAlert.wrappedValue = true
     }
+    
+    
 }
 
 

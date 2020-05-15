@@ -19,8 +19,6 @@
 
 import SwiftUI
 
-
-
 struct SetupFromRemoteView: View {
     
     enum Stages: Int {
@@ -33,13 +31,8 @@ struct SetupFromRemoteView: View {
     var controller: ViewController
     @State var stage: Stages = .askForLocations
     @State var onDone: () -> Void
-    
     @State var localUrl: String = ""
     @State var remoteUrl: String = ""
-    @State var showAlertBadRemoteUrl = false
-    @State var showAlertGitError = false
-    @State var gitError: Error?
-    
     @State var showLoginPopup: Bool = false
     @State var login: Login = Login() // Start with empty credentials, if needed will be filled in
     var loginDoneWaitGroup = DispatchGroup()
@@ -72,19 +65,7 @@ struct SetupFromRemoteView: View {
         .onAppear {
             self.onStart()
         }
-        .alert(isPresented: $showAlertBadRemoteUrl) {
-            Alert(title: Text("Error"), message: Text("Url \(self.remoteUrl) is not valid"), dismissButton: .default(Text("Dismiss")))
-        }
-        .alert(isPresented: $showAlertGitError) {
-            var msg: String = ""
-            if gitError != nil {
-                let err = gitError! as NSError
-                let innerError = err.userInfo[NSUnderlyingErrorKey] as! NSError
-                msg = innerError.localizedDescription
-            }
-            
-            return Alert(title: Text("Git Error"), message: Text("Could not clone repo \(msg)"), dismissButton: .default(Text("Dismiss")))
-        }
+        
     }
     
     private func onStart() {
@@ -101,28 +82,30 @@ struct SetupFromRemoteView: View {
     }
     
     private func selectFolder() {
-        PassDirectory.shared.promptSelectPassDirectory({ dir in
+        Directory.selectDirectory() { dir in
             if dir == nil {
                 return
             }
             self.localUrl = dir!.absoluteString
-            self.controller.setRootDir(rootDir: dir!)
-        })
+        }
     }
-    
     
     private func initFromRemote() {
         guard let remote = URL(string: remoteUrl) else {
-            showAlertBadRemoteUrl = true;
+            controller.showAlert("Url is not valid")
             return
         }
         
+        // validate func class showAlert so no need to show alert twice
         if !validateRemoteUrl(remote) {
-             showAlertBadRemoteUrl = true;
-             return
+            return
+        }
+        
+        guard let local = URL(string: localUrl) else {
+            controller.showAlert("No local directory selected")
+            return
         }
     
-        let local = URL(string: localUrl)!
         nextStage()
         
         let handleNeedLogin: () -> (String?, String?) = {
@@ -141,14 +124,20 @@ struct SetupFromRemoteView: View {
         
         let handleDone: (Bool, Error?) -> Void = {isOk, err in
             if isOk {
+                self.controller.setRootDir(rootDir: local)
                 self.nextStage()
                 return
             }
             
             self.stage = .askForLocations
-            self.gitError = err
-            self.showAlertGitError = true
+
+            guard let err = err as? NSError else {
+                self.controller.showAlert("Unknown git error")
+                return
+            }
             
+            let innerError = err.userInfo[NSUnderlyingErrorKey] as! NSError
+            self.controller.showAlert(innerError.localizedDescription)
         }
         
         GitRepoCreator.initFromAsync(remote: remote, toLocal: local, onNeedCreds: handleNeedLogin, onDone: handleDone)
@@ -156,17 +145,17 @@ struct SetupFromRemoteView: View {
     
     private func validateRemoteUrl(_ url: URL) -> Bool {
         if url.scheme != "http" && url.scheme != "https" {
-            print("schema is not valid. \(url.scheme)")
+            controller.showAlert("schema is not valid, only http,https currently supported. \(url)")
             return false
         }
         
         if url.host == nil || url.host!.isEmpty {
-            print("host is not valid. \(url.host)")
+            controller.showAlert("host is not valid. \(url)")
             return false
         }
         
         if url.path.isEmpty {
-            print("path is not valid. \(url.path)")
+            controller.showAlert("path is not valid. \(url)")
             return false
         }
         
