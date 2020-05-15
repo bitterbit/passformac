@@ -87,7 +87,6 @@ struct SetupFromScratchView : View {
         if isSelectedDirectoryEmpty(url){
             self.setLocalUrl(url)
         }
-        PGPFileReader.shared.reset() // in case we have leftovers from some previous app instance
     }
     
     private func setLocalUrl(_ url: URL) {

@@ -30,6 +30,12 @@ class Config {
         return false
     }
     
+    public func reset() {
+        PassDirectory.shared.resetSavedPassDirectory()
+        PGPFileReader.shared.reset() // this might be confusing but this actually resets the PGP keys stored in the keychain
+                                     // because PGPFileReader is the owner of the PersistentKeyring
+    }
+    
     public func isLocalFolderSet() -> Bool {
         return getLocalDirectory() != nil
     }

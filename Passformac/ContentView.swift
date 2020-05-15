@@ -121,7 +121,11 @@ struct ContentView: View {
             self.getViewController().clearPassphrase()
         }
         .onAppear() {
-            if !Config.shared.needSetup() && self.page == .intro {
+            if Config.shared.needSetup() {
+                Config.shared.reset() // in case we have leftovers from some previous app instance
+                self.page = .intro
+            }
+            else if self.page == .intro {
                 self.page = .passphrase
             }
         }

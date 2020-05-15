@@ -11,6 +11,8 @@ import Foundation
 class PassDirectory {
     static var shared: PassDirectory = PassDirectory()
     
+    let DIR_KEY = "workingDirectoryBookmark"
+    
     func validateGitDirectory(_ url: URL) -> Bool {
         do {
             _ = try GitRepoCreator.initFromLocalFolder(url)
@@ -50,7 +52,7 @@ class PassDirectory {
     private func persistPermissionToPassDirectory(_ workdir: URL){
         do {
             let bookmarkData = try workdir.bookmarkData(options: .withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
-            UserDefaults.standard.set(bookmarkData, forKey: "workingDirectoryBookmark") // save in UserDefaults
+            UserDefaults.standard.set(bookmarkData, forKey: DIR_KEY) // save in UserDefaults
         } catch {
             print("Failed to save bookmark data for \(workdir)", error)
         }
@@ -59,7 +61,7 @@ class PassDirectory {
     func getSavedPassFolder() -> URL? {
         do {
             var isStale = false
-            let bookmarkData = UserDefaults.standard.data(forKey: "workingDirectoryBookmark")
+            let bookmarkData = UserDefaults.standard.data(forKey: DIR_KEY)
             if bookmarkData == nil {
                 return nil
             }
@@ -81,5 +83,9 @@ class PassDirectory {
             print("Error resolving bookmark:", error)
             return nil
         }
+    }
+    
+    func resetSavedPassDirectory() {
+        UserDefaults.standard.removeObject(forKey: DIR_KEY)
     }
 }

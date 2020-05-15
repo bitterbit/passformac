@@ -89,7 +89,6 @@ struct SetupFromRemoteView: View {
     
     private func onStart() {
         self.localUrl = Config.shared.getLocalDirectory()?.absoluteString ?? ""
-        PGPFileReader.shared.reset() // in case we have leftovers from some previous app instance
     }
     
     private func nextStage() {
