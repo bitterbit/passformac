@@ -36,6 +36,7 @@
       - [X] authentication alert on demand
       - [X] error if using .ssh keys and not user+pass
     - [X] import repo from github
+    - [ ] display sync progress
   - [ ] Fixes
     - [X] fix init skipped straight to passphrase on window lose focus
     - [X] check if passphrase is correct
