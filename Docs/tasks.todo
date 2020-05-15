@@ -37,10 +37,10 @@
       - [X] error if using .ssh keys and not user+pass
     - [X] import repo from github
     - [ ] display sync progress
-  - [ ] Fixes
+  - [X] Fixes
     - [X] fix init skipped straight to passphrase on window lose focus
     - [X] check if passphrase is correct
-    - [ ] when editing an item with extras, extras dissapear after saving
+    - [X] when editing an item with extras, extras dissapear after saving
   - [ ] design
     - [X] icon
     - [ ] screenshots in github page

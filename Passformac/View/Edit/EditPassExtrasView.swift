@@ -34,6 +34,8 @@ struct EditPassExtrasView : View {
                         self.publishUpdate()
                     }
                 }
+            }.onAppear() {
+                self.publishUpdate()
             }
             
             Button(action: {
