@@ -118,7 +118,9 @@ struct EditPassView_Previews: PreviewProvider {
             currentPage: .constant(Pages.edit_pass),
             passItems: .constant([LazyPassItem]()),
             selectedPassItem: .constant(nil),
-            isShowingLoginAlert: .constant(false))
+            isShowingLoginAlert: .constant(false),
+            isShowingErrorAlert: .constant(false),
+            errorMessage: .constant(""))
     }
 }
 #endif

@@ -24,27 +24,37 @@ class ViewController {
     var passItems: Binding<[LazyPassItem]>
     var selectedPassItem: Binding<PassItem?>
     var isShowingLoginAlert: Binding<Bool>
+    var isShowingErrorAlert: Binding<Bool>
+    var errorMessage: Binding<String?>
     var loginWaitGroup = DispatchGroup()
     var login: Login?
     
     
     private static var instance: ViewController?
     
-    static func get(currentPage: Binding<Pages>, passItems: Binding<[LazyPassItem]>, selectedPassItem: Binding<PassItem?>, isShowingLoginAlert: Binding<Bool>) -> ViewController {
+    static func get(currentPage: Binding<Pages>, passItems: Binding<[LazyPassItem]>,
+                    selectedPassItem: Binding<PassItem?>, isShowingLoginAlert: Binding<Bool>,
+                    isShowingErrorAlert: Binding<Bool>, errorMessage: Binding<String?>) -> ViewController {
         if instance == nil {
             instance = ViewController(currentPage: currentPage,
                                       passItems: passItems,
                                       selectedPassItem: selectedPassItem,
-                                      isShowingLoginAlert: isShowingLoginAlert)
+                                      isShowingLoginAlert: isShowingLoginAlert,
+                                      isShowingErrorAlert: isShowingErrorAlert,
+                                      errorMessage: errorMessage)
         }
         return instance!
     }
     
-    private init(currentPage: Binding<Pages>, passItems: Binding<[LazyPassItem]>, selectedPassItem: Binding<PassItem?>, isShowingLoginAlert: Binding<Bool>) {
+    private init(currentPage: Binding<Pages>, passItems: Binding<[LazyPassItem]>,
+                 selectedPassItem: Binding<PassItem?>, isShowingLoginAlert: Binding<Bool>,
+                 isShowingErrorAlert: Binding<Bool>, errorMessage: Binding<String?>) {
         self.currentPage = currentPage
         self.passItems = passItems
         self.selectedPassItem = selectedPassItem
         self.isShowingLoginAlert = isShowingLoginAlert
+        self.isShowingErrorAlert = isShowingErrorAlert
+        self.errorMessage = errorMessage
     }
     
     func setPassphrase(passphrase: String){
@@ -79,13 +89,18 @@ class ViewController {
         
         let queue = DispatchQueue.init(label: "GIT_THREAD")
         queue.async {
-            storage.syncRemote(passwordCallback: {
+            let err = storage.syncRemote(passwordCallback: {
                 print("on git authentication callback")
                 self.isShowingLoginAlert.wrappedValue = true
                 self.loginWaitGroup.enter()
                 self.loginWaitGroup.wait()
                 return (self.login!.username, self.login!.password)
             })
+            
+            print("error \(err)")
+            if err != nil {
+                self.showError(err!)
+            }
         }
     }
     
@@ -106,6 +121,11 @@ class ViewController {
         self.selectPassItem(item: item)
         self.showPage(page: .edit_pass)
     }
+    
+    func showError(_ err: Error) {
+        self.errorMessage.wrappedValue = err.localizedDescription
+        self.isShowingErrorAlert.wrappedValue = true
+    }
 }
 
 
@@ -114,6 +134,8 @@ struct ContentView: View {
     @State var selectedPassItem: PassItem?
     @State var passItems: [LazyPassItem] = [LazyPassItem]()
     @State var showLoginAlert = false
+    @State var showErrorAlert = false
+    @State var errorMessage : String?
    
     var body: some View {
         routerView.frame(width: 500, height: 500)
@@ -128,7 +150,9 @@ struct ContentView: View {
             else if self.page == .intro {
                 self.page = .passphrase
             }
-        }
+        }.alert(isPresented: $showErrorAlert, content: {
+            Alert(title: Text("Error"), message: Text(self.errorMessage ?? "Unknown error"))
+        })
     }
     
     var routerView: some View {
@@ -162,7 +186,10 @@ struct ContentView: View {
             currentPage: $page,
             passItems: $passItems,
             selectedPassItem: $selectedPassItem,
-            isShowingLoginAlert: $showLoginAlert)
+            isShowingLoginAlert: $showLoginAlert,
+            isShowingErrorAlert: $showErrorAlert,
+            errorMessage: $errorMessage
+        )
     }
 }
 

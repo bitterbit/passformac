@@ -25,10 +25,12 @@ class PassItemStorage {
         return passItem
     }
     
-    func syncRemote(passwordCallback: @escaping GitNeedPasswordCallback) {
+    func syncRemote(passwordCallback: @escaping GitNeedPasswordCallback) -> Error? {
         if git != nil {
-            git!.sync(onNeedPassword: passwordCallback)
+            return git!.sync(onNeedPassword: passwordCallback)
         }
+        
+        return GitError.NoGitRepo
     }
     
     func savePassItem(atURL: URL, item: PassItem) -> Bool {

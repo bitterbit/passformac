@@ -9,6 +9,17 @@
 import Foundation
 import ObjectiveGit
 
+enum GitError : String, Error {
+    case NoGitRepo =  "No git repo"
+    case NoRemoteConfigured = "No remote configured"
+}
+
+extension GitError: LocalizedError {
+    var errorDescription: String? {
+        return self.rawValue
+    }
+}
+
 
 class GitPassRepo {
     private var repo : GTRepository
@@ -51,7 +62,7 @@ class GitPassRepo {
         }
     }
     
-    func sync(onNeedPassword: @escaping GitNeedPasswordCallback) {
+    func sync(onNeedPassword: @escaping GitNeedPasswordCallback) -> Error? {
         let onCredsNeededAdapter = { (type: GTCredentialType, url: String, username: String) -> GTCredential? in
             guard let (username, password) = onNeedPassword() as? (String, String) else {
                 return nil
@@ -76,25 +87,20 @@ class GitPassRepo {
             }
             
             guard let branch = try repo.remoteBranches().first else {
-                print("no remote branch found for git repository")
-                return
+                return GitError.NoRemoteConfigured
             }
             
             let conf = try repo.configuration()
             guard let remote = conf.remotes?.first else {
-                print("no remote found for git repository")
-                return
+                return GitError.NoRemoteConfigured
             }
-            
             try repo.pull(branch, from: remote, withOptions: options, progress: progressPull)
-            print("done pulling")
-            
             try repo.push(branch, to: remote, withOptions: options, progress: progressPush)
-            print("done pushing")
         } catch {
-            print("error while git sync. error: \(error)")
+            return error
         }
-        
+        // all is good, return no error
+        return nil
     }
     
     func getAllChangedFiles() -> ([String], [String]) {
