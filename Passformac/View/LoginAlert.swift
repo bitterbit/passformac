@@ -17,7 +17,7 @@ struct LoginAlert<Presenting>: View where Presenting: View {
     
     let presenting: Presenting
     let title: String
-    let onDone: (Login?) -> Void
+    let onDone: (Login) -> Void
 
     var body: some View {
         GeometryReader { (deviceSize: GeometryProxy) in
@@ -39,7 +39,7 @@ struct LoginAlert<Presenting>: View where Presenting: View {
                             withAnimation { self.isShowing.toggle() }
                             self.login.username = ""
                             self.login.password = ""
-                            self.onDone(nil)
+                            self.onDone(self.login)
                         })
                         {
                             Text("Cancel")
@@ -57,14 +57,13 @@ struct LoginAlert<Presenting>: View where Presenting: View {
             }
         }
     }
-
 }
 
 
 extension View {
     func loginAlert(isShowing: Binding<Bool>,
                     title: String,
-                    onDone: @escaping (Login?) -> Void) -> some View {
+                    onDone: @escaping (Login) -> Void) -> some View {
 
         LoginAlert(isShowing: isShowing,
                    presenting: self,
