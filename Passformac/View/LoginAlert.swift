@@ -10,11 +10,8 @@ import SwiftUI
 import AppKit
 
 struct LoginAlert<Presenting>: View where Presenting: View {
-
     @Binding var isShowing: Bool
-    
     @State var login = Login()
-    
     let presenting: Presenting
     let title: String
     let onDone: (Login) -> Void
@@ -24,10 +21,9 @@ struct LoginAlert<Presenting>: View where Presenting: View {
             ZStack {
                 self.presenting.disabled(self.isShowing)
                 VStack {
-                    Text(self.title)
+                    Text(self.title).font(.subheadline)
                     TextField("login" , text: self.$login.username)
                     SecureField("password", text: self.$login.password)
-                    Divider()
                     HStack {
                         Button(action: {
                             withAnimation { self.isShowing.toggle() }
@@ -47,13 +43,14 @@ struct LoginAlert<Presenting>: View where Presenting: View {
                     }
                 }
                 .padding()
-                .background(Color.gray) // TODO switch according to dark mode
-                .frame(
-                    width: deviceSize.size.width*0.7,
-                    height: deviceSize.size.height*0.7
-                )
+                .background(Color(NSColor.windowBackgroundColor))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 2).stroke(Color(NSColor.windowFrameColor), lineWidth: self.isShowing ? 0.5 : 0)
+                    )
                 .shadow(radius: 1)
                 .opacity(self.isShowing ? 1 : 0)
+                .padding(EdgeInsets(top: 0, leading: 100, bottom: 0, trailing: 100))
+                
             }
         }
     }
@@ -71,4 +68,12 @@ extension View {
                    onDone: onDone)
     }
 
+}
+
+struct LoginAlert_Previews: PreviewProvider {
+    static var previews: some View {
+        VStack {
+            Text("Hello")
+        }.loginAlert(isShowing: .constant(true), title: "Authenticate", onDone: { _ in })
+    }
 }

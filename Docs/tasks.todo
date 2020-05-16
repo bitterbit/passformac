@@ -43,6 +43,7 @@
     - [X] check if passphrase is correct
     - [X] when editing an item with extras, extras dissapear after saving
     - [X] fix on git authentication cancel, still shows progress
+    - [X] fix git login alert background color in dark mode
   - [ ] design
     - [X] icon
     - [ ] screenshots in github page
@@ -62,4 +63,3 @@
     - [ ] auto select passphrase password-field
     - [ ] auto select search filed
     - [ ] keyboard shortcuts
-  - [ ] git sync progress

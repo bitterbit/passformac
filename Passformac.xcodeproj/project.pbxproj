@@ -18,6 +18,8 @@
 		2A0E2C9C245DFF0E00EA0BC6 /* GitPassRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0E2C9B245DFF0E00EA0BC6 /* GitPassRepo.swift */; };
 		2A0E2C9E2465F14900EA0BC6 /* LoginAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0E2C9D2465F14900EA0BC6 /* LoginAlert.swift */; };
 		2A0E2CA12466D0A800EA0BC6 /* Directory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0E2CA02466D0A800EA0BC6 /* Directory.swift */; };
+		2A12E3F3246F2B6700B03F55 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A12E3F2246F2B6700B03F55 /* Preferences.swift */; };
+		2A12E3F5246F307500B03F55 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A12E3F4246F307500B03F55 /* ProgressBar.swift */; };
 		2A43482D24436A7000E57B71 /* EditPassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A43482C24436A7000E57B71 /* EditPassView.swift */; };
 		2A43482F2444CFBC00E57B71 /* PassItemStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A43482E2444CFBC00E57B71 /* PassItemStorage.swift */; };
 		2A4348322445012400E57B71 /* LazyPassItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4348312445012400E57B71 /* LazyPassItem.swift */; };
@@ -91,6 +93,8 @@
 		2A0E2C9B245DFF0E00EA0BC6 /* GitPassRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitPassRepo.swift; sourceTree = "<group>"; };
 		2A0E2C9D2465F14900EA0BC6 /* LoginAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAlert.swift; sourceTree = "<group>"; };
 		2A0E2CA02466D0A800EA0BC6 /* Directory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Directory.swift; sourceTree = "<group>"; };
+		2A12E3F2246F2B6700B03F55 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Preferences.swift; path = passformac/View/Preferences.swift; sourceTree = SOURCE_ROOT; };
+		2A12E3F4246F307500B03F55 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProgressBar.swift; path = passformac/View/ProgressBar.swift; sourceTree = SOURCE_ROOT; };
 		2A43482C24436A7000E57B71 /* EditPassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPassView.swift; sourceTree = "<group>"; };
 		2A43482E2444CFBC00E57B71 /* PassItemStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassItemStorage.swift; sourceTree = "<group>"; };
 		2A4348312445012400E57B71 /* LazyPassItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyPassItem.swift; sourceTree = "<group>"; };
@@ -296,6 +300,8 @@
 				2A434833244503F400E57B71 /* ImportPGPKeysView.swift */,
 				2A0E2C99245DB86100EA0BC6 /* LoginFormView.swift */,
 				2A0E2C9D2465F14900EA0BC6 /* LoginAlert.swift */,
+				2A12E3F2246F2B6700B03F55 /* Preferences.swift */,
+				2A12E3F4246F307500B03F55 /* ProgressBar.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -565,6 +571,7 @@
 			files = (
 				2A0E2C9E2465F14900EA0BC6 /* LoginAlert.swift in Sources */,
 				2A64FDFE242FD4C200A8F636 /* ContentView.swift in Sources */,
+				2A12E3F3246F2B6700B03F55 /* Preferences.swift in Sources */,
 				2AB524D3244753CE00E53DE3 /* EditPassExtrasView.swift in Sources */,
 				2AB524D12447533000E53DE3 /* LabelSeperatorView.swift in Sources */,
 				2A52329C2437E10D002D6D37 /* PGPFileReader.swift in Sources */,
@@ -584,6 +591,7 @@
 				2A0E2C9C245DFF0E00EA0BC6 /* GitPassRepo.swift in Sources */,
 				2A6D47942437C5F3000AB88A /* OverviewView.swift in Sources */,
 				2A0E2C96245D813D00EA0BC6 /* SetupFromRemoteView.swift in Sources */,
+				2A12E3F5246F307500B03F55 /* ProgressBar.swift in Sources */,
 				2A710E10243143B600DAA814 /* PassItem.swift in Sources */,
 				2A0E2C98245D91F600EA0BC6 /* Config.swift in Sources */,
 				2A0E2C92245D811600EA0BC6 /* SetupFromDiskView.swift in Sources */,
