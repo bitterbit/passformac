@@ -78,6 +78,8 @@ class GitPassRepo {
         ]
         
         do {
+            // TODO better implement progress.
+            // but is it possible? https://github.com/libgit2/libgit2/issues/4654 https://github.com/libgit2/libgit2/issues/1054
             let progressPull : (UnsafePointer<git_transfer_progress>, UnsafeMutablePointer<ObjCBool>) -> Void = { a, b in
                 print("git pull progress:...")
             }

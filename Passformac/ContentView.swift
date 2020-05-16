@@ -82,29 +82,34 @@ class ViewController {
         }
     }
     
-    func asyncSyncPassItemsWithRemote() {
+    func asyncSyncPassItemsWithRemote(onDone: @escaping () -> Void) {
         guard let storage = self.passItemStorage else {
             return
         }
         
         let queue = DispatchQueue.init(label: "GIT_THREAD")
         queue.async {
+            var canceled = false
             let err = storage.syncRemote(passwordCallback: {
                 print("on git authentication callback")
                 self.isShowingLoginAlert.wrappedValue = true
                 self.loginWaitGroup.enter()
                 self.loginWaitGroup.wait()
+                if (self.login!.isEmpty()) {
+                    canceled = true
+                    return (nil, nil)
+                }
                 return (self.login!.username, self.login!.password)
             })
             
-            print("error \(err)")
-            if err != nil {
+            onDone()
+            if err != nil && !canceled {
                 self.showError(err!)
             }
         }
     }
     
-    func onLoginSubmit(login: Login) {
+    func onLoginSubmit(_ login: Login) {
         self.login = login
         self.loginWaitGroup.leave()
     }
@@ -181,10 +186,9 @@ struct ContentView: View {
                 EditPassView.getViewForPassItem(selectedPassItem!, controller: getViewController())
             }
         }.loginAlert(isShowing: $showLoginAlert, title: "Authenticate") { login in
-            guard let log = login else {
-                return
-            }
-            self.getViewController().onLoginSubmit(login: log)
+            // submit even if cancel, it's important so the waitgroup will be freed.
+            // controller.login will get an empty login which is treated as if there is no valid login
+            self.getViewController().onLoginSubmit(login)
         }
     }
     

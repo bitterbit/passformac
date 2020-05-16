@@ -30,18 +30,19 @@
     - [X] don't hide content on lose focus when in edit mode
   - [X] fix not showing pass items in child-folders
   - [X] implement init repo from scratch 
-  - [ ] git support
+  - [X] git support
     - [X] commit on each update
     - [X] git push when refresh pressed
       - [X] authentication alert on demand
       - [X] error if using .ssh keys and not user+pass
     - [X] import repo from github
-    - [ ] display sync progress
+    - [X] display sync progress
     - [X] sync error if no remote
   - [X] Fixes
     - [X] fix init skipped straight to passphrase on window lose focus
     - [X] check if passphrase is correct
     - [X] when editing an item with extras, extras dissapear after saving
+    - [X] fix on git authentication cancel, still shows progress
   - [ ] design
     - [X] icon
     - [ ] screenshots in github page

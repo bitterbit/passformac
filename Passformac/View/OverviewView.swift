@@ -14,6 +14,7 @@ struct OverviewView: View {
     @Binding var passItems: [LazyPassItem]                      // password items
     @State private var search: String = ""                      // filter search term
     @State private var directory: URL?                          // directory that holds the passwords
+    @State private var showSpinner: Bool = false
     
     var body: some View {
         VStack {
@@ -34,11 +35,8 @@ struct OverviewView: View {
                 }) {
                     Text("+").bold()
                 }
-                Button(action: {
-                    print("sync...")
-                    self.controller.asyncSyncPassItemsWithRemote()
-                }) {
-                    Text("Sync")
+                LoadingButton(loading: $showSpinner, text: "Sync") {
+                    self.sync()
                 }
             }.padding(EdgeInsets(top: 10, leading: 10, bottom: 0, trailing: 10))
             
@@ -49,6 +47,15 @@ struct OverviewView: View {
             .onAppear() {
                 self.controller.refreshPassItems()
             }
+        }
+    }
+    
+    private func sync() {
+        print("sync...")
+        showSpinner = true
+        controller.asyncSyncPassItemsWithRemote() {
+            print("done!")
+            self.showSpinner = false
         }
     }
 }
