@@ -56,7 +56,7 @@ class PersistentKeyring {
             if publicKeys && key.isPublic {
                 keys.append(key)
             }
-            if privateKeys && key.isSecret {
+            else if privateKeys && key.isSecret {
                 keys.append(key)
             }
         }
