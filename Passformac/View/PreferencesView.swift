@@ -32,7 +32,8 @@ struct PreferencesView : View {
     var changeNotifier = PassthroughSubject<Any?,Never>()
     
     @State var passDirectory: URL? = nil
-    @State var gitRemote: String = ""
+    @State var gitRemoteAddress: String = ""
+    @State var gitRemoteName: String = ""
     
     @State var keys = [PrefKeyValue]()
 
@@ -49,7 +50,8 @@ struct PreferencesView : View {
             
             Group {
                 PrefSeperator(label: "GIT")
-                PrefTextField(label: "Remote Repository", value: $gitRemote).disabled(true)
+                PrefTextField(label: "Remote Repository", value: $gitRemoteAddress).disabled(true)
+                PrefTextField(label: "Remote", value: $gitRemoteName).disabled(true)
                 PrefTextField(label: "Username", value: .constant("")).disabled(true)
                 PrefTextField(label: "Password", value: .constant("")).disabled(true)
             }
@@ -78,7 +80,8 @@ struct PreferencesView : View {
     private func load() {
         loadKeys()
         passDirectory = Config.shared.getLocalDirectory()
-        gitRemote = Config.shared.getGitRemote() ?? ""
+        gitRemoteName = Config.shared.getGitRemoteName() ?? ""
+        gitRemoteAddress = Config.shared.getGitRemoteAddress() ?? ""
     }
     
     private func loadKeys() {
@@ -208,7 +211,7 @@ struct PrefLabel : View {
     
     var body : some View {
         Text(label).leftAligned().foregroundColor(.secondary).font(.caption)
-            .padding(EdgeInsets(top: 5, leading: 0, bottom: -10, trailing: 0))
+            .padding(EdgeInsets(top: 5, leading: 0, bottom: -5, trailing: 0))
     }
 }
 
@@ -228,7 +231,7 @@ struct PreferencesView_Previews: PreviewProvider {
     static var previews: some View {
         PreferencesView(
             passDirectory: URL(string: "https://www.apple.com"),
-            gitRemote: "https://www.apple.com"
+            gitRemoteName: "https://www.apple.com"
         )
     }
 }

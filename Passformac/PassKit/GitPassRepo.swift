@@ -23,16 +23,26 @@ extension GitError: LocalizedError {
 
 
 class GitPassRepo {
-    private var repo : GTRepository
+    private var repo: GTRepository
+    private var remote: GTRemote?
     private var dir: URL
     
     init(_ url: URL) throws {
         self.dir = url
         repo = try GTRepository.init(url: url)
+        remote = self.selectRemote()
     }
     
     func getDirectory() -> URL {
         return dir
+    }
+    
+    func getRemoteAddress() -> String? {
+        return remote?.urlString ?? nil
+    }
+    
+    func getRemoteName() -> String? {
+        return remote?.name ?? nil
     }
     
     func commitFile(_ filename: String) -> Bool {
@@ -89,17 +99,44 @@ class GitPassRepo {
                 print("git push progress: \(a), \(b) \(c) \(d)")
             }
             
+            
+            guard let remote = self.remote else {
+                return GitError.NoRemoteConfigured
+            }
+            
+            print("getting branches")
+            
+            
+            
+            let branches = try repo.remoteBranches()
+            
+            if branches.count == 0 {
+                print("fetching frome remote \(remote)")
+                try repo.fetch(remote, withOptions: [AnyHashable: Any](), progress: nil)
+            }
+            
+            print("choosing branch")
             guard let branch = try repo.remoteBranches().first else {
                 return GitError.NoRemoteBranchConfigured
             }
             
-            let conf = try repo.configuration()
-            guard let remote = conf.remotes?.first else {
-                return GitError.NoRemoteConfigured
+            if repo.isHEADUnborn {
+                print("HEAD is Unborn but we have remote branches, try and checkout a branch")
+                try repo.fetch(remote, withOptions: [AnyHashable: Any](), progress: nil)
+                let block : (String, UInt, UInt) -> Void = { _,_,_ in print("xxx") }
+                let checkoutOptions = GTCheckoutOptions(strategy: .force, progressBlock: block)
+                let localBranch = try repo.createBranchNamed(branch.shortName!, from: branch.oid!, message: nil)
+                try repo.checkoutReference(localBranch.reference, options: checkoutOptions)
+                
             }
+           
+            print("started pulling from branch: \(branch) remote: \(remote)")
             try repo.pull(branch, from: remote, withOptions: options, progress: progressPull)
+            print("started pushing")
             try repo.push(branch, to: remote, withOptions: options, progress: progressPush)
+            print("done sync")
         } catch {
+            print("got error while syncing git \(error)")
             return error
         }
         // all is good, return no error
@@ -131,24 +168,25 @@ class GitPassRepo {
         return (newFiles, modifiedFiles)
     }
     
-    func getRemote() -> String? {
-        var remote : GTRemote?
-        do {
-            let remotes = try repo.remoteNames()
-            if remotes.count <= 0 {
-               return nil
-           }
-            
-            if remotes.contains("origin") {
-                remote = try GTRemote.init(name: "origin", in: repo)
-            } else {
-                remote = try GTRemote.init(name: remotes[0], in: repo)
-            }
-        } catch {
-            print ("error while getting pass directory git remote. err: \(error)")
+    func selectRemote() -> GTRemote? {
+        guard let conf = try? repo.configuration() else {
             return nil
         }
         
-        return remote?.urlString ?? nil
+        guard let remotes = conf.remotes else {
+            return nil
+        }
+        
+        for remote in remotes {
+            if isRemoteSupported(remote) {
+                return remote
+            }
+        }
+        
+        return nil
+    }
+    
+    private func isRemoteSupported(_ remote: GTRemote) -> Bool {
+        return remote.urlString?.starts(with: "http") ?? false
     }
 }

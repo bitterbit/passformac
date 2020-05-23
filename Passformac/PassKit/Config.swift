@@ -48,13 +48,28 @@ class Config {
         return PassDirectory.shared.getSavedPassFolder()
     }
     
-    public func getGitRemote() -> String? {
+    public func getGitRemoteName() -> String? {
         if !isLocalFolderSet() {
             return nil
         }
         do {
             let repo = try GitPassRepo.init(getLocalDirectory()!)
-            return repo.getRemote()
+            return repo.getRemoteName()
+        } catch {
+            print("error while getting Pass directory git info. \(error)")
+        }
+        
+        return nil
+        
+    }
+    
+    public func getGitRemoteAddress() -> String? {
+        if !isLocalFolderSet() {
+            return nil
+        }
+        do {
+            let repo = try GitPassRepo.init(getLocalDirectory()!)
+            return repo.getRemoteAddress()
         } catch {
             print("error while getting Pass directory git info. \(error)")
         }
