@@ -63,6 +63,12 @@ class Config {
         
     }
     
+    public func getPGPKey(withId id: String) -> Key? {
+        let keyring = PersistentKeyring(loadFromKeychain: true, saveToKeychain: false)
+        return keyring.getKeyWithId(id)
+        
+    }
+    
     public func getPGPKeys() -> [Key] {
         let keyring = PersistentKeyring(loadFromKeychain: true, saveToKeychain: false)
         return keyring.keys()

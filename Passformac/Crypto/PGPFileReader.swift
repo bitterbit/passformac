@@ -110,6 +110,13 @@ class PGPFileReader {
         return decrypted.isEncryptedWithPassword == false
     }
     
+    func validatePassphrase() -> Bool {
+        guard let pass = self.passphrase else {
+            return false
+        }
+        return self.validatePassphrase(pass)
+    }
+    
     func writeFile(at: URL!, key: Key, data: Data) -> Bool {
         do {
             let encrypted = try ObjectivePGP.encrypt(data, addSignature: false, using: [key])

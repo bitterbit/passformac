@@ -93,6 +93,10 @@ class PersistentKeyring {
         self.persist()
     }
     
+    func getKeyWithId(_ id: String) -> Key? {
+        return self.keyring.findKey(id)
+    }
+    
     func persist() {
         if !self.saveToKeychain {
             return

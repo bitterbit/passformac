@@ -19,6 +19,7 @@ class Directory {
         panel.showsHiddenFiles = true
         panel.canChooseFiles = false
         panel.canChooseDirectories = true
+        panel.canCreateDirectories = true
         
         panel.begin { (result) in
             if result == .OK && panel.url != nil {

@@ -8,6 +8,7 @@
 
 import SwiftUI
 import Combine
+import ObjectivePGP
 
 /**
     - Git
@@ -59,13 +60,7 @@ struct PreferencesView : View {
                     Text("No PGP Keys")
                 }
                 ForEach(keys) { item in
-                    HStack {
-                        Button(action: { print ("remote \(item)")}) {
-                            Image(nsImage: NSImage(named: NSImage.stopProgressFreestandingTemplateName)!)
-                        }.buttonStyle(PlainButtonStyle()).disabled(true)
-                        Text(item.key)
-                        Text(item.value)
-                    }
+                    PrefPGPKeyRow(item: item)
                 }
                 HStack {
                     Button(action: { print("..") } ) { Text("Add PGP Key") }.disabled(true)
@@ -110,6 +105,65 @@ struct PreferencesView : View {
 }
 
 import AppKit
+
+struct PrefPGPKeyRow : View {
+    var item : PrefKeyValue
+    @State var showAlert = false
+    
+    var body : some View {
+        HStack {
+            Text(item.key)
+            Text(item.value)
+            
+            // export
+            Button(action: { self.export(keyId: self.item.value) }) {
+                Image(nsImage: NSImage(named: NSImage.shareTemplateName)!)
+            }.buttonStyle(PlainButtonStyle())
+            
+            // delete
+            Button(action: { print ("remote \(self.item)")}) {
+                Image(nsImage: NSImage(named: NSImage.stopProgressFreestandingTemplateName)!)
+            }.buttonStyle(PlainButtonStyle()).disabled(true)
+        }.alert(isPresented: $showAlert, content: {
+            Alert(title: Text("Error"), message: Text("Not logged in"))
+        })
+    }
+    
+    private func export(keyId: String) {
+        if !PGPFileReader.shared.validatePassphrase() {
+            showAlert = true
+            return
+        }
+        
+        guard let key = Config.shared.getPGPKey(withId: keyId) else {
+            return
+        }
+        
+        do {
+            let pri = Armor.armored(try key.export(keyType: .secret), as: .secretKey)
+            let pub = Armor.armored(try key.export(keyType: .public), as: .publicKey)
+            
+            Directory.selectDirectory({ dir in
+                self.saveData(dir: dir, pri: pri, pub: pub)
+            })
+        } catch {
+            print("error while exporting key \(keyId). error: \(error)")
+            return
+        }
+    }
+    
+    private func saveData(dir: URL?, pri: String, pub: String) {
+        guard let d = dir else {
+            return
+        }
+        do {
+            try pri.write(to: d.appendingPathComponent("passkey.private"), atomically: true, encoding: .utf8)
+            try pub.write(to: d.appendingPathComponent("passkey.public"), atomically: true, encoding: .utf8)
+        } catch {
+            print("error while writing pgp keys to file. dir: \(d), error: \(error)")
+        }
+    }
+}
 
 struct PrefDirectoryField : View {
     var label: String
