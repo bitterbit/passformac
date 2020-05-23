@@ -48,13 +48,14 @@
     - [X] icon
     - [ ] screenshots in github page
 - [ ] Version 0.3
-  - [ ] view preferences
+  - [X] view preferences
   - [ ] edit preferences
-  - [ ] preferences items
-    - [ ] remote git password
-    - [ ] remote git url
-    - [ ] pgp keys
-    - [ ] current root directory 
+  - [X] preferences items
+    - [X] remote git password
+    - [X] remote git url
+    - [X] pgp keys
+    - [X] current root directory 
+  - [X] reset all preferences
 - [ ] Version 0.4
   - [ ] supprt ssh keys for remote git authentication
   - [ ] decrease time-to-password 

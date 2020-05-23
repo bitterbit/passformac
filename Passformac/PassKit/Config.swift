@@ -7,13 +7,17 @@
 //
 
 import Foundation
+import ObjectivePGP
 
 class Config {
     
     static var shared : Config = Config()
+    private var DEBUG = false
     
     public func needSetup() -> Bool {
-//        return true // TODO remove after testing
+        if DEBUG {
+            return true // Allows debugging the setup views
+        }
         
         if !isLocalFolderSet() {
             return true
@@ -42,5 +46,25 @@ class Config {
     
     public func getLocalDirectory() -> URL? {
         return PassDirectory.shared.getSavedPassFolder()
+    }
+    
+    public func getGitRemote() -> String? {
+        if !isLocalFolderSet() {
+            return nil
+        }
+        do {
+            let repo = try GitPassRepo.init(getLocalDirectory()!)
+            return repo.getRemote()
+        } catch {
+            print("error while getting Pass directory git info. \(error)")
+        }
+        
+        return nil
+        
+    }
+    
+    public func getPGPKeys() -> [Key] {
+        let keyring = PersistentKeyring(loadFromKeychain: true, saveToKeychain: false)
+        return keyring.keys()
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Combine
 
 /**
     - Git
@@ -20,50 +21,115 @@ import SwiftUI
         
  */
 
+struct PrefKeyValue : Identifiable {
+    var id: UUID = UUID()
+    var key: String
+    var value: String
+}
+
 struct PreferencesView : View {
-    @State var remoteGitUrl = Config.shared.getLocalDirectory()?.absoluteString ?? ""
+    var changeNotifier = PassthroughSubject<Any?,Never>()
     
+    @State var passDirectory: URL? = nil
+    @State var gitRemote: String = ""
     
+    @State var keys = [PrefKeyValue]()
+
     var body : some View {
         Form {
             Text("Preferences").font(.headline).leftAligned()
             
-            PrefSeperator(label: "GENERAL")
-            PrefTextField(label: "Pass Directory", value: .constant(""))
-            
-            PrefSeperator(label: "GIT")
-            PrefTextField(label: "Remote Repository", value: .constant(""))
-            PrefDirectoryField(label: "Local Directory", value: .constant(""))
-            
-            PrefSeperator(label: "PGP")
-            HStack {
-                Button(action: { print("..") } ) { Text("Add Private Key") }
-                Button(action: { print("..") } ) { Text("Add Public Key") }
+            // not allowed more than 10 elemnts under one view in swiftui, fix by grouping in groups
+            // https://stackoverflow.com/questions/61178868/swiftui-random-extra-argument-in-call-error
+            Group {
+                PrefSeperator(label: "GENERAL")
+                PrefDirectoryField(label: "Pass Directory", changeNotifier: changeNotifier, value: $passDirectory).disabled(true)
             }
             
-            PrefSeperator(label: "Dangerous")
+            Group {
+                PrefSeperator(label: "GIT")
+                PrefTextField(label: "Remote Repository", value: $gitRemote).disabled(true)
+                PrefTextField(label: "Username", value: .constant("")).disabled(true)
+                PrefTextField(label: "Password", value: .constant("")).disabled(true)
+            }
             
-            Button(action: { print("..") } ) { Text("Reset") }
+            Group {
+                PrefSeperator(label: "PGP")
+                if keys.count <= 0 {
+                    Text("No PGP Keys")
+                }
+                ForEach(keys) { item in
+                    HStack {
+                        Button(action: { print ("remote \(item)")}) {
+                            Image(nsImage: NSImage(named: NSImage.stopProgressFreestandingTemplateName)!)
+                        }.buttonStyle(PlainButtonStyle()).disabled(true)
+                        Text(item.key)
+                        Text(item.value)
+                    }
+                }
+                HStack {
+                    Button(action: { print("..") } ) { Text("Add PGP Key") }.disabled(true)
+                }
+            }
+            
+            Group {
+                PrefSeperator(label: "Dangerous")
+                Button("Reset All", action: resetAll)
+            }
+        }.padding(20)
+        .onAppear(perform: load)
+    }
+    
+    private func load() {
+        loadKeys()
+        passDirectory = Config.shared.getLocalDirectory()
+        gitRemote = Config.shared.getGitRemote() ?? ""
+    }
+    
+    private func loadKeys() {
+        self.keys = [PrefKeyValue]()
+        
+        let keys = Config.shared.getPGPKeys()
+        for key in keys {
+            var attr = [String]()
+            if key.isPublic {
+                attr.append("Public")
+            }
+            if key.isSecret {
+                attr.append("Private")
+            }
+            self.keys.append(PrefKeyValue(key: attr.joined(separator: "+"), value: key.keyID.shortIdentifier))
         }
-        .padding(20)
-//        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
-
+    }
+    
+    private func resetAll() {
+        Config.shared.reset()
+        load()
+        changeNotifier.send(nil)
     }
 }
+
+import AppKit
 
 struct PrefDirectoryField : View {
     var label: String
     var hint: String = ""
-    @Binding var value : String
+    var changeNotifier: PassthroughSubject<Any?, Never>
+    @Binding var value : URL?
+    @State var strValue: String = ""
     
     var body : some View {
         VStack {
             PrefLabel(label: label)
             HStack {
-                TextField(hint, text: $value)
+                TextField(hint, text: $strValue)
                 Button(action: { print("select directory") }) { Text("Select") }
             }
-        }
+        }.onAppear() {
+            self.strValue = self.value?.absoluteString ?? ""
+        }.onReceive(changeNotifier, perform: {_ in
+            self.strValue = self.value?.absoluteString ?? ""
+        })
     }
 }
 
@@ -97,9 +163,7 @@ struct PrefSeperator : View {
     
     var body : some View {
         HStack{
-//            Spacer()
-            Text(label).fontWeight(.bold).font(.caption)
-//            Spacer()
+            Text(label.uppercased()).fontWeight(.bold).font(.caption)
         }.padding(EdgeInsets(top: 20, leading: 0, bottom: 0, trailing: 0))
         
     }
@@ -108,6 +172,9 @@ struct PrefSeperator : View {
 
 struct PreferencesView_Previews: PreviewProvider {
     static var previews: some View {
-        PreferencesView()
+        PreferencesView(
+            passDirectory: URL(string: "https://www.apple.com"),
+            gitRemote: "https://www.apple.com"
+        )
     }
 }

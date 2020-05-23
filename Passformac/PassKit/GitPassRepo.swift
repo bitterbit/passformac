@@ -11,6 +11,7 @@ import ObjectiveGit
 
 enum GitError : String, Error {
     case NoGitRepo =  "No git repo"
+    case NoRemoteBranchConfigured = "No remote branch, pull manually from master and try again"
     case NoRemoteConfigured = "No remote configured"
 }
 
@@ -89,7 +90,7 @@ class GitPassRepo {
             }
             
             guard let branch = try repo.remoteBranches().first else {
-                return GitError.NoRemoteConfigured
+                return GitError.NoRemoteBranchConfigured
             }
             
             let conf = try repo.configuration()
@@ -128,5 +129,26 @@ class GitPassRepo {
         }
         
         return (newFiles, modifiedFiles)
+    }
+    
+    func getRemote() -> String? {
+        var remote : GTRemote?
+        do {
+            let remotes = try repo.remoteNames()
+            if remotes.count <= 0 {
+               return nil
+           }
+            
+            if remotes.contains("origin") {
+                remote = try GTRemote.init(name: "origin", in: repo)
+            } else {
+                remote = try GTRemote.init(name: remotes[0], in: repo)
+            }
+        } catch {
+            print ("error while getting pass directory git remote. err: \(error)")
+            return nil
+        }
+        
+        return remote?.urlString ?? nil
     }
 }

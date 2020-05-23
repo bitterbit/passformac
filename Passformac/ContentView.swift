@@ -20,6 +20,7 @@ enum Pages: String {
 class ViewController {
     private var rootDir: URL?
     var passItemStorage: PassItemStorage?
+    
     var currentPage: Binding<Pages>
     var passItems: Binding<[LazyPassItem]>
     var selectedPassItem: Binding<PassItem?>
