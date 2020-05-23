@@ -114,7 +114,9 @@ class PersistentKeyring {
     private func loadFromKeychain() {
         do {
             let keyBlob = keychain.getData(KEYCHAIN_GPG_KEY)
-            if keyBlob == nil { return }
+            if keyBlob == nil || keyBlob!.count == 0 {
+                return
+            }
             
             let keys = try ObjectivePGP.readKeys(from: keyBlob!)
             keyring.import(keys: keys)
