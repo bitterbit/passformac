@@ -1,5 +1,10 @@
 #!/bin/sh -e
 
+
+# Usage for passformac
+# ./build-static-carthage.sh -d libgit2/objective-git -p macos 
+
+
 #  Created by Mark Jarecki on 10/7/19.
 #
 # Usage:
