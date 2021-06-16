@@ -45,7 +45,12 @@ struct OverviewView: View {
                 passItems: passItems,
                 searchTerm: self.$search)
             .onAppear() {
-                self.controller.refreshPassItems()
+                do {
+                    try self.controller.refreshPassItems()
+                } catch {
+                    self.controller.showAlert("Error while reading git repository")
+                }
+                
             }
         }
     }

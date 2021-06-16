@@ -21,6 +21,9 @@ extension GitError: LocalizedError {
     }
 }
 
+enum ValidationError: Error {
+    case InvalidGitDir
+}
 
 class GitPassRepo {
     private var repo: GTRepository
@@ -28,9 +31,22 @@ class GitPassRepo {
     private var dir: URL
     
     init(_ url: URL) throws {
+        if try GitPassRepo.isGitDirValid(url) == false {
+            throw ValidationError.InvalidGitDir
+        }
+        
         self.dir = url
         repo = try GTRepository.init(url: url)
         remote = self.selectRemote()
+    }
+    
+    private static func isGitDirValid(_ dir: URL) throws -> Bool {
+        do {
+            let s = try String(contentsOfFile: "\(dir.absoluteString).git/HEAD")
+            return s.count > 0;
+        } catch {
+            return false;
+        }
     }
     
     func getDirectory() -> URL {

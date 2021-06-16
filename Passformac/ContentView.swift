@@ -72,13 +72,13 @@ class ViewController {
     
     func setRootDir(rootDir: URL){
         self.rootDir = rootDir
-        refreshPassItems()
+        try! refreshPassItems()
     }
     
-    func refreshPassItems() {
+    func refreshPassItems() throws {
         rootDir = Config.shared.getLocalDirectory()
         if rootDir != nil {
-            passItemStorage = PassItemStorage(rootDir!)
+            passItemStorage = try PassItemStorage(rootDir!)
             passItems.wrappedValue = passItemStorage!.getPassItems(fromURL: rootDir)
         }
     }

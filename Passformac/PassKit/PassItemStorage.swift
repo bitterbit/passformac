@@ -13,9 +13,8 @@ class PassItemStorage {
     
     private var git : GitPassRepo?
     
-    init(_ root: URL) {
-        do { git = try GitPassRepo(root) }
-        catch { print("error while initing git repository. error: \(error)") }
+    init(_ root: URL) throws {
+        git = try GitPassRepo(root)
     }
     
     func loadPassItem(fromURL: URL) -> PassItem {
