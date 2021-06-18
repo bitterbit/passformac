@@ -61,7 +61,7 @@ struct EditPassView : View {
             return false
         }
         
-        let filename = self.title.replacingOccurrences(of:" " , with: "_") + ".pgp"
+        let filename = self.title.replacingOccurrences(of:" " , with: "_") + ".gpg"
         let url = dir!.appendingPathComponent(filename)
         var passItem = PassItem(title: title)
         passItem.username = self.login
